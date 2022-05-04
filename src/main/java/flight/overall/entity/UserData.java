@@ -3,6 +3,7 @@ package flight.overall.entity;
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
 
 /**
@@ -70,5 +71,12 @@ public class UserData {
         if (birthday != null)
             return ChronoUnit.YEARS.between(birthday, LocalDate.now());
         else return null;
+    }
+
+    public String getFormattedBirthday() {
+        if (birthday == null) return "";
+
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
+        return birthday.format(formatter);
     }
 }
