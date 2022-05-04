@@ -1,6 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:th="http://thymeleaf.org">
+<html lang="en" xmlns:th="http://thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>User information</title>
@@ -8,11 +7,11 @@
 <body>
 <h3>It's user information</h3>
 <div>
-    <p th:text="${userData.getUsername()}">
-    </p>
-    <p th:text="${userData.getFirstName()} + ' ' + ${userData.getSecondName()}">
-    </p>
-    <p th:text="${userData.getBirthday()} + ' ' + ${userData.getAge()}"></p>
+    <div th:each="data : ${userData}">
+        <p th:text="${data.getUsername()}"></p>
+        <p th:text="${data.getFirstName()} + ' ' + ${data.getSecondName()}"></p>
+        <p th:text="${data.getBirthday()} + ' ' + ${data.getAge()}"></p>
+    </div>
 </div>
 </body>
 </html>
