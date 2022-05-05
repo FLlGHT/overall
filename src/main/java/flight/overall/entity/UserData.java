@@ -1,10 +1,13 @@
 package flight.overall.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.temporal.ChronoUnit;
+import java.util.Set;
 
 /**
  * @author FLIGHT
@@ -26,6 +29,12 @@ public class UserData {
     private String username;
 
     private LocalDate birthday;
+
+    private String about;
+
+    @OneToMany(fetch = FetchType.EAGER, mappedBy = "userData", cascade = CascadeType.REMOVE)
+    @JsonIgnoreProperties(value = "userData", allowSetters = true)
+    private Set<UserLink> userLinks;
 
     public long getId() {
         return id;
@@ -65,6 +74,22 @@ public class UserData {
 
     public void setBirthday(LocalDate birthDate) {
         this.birthday = birthDate;
+    }
+
+    public String getAbout() {
+        return about;
+    }
+
+    public void setAbout(String about) {
+        this.about = about;
+    }
+
+    public Set<UserLink> getUserLinks() {
+        return userLinks;
+    }
+
+    public void setUserLinks(Set<UserLink> userLinks) {
+        this.userLinks = userLinks;
     }
 
     public Long getAge() {
