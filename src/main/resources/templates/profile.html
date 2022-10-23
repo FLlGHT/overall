@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${profile.getUsername()}"></title>
+
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
+
+</head>
+<body>
+<div>
+
+    <!--    Profile info -->
+    <div class="container my-5">
+        <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+
+            <div class="row">
+                <div class="col">
+                    <svg class="bd-placeholder-img rounded-circle" width="250" height="250"
+                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
+                         preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                        <rect width="100%" height="100%" fill="#777"></rect>
+                        <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                    </svg>
+                </div>
+
+                <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+                    <h1 class="display-4 fw-bold lh-1" th:text="${profile.getUsername()}"></h1>
+                    <h1 class="lead" th:text="${profile.getFullName()}"></h1>
+                    <p class="lead" th:text="${profile.getDateOfBirth()}"></p>
+                </div>
+
+                <div class="col p-lg-5">
+                    <label id="overall-rating" th:text="${profile.getOverallRating()}"></label>
+                </div>
+
+            </div>
+
+            <!--     Profile ratings       -->
+            <div class="album py-5">
+                <div class="container">
+
+                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                        <div th:each="rating : ${ratings}">
+                            <div class="col">
+
+                                <!-- Category card                                -->
+                                <div class="card shadow-sm">
+                                    <div class="card-body">
+                                        <p id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
+
+                                        <div class="slider-container">
+
+                                            <input th:value="${rating.getTotal()}" type="range" min="0" max="99"
+                                                   th:id="${rating.getCategory().getId()}" class="range-slider"
+                                                   oninput="changeRangeValue(this)">
+                                            <label th:id="'output' + ${rating.getCategory().getId()}"
+                                                   class="rating-value"
+
+                                                   th:text="${rating.getTotal()}"></label>
+                                        </div>
+
+<!--                                        fs-1 m-lg-2-->
+
+                                        <script type="text/javascript" src="/scripts/profile.js"></script>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</body>
+</html>
