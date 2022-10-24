@@ -5,7 +5,13 @@
     <title th:text="${profile.getUsername()}"></title>
 
     <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/css/chart.css">
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
+
+    <script type="text/javascript" src="/scripts/profile.js"></script>
+
+
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 <body>
@@ -16,7 +22,10 @@
         <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
 
             <div class="row">
+
+                <!--                Profile image-->
                 <div class="col">
+
                     <svg class="bd-placeholder-img rounded-circle" width="250" height="250"
                          xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
                          preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
@@ -25,14 +34,18 @@
                     </svg>
                 </div>
 
-                <div class="col-lg-7 p-3 p-lg-5 pt-lg-3">
+                <!--                Profile info-->
+                <div class="col-lg-7 p-3">
                     <h1 class="display-4 fw-bold lh-1" th:text="${profile.getUsername()}"></h1>
                     <h1 class="lead" th:text="${profile.getFullName()}"></h1>
                     <p class="lead" th:text="${profile.getDateOfBirth()}"></p>
                 </div>
 
-                <div class="col p-lg-5">
-                    <label id="overall-rating" th:text="${profile.getOverallRating()}"></label>
+                <!--                Profile overall-->
+                <div class="col">
+                    <input type="hidden" id="overall-value" th:value="${profile.getOverallRating()}">
+                    <div id="pie-mold" class="yummy-pie" data-percentage="80" data-baking-time="1200"></div>
+                    <script type="text/javascript" src="/scripts/chart.js"></script>
                 </div>
 
             </div>
@@ -61,9 +74,6 @@
                                                    th:text="${rating.getTotal()}"></label>
                                         </div>
 
-<!--                                        fs-1 m-lg-2-->
-
-                                        <script type="text/javascript" src="/scripts/profile.js"></script>
                                     </div>
                                 </div>
                             </div>
