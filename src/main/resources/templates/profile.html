@@ -54,31 +54,51 @@
             <div class="album py-5">
                 <div class="container">
 
-                    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                        <div th:each="rating : ${ratings}">
-                            <div class="col">
 
-                                <!-- Category card                                -->
-                                <div class="card shadow-sm">
-                                    <div class="card-body">
-                                        <p id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
 
-                                        <div class="slider-container">
+                    <form action="#" method="post" th:action="@{/profile-save}" th:object="${profile}">
 
-                                            <input th:value="${rating.getTotal()}" type="range" min="0" max="99"
-                                                   th:id="${rating.getCategory().getId()}" class="range-slider"
-                                                   oninput="changeRangeValue(this)">
-                                            <label th:id="'output' + ${rating.getCategory().getId()}"
-                                                   class="rating-value"
+                        <input hidden th:name="|id|" th:value="${profile.getId()}">
+                        <input hidden th:name="|fullName|" th:value="${profile.getFullName()}">
+                        <input hidden th:name="|username|" th:value="${profile.getUsername()}">
+                        <input hidden th:name="|dateOfBirth|" th:value="${profile.getDateOfBirth()}">
+                        <input hidden th:name="|overallRating|" th:value="${profile.getOverallRating()}">
 
-                                                   th:text="${rating.getTotal()}"></label>
+                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+                            <div th:each="rating, itemStat : ${profile.getRatings()}">
+                                <div class="col">
+
+                                    <!-- Category card                                -->
+                                    <div class="card shadow-sm">
+                                        <div class="card-body">
+                                            <p id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
+
+                                            <div class="slider-container">
+
+                                                <input hidden th:name="|ratings[${itemStat.index}].id|" th:value="${rating.getId()}">
+                                                <input hidden th:name="|ratings[${itemStat.index}].category.id|" th:value="${rating.getCategory().getId()}">
+                                                <input hidden th:name="|ratings[${itemStat.index}].category.title|" th:value="${rating.getCategory().getTitle()}">
+                                                <input hidden th:name="|ratings[${itemStat.index}].rating|" th:value="${rating.getRating()}">
+
+                                                <input th:name="|ratings[${itemStat.index}].grade|"
+                                                       th:value="${rating.getRating()}"
+                                                       type="range" min="0" max="99"
+                                                       th:id="${rating.getCategory().getId()}" class="range-slider"
+                                                       oninput="changeRangeValue(this)">
+
+                                                <label th:id="'output' + ${rating.getCategory().getId()}"
+                                                       class="rating-value"
+
+                                                       th:text="${rating.getRating()}"></label>
+                                            </div>
+
                                         </div>
-
                                     </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
+                        <button type="submit">Save</button>
+                    </form>
                 </div>
             </div>
         </div>

@@ -9,7 +9,6 @@ import javax.persistence.*;
 
 @Entity
 public class Rating {
-
     @Id
     private long id;
 
@@ -22,8 +21,8 @@ public class Rating {
     private Profile profile;
 
     private long total;
-
     private long count;
+    private int rating;
 
     public long getId() {
         return id;
@@ -63,5 +62,13 @@ public class Rating {
 
     public void setCount(long count) {
         this.count = count;
+    }
+
+    public int getRating() {
+        return rating;
+    }
+
+    public void setRating(int rating) {
+        this.rating = rating;
     }
 }
