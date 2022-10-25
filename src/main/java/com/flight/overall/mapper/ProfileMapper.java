@@ -25,6 +25,7 @@ public class ProfileMapper {
                 profile.getUsername(),
                 DateUtils.dateToPrettyString(profile.getDateOfBirth()),
                 profile.getOverallRating(),
+                profile.getDescription(),
                 toRatingsDTO(ratings)
         );
     }

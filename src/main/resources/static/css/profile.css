@@ -1,7 +1,7 @@
 
 #overall-rating {
     font-size: 100px;
-    color: rgb(143, 134, 180);
+    color: royalblue;
     font-family: "Apple SD Gothic Neo", serif;
 }
 
@@ -17,7 +17,7 @@
 }
 
 .rating-value {
-    color: rgb(143, 134, 180);
+    color: royalblue;
     margin-left: 10px;
     font-size: 40px;
     /*font-family: "Apple Symbols", serif;*/
@@ -37,17 +37,20 @@
 }
 
 .range-slider::-webkit-slider-thumb {
+    -webkit-appearance: none;
     cursor: pointer;
     appearance: none;
     height: 35px;
     width:35px;
-    background-color: #ff2a5f;
+    background-color: royalblue;
     border-radius: 50%;
     border: 7px solid rgb(255, 255, 255);
     box-shadow: 2px 8px 13px -3px rgba(116, 114, 116, 0.75);
     -webkit-box-shadow: 2px 8px 13px -3px rgba(116, 114, 116, 0.75);
     -moz-box-shadow: 2px 8px 13px -3px rgba(116, 114, 116, 0.75);
 }
+
+
 
 
 

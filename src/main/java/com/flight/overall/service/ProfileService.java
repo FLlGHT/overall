@@ -48,7 +48,6 @@ public class ProfileService {
 
             return "profile";
         }
-
         return "error";
     }
 
@@ -60,6 +59,7 @@ public class ProfileService {
         ratingService.updateOverall(profile);
 
         profileRepository.save(profile);
+
         return "redirect:/" + profile.getUsername();
     }
 

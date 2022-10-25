@@ -1,17 +1,37 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns:th="http://www.thymeleaf.org" lang="en" class="h-100">
 <head>
     <meta charset="UTF-8">
     <title>Overall</title>
 
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
     <link rel="stylesheet" href="/css/profile.css">
+
+    <script src="webjars/jquery/3.6.0/jquery.min.js"></script>
+    <script src="webjars/bootstrap/5.2.0/js/bootstrap.min.js"></script>
+
 </head>
-<body>
-<div>
-    <h3>
-        Overall !
-    </h3>
+<body class="d-flex h-100 text-center text-bg-dark">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+    <header class="mb-auto">
+        <div>
+            <h3 class="float-md-start mb-0">Overall</h3>
+            <nav class="nav nav-masthead justify-content-center float-md-end">
+            </nav>
+        </div>
+    </header>
+
+    <main class="px-3">
+        <h1>You can do all things.</h1>
+        <p class="lead">Have a good time. Life is too short to get bogged down and be discouraged. You have to keep
+            moving. You have to keep going. Put one foot in front of the other, smile and just keep on rolling.</p>
+    </main>
+
+    <footer class="mt-auto text-white-50">
+        <p>Created by Michael <a href="/flight" class="text-white">"flight"</a> Fedorenko</p>
+    </footer>
 </div>
+
 </body>
 </html>

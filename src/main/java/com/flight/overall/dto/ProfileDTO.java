@@ -9,18 +9,20 @@ public class ProfileDTO {
     private String username;
     private String dateOfBirth;
     private Integer overallRating;
+    private String description;
     private List<RatingDTO> ratings;
 
     public ProfileDTO() {
     }
 
     public ProfileDTO(long id, String fullName, String username, String dateOfBirth, Integer overallRating,
-                      List<RatingDTO> ratings) {
+                      String description, List<RatingDTO> ratings) {
         this.id = id;
         this.fullName = fullName;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.overallRating = overallRating;
+        this.description = description;
         this.ratings = ratings;
     }
 
@@ -70,5 +72,13 @@ public class ProfileDTO {
 
     public void setOverallRating(Integer overallRating) {
         this.overallRating = overallRating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }

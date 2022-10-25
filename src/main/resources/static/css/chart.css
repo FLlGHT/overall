@@ -13,13 +13,13 @@
     stroke-linecap: round;
     stroke-miterlimit: 1.5;
     fill: none;
-    stroke: #6b8dff;
+    stroke: royalblue;
     stroke-width: 5px;
 }
 
 .pie-trail {
     fill: none;
-    stroke: #050505;
+    stroke: lightgrey;
     stroke-width: 5px;
 }
 
@@ -32,7 +32,7 @@
     text-align: center;
     font-size: 6rem;
     width: 100%;
-    color: #6b8dff;
+    color: royalblue;
 }
 
 

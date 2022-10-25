@@ -18,6 +18,7 @@ public class Profile {
     private String fullName;
     private LocalDate dateOfBirth;
     private Integer overallRating;
+    private String description;
 
 
     public long getId() {
@@ -58,5 +59,13 @@ public class Profile {
 
     public void setOverallRating(Integer overallRating) {
         this.overallRating = overallRating;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
