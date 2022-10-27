@@ -48,6 +48,7 @@ public class RatingService {
 
     public void updateRating(Rating rating, GradeDTO grade) {
         boolean firstGrade = grade.getPreviousGrade() == 0 && grade.getCurrentGrade() > 0;
+
         long total = rating.getTotal() - grade.getPreviousGrade() + grade.getCurrentGrade();
         long count = rating.getCount() + (firstGrade ? 1 : 0);
 
@@ -63,11 +64,15 @@ public class RatingService {
     public void updateOverall(Profile profile) {
         List<Rating> ratings = ratingRepository.getProfileRatings(profile.getId());
 
-        long sum = 0;
-        for (Rating rating : ratings)
-            sum += rating.getRating();
+        long sum = 0, count = 0;
+        for (Rating rating : ratings) {
+            if (rating.getRating() > 0) {
+                sum += rating.getRating();
+                count++;
+            }
+        }
 
-        profile.setOverallRating(Math.min(99, (int) Math.round(sum * 1.00 / ratings.size())));
+        profile.setOverallRating(Math.min(99, (int) Math.round(sum * 1.00 / count)));
     }
 
     public void createRatings(Profile profile) {
