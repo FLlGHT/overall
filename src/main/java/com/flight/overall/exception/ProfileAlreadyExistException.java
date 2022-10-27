@@ -6,12 +6,12 @@ public class ProfileAlreadyExistException extends RuntimeException {
         super();
     }
 
-    public ProfileAlreadyExistException(String message, Throwable cause) {
-        super(message, cause);
+    public ProfileAlreadyExistException(String username, Throwable cause) {
+        super("Profile with username " + username + " already exists", cause);
     }
 
-    public ProfileAlreadyExistException(String message) {
-        super(message);
+    public ProfileAlreadyExistException(String username) {
+        super("Profile with username " + username + " already exists");
     }
 
     public ProfileAlreadyExistException(Throwable cause) {

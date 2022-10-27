@@ -17,7 +17,7 @@
 
 <header class="py-2 px-4">
     <div>
-        <a class="float-md-start nav-link fw-bold py-1 px-0" href="/">Stay Focused</a>
+        <a class="float-md-start nav-link fw-bold py-1 px-0" href="/">Overall</a>
         <nav class="nav nav-masthead justify-content-center float-md-end">
             <div sec:authorize="isAuthenticated()">
                 <span class="h3" sec:authentication="name"></span>
@@ -85,7 +85,10 @@
                                     <!-- Category card                                -->
                                     <div class="card shadow-sm">
                                         <div class="card-body">
-                                            <p id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
+                                            <div class="row">
+                                                <p class="col-sm-8" id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
+                                                <p class="col-sm-4 text-secondary" th:text="'average : ' + ${rating.getRating()}"></p>
+                                            </div>
 
                                             <div class="slider-container">
 
@@ -93,14 +96,15 @@
                                                 <input hidden th:name="|ratings[${itemStat.index}].category.id|" th:value="${rating.getCategory().getId()}">
                                                 <input hidden th:name="|ratings[${itemStat.index}].category.title|" th:value="${rating.getCategory().getTitle()}">
                                                 <input hidden th:name="|ratings[${itemStat.index}].rating|" th:value="${rating.getRating()}">
+                                                <input hidden th:name="|ratings[${itemStat.index}].grade.previousGrade|" th:value="${rating.getGrade().getPreviousGrade()}">
 
-                                                <input th:name="|ratings[${itemStat.index}].grade|" th:value="${rating.getRating()}"
+                                                <input th:name="|ratings[${itemStat.index}].grade.currentGrade|" th:value="${rating.getGrade.getCurrentGrade()}"
                                                        type="range" min="0" max="99" th:id="${rating.getCategory().getId()}" class="range-slider"
                                                        oninput="changeRangeValue(this)">
 
                                                 <label th:id="'output' + ${rating.getCategory().getId()}" class="rating-value"
 
-                                                       th:text="${rating.getRating()}"></label>
+                                                       th:text="${rating.getGrade().getCurrentGrade()}"></label>
                                             </div>
 
                                         </div>

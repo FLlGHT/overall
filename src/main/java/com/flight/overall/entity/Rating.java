@@ -10,6 +10,8 @@ import javax.persistence.*;
 @Entity
 public class Rating {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "rating")
+    @SequenceGenerator(name = "rating", sequenceName = "s_rating", allocationSize = 1)
     private long id;
 
     @OneToOne(fetch = FetchType.EAGER)
@@ -23,6 +25,17 @@ public class Rating {
     private long total;
     private long count;
     private int rating;
+
+    public Rating(Category category, Profile profile, long total, long count, int rating) {
+        this.category = category;
+        this.profile = profile;
+        this.total = total;
+        this.count = count;
+        this.rating = rating;
+    }
+
+    public Rating() {
+    }
 
     public long getId() {
         return id;

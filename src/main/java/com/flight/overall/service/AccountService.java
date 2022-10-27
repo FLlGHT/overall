@@ -29,6 +29,9 @@ public class AccountService implements UserDetailsService {
     @Autowired
     private AccountRepository accountRepository;
 
+    @Autowired
+    private RatingService ratingService;
+
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
         return accountRepository.findByUsername(username);
@@ -36,20 +39,31 @@ public class AccountService implements UserDetailsService {
 
     public Account registerNewAccount(AccountDTO accountDTO) throws ProfileAlreadyExistException {
         if (accountExists(accountDTO))
-            throw new ProfileAlreadyExistException("Profile with username " + accountDTO.getUsername() + " already exists");
+            throw new ProfileAlreadyExistException(accountDTO.getUsername());
 
-        Account account = new Account();
+        Profile profile = createNewProfile(accountDTO);
+        return createNewAccount(accountDTO, profile);
+    }
+
+    private Profile createNewProfile(AccountDTO accountDTO) {
         Profile profile = new Profile();
-
-        account.setUsername(accountDTO.getUsername());
-        account.setPassword(getPasswordEncoder().encode(accountDTO.getPassword()));
 
         profile.setFullName(accountDTO.getFullName());
         profile.setUsername(accountDTO.getUsername());
         profile.setOverallRating(0);
 
         profileRepository.save(profile);
+        ratingService.createRatings(profile);
+
+        return profile;
+    }
+
+    private Account createNewAccount(AccountDTO accountDTO, Profile profile) {
+        Account account = new Account();
+
         account.setProfile(profile);
+        account.setUsername(accountDTO.getUsername());
+        account.setPassword(getPasswordEncoder().encode(accountDTO.getPassword()));
 
         return accountRepository.save(account);
     }

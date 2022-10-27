@@ -1,7 +1,6 @@
 package com.flight.overall.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 
 /**
  * @author FLIGHT
@@ -12,6 +11,8 @@ import javax.persistence.Id;
 public class Category {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category")
+    @SequenceGenerator(name = "category", sequenceName = "s_category", allocationSize = 1)
     private long id;
 
     private String title;

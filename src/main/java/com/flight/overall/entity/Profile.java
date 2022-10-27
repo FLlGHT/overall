@@ -11,7 +11,8 @@ import java.time.LocalDate;
 @Entity
 public class Profile {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profile")
+    @SequenceGenerator(name = "profile", sequenceName = "s_profile", allocationSize = 1)
     private long id;
     private String username;
     private String fullName;
@@ -20,8 +21,7 @@ public class Profile {
     private String description;
 
     public Profile(long id, String username, String fullName, LocalDate dateOfBirth,
-                   Integer overallRating,
-                   String description) {
+                   Integer overallRating, String description) {
         this.id = id;
         this.username = username;
         this.fullName = fullName;

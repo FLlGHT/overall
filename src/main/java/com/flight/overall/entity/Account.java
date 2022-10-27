@@ -10,13 +10,22 @@ import java.util.Collections;
 @Entity
 public class Account implements UserDetails {
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "account")
+    @SequenceGenerator(name = "account", sequenceName = "s_account", allocationSize = 1)
     private long id;
     private String username;
     private String password;
     @JoinColumn(name = "profile_id")
     @OneToOne
     private Profile profile;
+
+    public Account() {
+    }
+
+    public Account(String username, String password) {
+        this.username = username;
+        this.password = password;
+    }
 
     public long getId() {
         return id;
