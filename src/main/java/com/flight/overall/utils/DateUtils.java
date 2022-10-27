@@ -8,6 +8,9 @@ public class DateUtils {
     private static final DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("dd-MM-yyyy");
 
     public static String dateToPrettyString(LocalDate date) {
+        if (date == null)
+            return "";
+
         return dateFormatter.format(date);
     }
 }

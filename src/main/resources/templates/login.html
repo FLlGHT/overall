@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" class="h-100"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+  <title>Login</title>
+
+  <link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
+  <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body class="bg-secondary">
+
+<div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="text-center mt-3" th:if="${param.error}">
+        Invalid username or password.
+      </div>
+      <div class="text-center mt-3" th:if="${param.logout}">
+        You have been logged out.
+      </div>
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <!-- <h1 class="modal-title fs-5" >Modal title</h1> -->
+        <h1 class="fw-bold mb-0 fs-2">Sign in</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+        <form class="" th:action="@{/login}" method="post">
+          <div class="form-floating mb-3">
+            <input type="text" name="username" class="form-control rounded-3" id="username" placeholder="Username">
+            <label for="username">Username</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" name="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign in</button>
+        </form>
+
+          <hr class="my-4">
+          <h2 class="fs-5 fw-bold mb-3">Don't have an account yet?</h2>
+          <button href="/registration" class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
+            <a class="nav-link fw-bold py-1 px-0" href="/registration">Sign up</a>
+          </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>

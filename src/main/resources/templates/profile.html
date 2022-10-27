@@ -1,5 +1,6 @@
 <!DOCTYPE html>
-<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
     <title th:text="${profile.getUsername()}"></title>
@@ -9,11 +10,26 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
 
     <script type="text/javascript" src="/scripts/profile.js"></script>
-
     <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
 <body>
+
+<header class="py-2 px-4">
+    <div>
+        <a class="float-md-start nav-link fw-bold py-1 px-0" href="/">Stay Focused</a>
+        <nav class="nav nav-masthead justify-content-center float-md-end">
+            <div sec:authorize="isAuthenticated()">
+                <span class="h3" sec:authentication="name"></span>
+                <form class="mt-1" th:action="@{/logout}" method="post">
+                    <button class="btn btn-dark" type="submit">Sign out</button>
+                </form>
+            </div>
+            <div sec:authorize="isAnonymous()"><a class="nav-link fw-bold py-1 px-0" href="/login">Login</a></div>
+        </nav>
+    </div>
+</header>
+
 <div>
 
     <!--    Profile info -->

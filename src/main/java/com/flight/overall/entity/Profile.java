@@ -1,7 +1,6 @@
 package com.flight.overall.entity;
 
-import javax.persistence.Entity;
-import javax.persistence.Id;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 /**
@@ -11,8 +10,8 @@ import java.time.LocalDate;
 
 @Entity
 public class Profile {
-
     @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
     private String username;
     private String fullName;
@@ -20,6 +19,19 @@ public class Profile {
     private Integer overallRating;
     private String description;
 
+    public Profile(long id, String username, String fullName, LocalDate dateOfBirth,
+                   Integer overallRating,
+                   String description) {
+        this.id = id;
+        this.username = username;
+        this.fullName = fullName;
+        this.dateOfBirth = dateOfBirth;
+        this.overallRating = overallRating;
+        this.description = description;
+    }
+
+    public Profile() {
+    }
 
     public long getId() {
         return id;

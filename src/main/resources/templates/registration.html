@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Registration</title>
+
+  <link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
+  <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+
+</head>
+<body>
+
+<div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+
+      <div class="text-center mt-3" th:if="${param.error}">
+        This username is already in use
+      </div>
+
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <!-- <h1 class="modal-title fs-5" >Modal title</h1> -->
+        <h1 class="fw-bold mb-0 fs-2">Sign up</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+        <form class="" th:action="@{/registration}" th:object="${account}" method="POST" enctype="utf8">
+          <div class="form-floating mb-3">
+            <input type="text" th:field="*{fullName}" class="form-control rounded-3" id="fullName" placeholder="Name">
+            <label for="fullName">Full name</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="text" th:field="*{username}" class="form-control rounded-3" id="username" placeholder="Username">
+            <label for="username">Username</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" th:field="*{password}" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign up</button>
+          <small class="text-muted">By clicking Sign up, you agree to the terms of use.</small>
+          <hr class="my-4">
+          <h2 class="fs-5 fw-bold mb-3">Or use a third-party</h2>
+          <button class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
+            <svg class="bi me-1" width="16" height="16"><use xlink:href="#twitter"></use></svg>
+            Sign up with Twitter
+          </button>
+          <button class="w-100 py-2 mb-2 btn btn-outline-primary rounded-3" type="submit">
+            <svg class="bi me-1" width="16" height="16"><use xlink:href="#facebook"></use></svg>
+            Sign up with Facebook
+          </button>
+          <button class="w-100 py-2 mb-2 btn btn-outline-secondary rounded-3" type="submit">
+            <svg class="bi me-1" width="16" height="16"><use xlink:href="#github"></use></svg>
+            Sign up with GitHub
+          </button>
+        </form>
+
+        <hr class="my-4">
+        <h2 class="fs-5 fw-bold mb-3">Already have an account?</h2>
+        <button href="/registration" class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
+          <a class="nav-link fw-bold py-1 px-0" href="/login">Sign in</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+
+</body>
+</html>
