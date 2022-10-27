@@ -3,13 +3,16 @@ package com.flight.overall.dto;
 public class RatingDTO {
     private long id;
     private CategoryDTO category;
-    private int rating;
-    private long grade;
 
-    public RatingDTO(long id, CategoryDTO category, int rating) {
+    private GradeDTO grade;
+    private int rating;
+
+
+    public RatingDTO(long id, CategoryDTO category, int rating, GradeDTO grade) {
         this.id = id;
         this.category = category;
         this.rating = rating;
+        this.grade = grade;
     }
 
     public RatingDTO() {
@@ -31,11 +34,11 @@ public class RatingDTO {
         this.category = category;
     }
 
-    public long getGrade() {
+    public GradeDTO getGrade() {
         return grade;
     }
 
-    public void setGrade(long grade) {
+    public void setGrade(GradeDTO grade) {
         this.grade = grade;
     }
 

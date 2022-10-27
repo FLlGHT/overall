@@ -4,6 +4,7 @@ import com.flight.overall.dto.AccountDTO;
 import com.flight.overall.entity.Account;
 import com.flight.overall.exception.ProfileAlreadyExistException;
 import com.flight.overall.service.AccountService;
+import com.flight.overall.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -19,6 +20,9 @@ public class RegistrationController {
     @Autowired
     private AccountService accountService;
 
+    @Autowired
+    private RatingService ratingService;
+
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
         AccountDTO accountDTO = new AccountDTO();
@@ -32,10 +36,8 @@ public class RegistrationController {
         try {
             Account registered = accountService.registerNewAccount(account);
             accountService.authenticate(registered);
-        } catch (ProfileAlreadyExistException uaeEx) {
-            model.addAttribute("message", "An account for that username already exists.");
+        } catch (ProfileAlreadyExistException alreadyExistsException) {
             model.addAttribute("account", account);
-
             return "redirect:/registration?error";
         }
 
