@@ -35,7 +35,7 @@
                                 <small class="text-muted">Only friends can view profile</small>
                             </div>
                             <label hidden for="isClosedProfile"></label>
-                            <input id="isClosedProfile" type="checkbox" name="isClosedProfile" th:checked="*{isClosedProfile()}">
+                            <input id="isClosedProfile" type="checkbox" name="closedProfile" th:checked="*{closedProfile}">
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
@@ -43,7 +43,7 @@
                                 <small class="text-muted">Only friends can rate</small>
                             </div>
                             <label hidden for="isClosedGrades"></label>
-                            <input id="isClosedGrades" type="checkbox" name="isClosedGrades" th:checked="*{isClosedGrades()}">
+                            <input id="isClosedGrades" type="checkbox" name="closedGrades" th:checked="*{closedGrades}">
                         </li>
                     </ul>
 

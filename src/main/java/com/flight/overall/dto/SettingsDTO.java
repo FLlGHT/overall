@@ -4,9 +4,8 @@ public class SettingsDTO {
 
     private AccountDTO account;
     private ProfileDTO profile;
-
-    private boolean isClosedProfile = false;
-    private boolean isClosedGrades = false;
+    private boolean closedProfile;
+    private boolean closedGrades;
 
 
     public SettingsDTO(AccountDTO account, ProfileDTO profile) {
@@ -14,11 +13,11 @@ public class SettingsDTO {
         this.profile = profile;
     }
 
-    public SettingsDTO(AccountDTO account, ProfileDTO profile, boolean isClosedProfile, boolean isClosedGrades) {
+    public SettingsDTO(AccountDTO account, ProfileDTO profile, boolean closedProfile, boolean closedGrades) {
         this.account = account;
         this.profile = profile;
-        this.isClosedProfile = isClosedProfile;
-        this.isClosedGrades = isClosedGrades;
+        this.closedProfile = closedProfile;
+        this.closedGrades = closedGrades;
     }
 
     public SettingsDTO() {
@@ -41,18 +40,18 @@ public class SettingsDTO {
     }
 
     public boolean isClosedProfile() {
-        return isClosedProfile;
+        return closedProfile;
     }
 
     public void setClosedProfile(boolean closedProfile) {
-        isClosedProfile = closedProfile;
+        this.closedProfile = closedProfile;
     }
 
     public boolean isClosedGrades() {
-        return isClosedGrades;
+        return closedGrades;
     }
 
     public void setClosedGrades(boolean closedGrades) {
-        isClosedGrades = closedGrades;
+        this.closedGrades = closedGrades;
     }
 }

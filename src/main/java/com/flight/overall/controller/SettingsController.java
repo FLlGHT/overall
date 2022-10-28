@@ -29,7 +29,7 @@ public class SettingsController {
     @PostMapping("/settings/save")
     public String saveSettings(@AuthenticationPrincipal Account account,
                                @ModelAttribute SettingsDTO settings) {
-        boolean isClosed = settings.isClosedProfile();
+
 
         return "redirect:/" + account.getUsername();
     }
