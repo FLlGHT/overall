@@ -1,6 +1,6 @@
 <!DOCTYPE html>
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
-      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" class="h-100">
 <head>
     <meta charset="UTF-8">
     <title th:text="${profile.getUsername()}"></title>
@@ -13,115 +13,22 @@
     <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 
 </head>
-<body>
+<body class="h-100">
 
-<header class="py-2 px-4">
-    <div>
-        <a class="float-md-start nav-link fw-bold py-1 px-0" href="/">Overall</a>
-        <nav class="nav nav-masthead justify-content-center float-md-end">
-            <div sec:authorize="isAuthenticated()">
-                <span class="h3" sec:authentication="name"></span>
-                <form class="mt-1" th:action="@{/logout}" method="post">
-                    <button class="btn btn-dark" type="submit">Sign out</button>
-                </form>
-            </div>
-            <div sec:authorize="isAnonymous()"><a class="nav-link fw-bold py-1 px-0" href="/login">Login</a></div>
-        </nav>
-    </div>
-</header>
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
-<div>
+    <div th:replace="fragments/header :: plain-header"></div>
 
-    <!--    Profile info -->
-    <div class="container my-5">
+    <div class="container">
         <div class="row p-4 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
 
-            <div class="row">
+            <div th:replace="fragments/profile-info :: profile-info"></div>
+            <div th:replace="fragments/profile-ratings :: profile-ratings"></div>
 
-                <!--                Profile image-->
-                <div class="col">
-
-                    <svg class="bd-placeholder-img rounded-circle" width="250" height="250"
-                         xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
-                         preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
-                        <rect width="100%" height="100%" fill="#777"></rect>
-                        <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
-                    </svg>
-                </div>
-
-                <!--                Profile info-->
-                <div class="col-lg-7 p-3">
-                    <h1 class="display-4 fw-bold lh-1" th:text="${profile.getFullName()}"></h1>
-                    <p class="lead fw-bold text-muted mt-3 display-6" th:text="'@' + ${profile.getUsername()}"></p>
-                    <p class="lead" th:text="${profile.getDateOfBirth()}"></p>
-                    <p class="lead" th:text="${profile.getDescription()}"></p>
-                </div>
-
-                <!--                Profile overall-->
-                <div class="col">
-                    <input type="hidden" id="overall-value" th:value="${profile.getOverallRating()}">
-                    <div id="pie-mold" class="yummy-pie" data-percentage="80" data-baking-time="1200"></div>
-                    <script type="text/javascript" src="/scripts/chart.js"></script>
-                </div>
-
-            </div>
-
-            <!--     Profile ratings       -->
-            <div class="album py-5">
-                <div class="container">
-
-                    <form action="#" method="post" th:action="@{/profile-save}" th:object="${profile}">
-
-                        <input hidden th:name="|id|" th:value="${profile.getId()}">
-                        <input hidden th:name="|fullName|" th:value="${profile.getFullName()}">
-                        <input hidden th:name="|username|" th:value="${profile.getUsername()}">
-                        <input hidden th:name="|dateOfBirth|" th:value="${profile.getDateOfBirth()}">
-                        <input hidden th:name="|overallRating|" th:value="${profile.getOverallRating()}">
-
-                        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
-                            <div th:each="rating, itemStat : ${profile.getRatings()}">
-                                <div class="col">
-
-                                    <!-- Category card                                -->
-                                    <div class="card shadow-sm">
-                                        <div class="card-body">
-                                            <div class="row">
-                                                <p class="col-sm-8" id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
-                                                <p class="col-sm-4 text-secondary" th:text="'average : ' + ${rating.getRating()}"></p>
-                                            </div>
-
-                                            <div class="slider-container">
-
-                                                <input hidden th:name="|ratings[${itemStat.index}].id|" th:value="${rating.getId()}">
-                                                <input hidden th:name="|ratings[${itemStat.index}].category.id|" th:value="${rating.getCategory().getId()}">
-                                                <input hidden th:name="|ratings[${itemStat.index}].category.title|" th:value="${rating.getCategory().getTitle()}">
-                                                <input hidden th:name="|ratings[${itemStat.index}].rating|" th:value="${rating.getRating()}">
-                                                <input hidden th:name="|ratings[${itemStat.index}].grade.previousGrade|" th:value="${rating.getGrade().getPreviousGrade()}">
-
-                                                <input th:name="|ratings[${itemStat.index}].grade.currentGrade|" th:value="${rating.getGrade.getCurrentGrade()}"
-                                                       type="range" min="0" max="99" th:id="${rating.getCategory().getId()}" class="range-slider"
-                                                       oninput="changeRangeValue(this)">
-
-                                                <label th:id="'output' + ${rating.getCategory().getId()}" class="rating-value"
-
-                                                       th:text="${rating.getGrade().getCurrentGrade()}"></label>
-                                            </div>
-
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="d-flex justify-content-center">
-                            <button class="btn btn-outline-primary mt-3" type="submit">Save</button>
-                        </div>
-                    </form>
-                </div>
-            </div>
         </div>
     </div>
 
-
+    <div th:replace="fragments/footer :: plain-footer"></div>
 </div>
 </body>
 </html>

@@ -5,10 +5,9 @@ import com.flight.overall.entity.Account;
 import com.flight.overall.entity.Grade;
 import com.flight.overall.entity.Profile;
 import com.flight.overall.entity.Rating;
-import com.flight.overall.mapper.ProfileMapper;
+import com.flight.overall.mapper.EntityMapper;
 import com.flight.overall.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
 
@@ -31,7 +30,7 @@ public class ProfileService {
     @Autowired
     private GradeService gradeService;
     @Autowired
-    private ProfileMapper profileMapper;
+    private EntityMapper entityMapper;
 
 
     public Optional<Profile> getProfile(String username) {
@@ -52,7 +51,7 @@ public class ProfileService {
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
         List<Grade> grades = gradeService.getAccountGrades(account);
 
-        return profileMapper.toProfileDTO(profile, ratings, grades);
+        return entityMapper.toProfileDTO(profile, ratings, grades);
     }
 
     public String saveProfile(ProfileDTO profileDTO, Account account, Model model) {

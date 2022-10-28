@@ -12,14 +12,11 @@ import com.flight.overall.entity.Rating;
 import com.flight.overall.utils.DateUtils;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 
 @Component
-public class ProfileMapper {
+public class EntityMapper {
 
 
     public ProfileDTO toProfileDTO(Profile profile, List<Rating> ratings, List<Grade> grades) {

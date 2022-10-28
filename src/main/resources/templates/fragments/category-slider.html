@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Category-slider</title>
+</head>
+<body>
+
+<div class="slider-container" th:fragment="category-slider">
+
+  <div th:replace="fragments/category-fields :: category-fields"></div>
+
+  <div sec:authorize="isAuthenticated()">
+    <input th:name="|ratings[${itemStat.index}].grade.currentGrade|"
+           th:value="${rating.getGrade.getCurrentGrade()}"
+           type="range" min="0" max="99"
+           th:id="${rating.getCategory().getId()}" class="range-slider"
+           oninput="changeRangeValue(this)">
+
+    <label th:id="'output' + ${rating.getCategory().getId()}"
+           class="rating-value"
+
+           th:text="${rating.getGrade().getCurrentGrade()}"></label>
+  </div>
+  <div class="text-center" sec:authorize="isAnonymous()">
+    <label class="text-secondary">Sign in to rate</label>
+  </div>
+</div>
+
+</body>
+</html>
