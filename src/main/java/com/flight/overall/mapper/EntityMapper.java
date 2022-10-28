@@ -1,15 +1,10 @@
 package com.flight.overall.mapper;
 
 
-import com.flight.overall.dto.CategoryDTO;
-import com.flight.overall.dto.GradeDTO;
-import com.flight.overall.dto.ProfileDTO;
-import com.flight.overall.dto.RatingDTO;
-import com.flight.overall.entity.Category;
-import com.flight.overall.entity.Grade;
-import com.flight.overall.entity.Profile;
-import com.flight.overall.entity.Rating;
+import com.flight.overall.dto.*;
+import com.flight.overall.entity.*;
 import com.flight.overall.utils.DateUtils;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
 import java.util.*;
@@ -17,7 +12,6 @@ import java.util.*;
 
 @Component
 public class EntityMapper {
-
 
     public ProfileDTO toProfileDTO(Profile profile, List<Rating> ratings, List<Grade> grades) {
         return new ProfileDTO(
@@ -28,6 +22,18 @@ public class EntityMapper {
                 profile.getOverallRating(),
                 profile.getDescription(),
                 toRatingsDTO(ratings, grades)
+        );
+    }
+
+    public ProfileDTO toProfileDTO(Profile profile) {
+        return new ProfileDTO(
+                profile.getId(),
+                profile.getFullName(),
+                profile.getUsername(),
+                DateUtils.dateToPrettyString(profile.getDateOfBirth()),
+                profile.getDescription(),
+                profile.getEmail(),
+                profile.getPlaceOfResidence()
         );
     }
 
@@ -68,5 +74,20 @@ public class EntityMapper {
                 grade.getValue(),
                 grade.getValue()
         );
+    }
+
+    public AccountDTO toAccountDTO(Account account) {
+        return new AccountDTO(
+                account.getId(),
+                account.getUsername(),
+                new BCryptPasswordEncoder().encode(account.getPassword())
+        );
+    }
+
+    public SettingsDTO toSettingsDTO(Account account) {
+        ProfileDTO profileDTO = toProfileDTO(account.getProfile());
+        AccountDTO accountDTO = toAccountDTO(account);
+
+        return new SettingsDTO(accountDTO, profileDTO);
     }
 }

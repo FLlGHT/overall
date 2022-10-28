@@ -5,6 +5,7 @@ import javax.validation.constraints.NotNull;
 
 public class AccountDTO {
 
+    private long id;
     @NotNull
     @NotEmpty
     private String fullName;
@@ -23,6 +24,20 @@ public class AccountDTO {
         this.password = password;
         this.matchingPassword = matchingPassword;
         this.username = username;
+    }
+
+    public AccountDTO(long id, String username, String password) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public AccountDTO() {

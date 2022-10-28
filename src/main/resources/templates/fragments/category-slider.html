@@ -21,7 +21,7 @@
     <label th:id="'output' + ${rating.getCategory().getId()}"
            class="rating-value"
 
-           th:text="${rating.getGrade().getCurrentGrade()}"></label>
+           th:text="${rating.getGrade().getCurrentGrade()} == 0 ? '?' : ${rating.getGrade().getCurrentGrade()}"></label>
   </div>
   <div class="text-center" sec:authorize="isAnonymous()">
     <label class="text-secondary">Sign in to rate</label>

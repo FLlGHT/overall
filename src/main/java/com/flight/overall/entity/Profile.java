@@ -19,6 +19,9 @@ public class Profile {
     private LocalDate dateOfBirth;
     private Integer overallRating;
     private String description;
+    private String placeOfResidence;
+
+    private String email;
 
     public Profile(long id, String username, String fullName, LocalDate dateOfBirth,
                    Integer overallRating, String description) {
@@ -79,5 +82,21 @@ public class Profile {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPlaceOfResidence() {
+        return placeOfResidence;
+    }
+
+    public void setPlaceOfResidence(String placeOfResidence) {
+        this.placeOfResidence = placeOfResidence;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
