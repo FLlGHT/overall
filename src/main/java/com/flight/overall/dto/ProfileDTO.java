@@ -8,8 +8,11 @@ public class ProfileDTO {
     private String fullName;
     private String username;
     private String dateOfBirth;
+    private String placeOfResidence;
     private Integer overallRating;
     private String description;
+
+    private String email;
     private List<RatingDTO> ratings;
 
     public ProfileDTO() {
@@ -24,6 +27,17 @@ public class ProfileDTO {
         this.overallRating = overallRating;
         this.description = description;
         this.ratings = ratings;
+    }
+
+    public ProfileDTO(long id, String fullName, String username, String dateOfBirth,
+                      String description, String email, String placeOfResidence) {
+        this.id = id;
+        this.fullName = fullName;
+        this.username = username;
+        this.dateOfBirth = dateOfBirth;
+        this.description = description;
+        this.email = email;
+        this.placeOfResidence = placeOfResidence;
     }
 
     public long getId() {
@@ -80,5 +94,21 @@ public class ProfileDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getPlaceOfResidence() {
+        return placeOfResidence;
+    }
+
+    public void setPlaceOfResidence(String placeOfResidence) {
+        this.placeOfResidence = placeOfResidence;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }
