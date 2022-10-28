@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Category fields</title>
+</head>
+<body>
+
+<div hidden th:fragment="category-fields">
+    <input hidden th:name="|ratings[${itemStat.index}].id|" th:value="${rating.getId()}">
+    <input hidden th:name="|ratings[${itemStat.index}].category.id|" th:value="${rating.getCategory().getId()}">
+    <input hidden th:name="|ratings[${itemStat.index}].category.title|" th:value="${rating.getCategory().getTitle()}">
+    <input hidden th:name="|ratings[${itemStat.index}].rating|" th:value="${rating.getRating()}">
+    <input hidden th:name="|ratings[${itemStat.index}].grade.previousGrade|" th:value="${rating.getGrade().getPreviousGrade()}">
+</div>
+</body>
+</html>

@@ -15,6 +15,7 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
 
     @Query("SELECT r " +
             " FROM Rating r " +
-            "WHERE r.profile.id =:profileId")
+            "WHERE r.profile.id =:profileId " +
+            "ORDER BY r.category.id")
     List<Rating> getProfileRatings(@Param("profileId") long profileId);
 }

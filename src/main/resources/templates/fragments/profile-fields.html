@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile fields</title>
+</head>
+<body>
+
+<div hidden th:fragment="profile-fields">
+  <input hidden th:name="|id|" th:value="${profile.getId()}">
+  <input hidden th:name="|fullName|" th:value="${profile.getFullName()}">
+  <input hidden th:name="|username|" th:value="${profile.getUsername()}">
+  <input hidden th:name="|dateOfBirth|" th:value="${profile.getDateOfBirth()}">
+  <input hidden th:name="|overallRating|" th:value="${profile.getOverallRating()}">
+</div>
+</body>
+</html>

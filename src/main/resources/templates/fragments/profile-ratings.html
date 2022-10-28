@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Profile ratings</title>
+</head>
+<body>
+
+<div class="album py-5" th:fragment="profile-ratings">
+    <div class="container">
+
+        <form action="#" method="post" th:action="@{/profile-save}" th:object="${profile}">
+
+            <div th:replace="fragments/profile-fields :: profile-fields"></div>
+            <div th:replace="fragments/rating-categories :: rating-categories"></div>
+
+            <div sec:authorize="isAuthenticated()" class="d-flex justify-content-center">
+                <button class="btn btn-outline-primary mt-3" type="submit">Save</button>
+            </div>
+        </form>
+    </div>
+</div>
+
+</body>
+</html>

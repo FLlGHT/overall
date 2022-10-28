@@ -47,10 +47,10 @@ public class RatingService {
     }
 
     public void updateRating(Rating rating, GradeDTO grade) {
-        boolean firstGrade = grade.getPreviousGrade() == 0 && grade.getCurrentGrade() > 0;
+        boolean isFirstGrade = grade.getPreviousGrade() == 0 && grade.getCurrentGrade() > 0;
 
         long total = rating.getTotal() - grade.getPreviousGrade() + grade.getCurrentGrade();
-        long count = rating.getCount() + (firstGrade ? 1 : 0);
+        long count = rating.getCount() + (isFirstGrade ? 1 : 0);
 
         int newRating = Math.min(99, (int) Math.round(total * 1.00 / count));
 

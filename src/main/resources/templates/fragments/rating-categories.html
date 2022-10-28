@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Rating categories</title>
+</head>
+<body>
+
+<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:fragment="rating-categories">
+  <div th:each="rating, itemStat : ${profile.getRatings()}">
+    <div class="col">
+
+      <!-- Category card                                -->
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <div class="row">
+            <p class="col-sm-8" id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
+            <p class="col-sm-4 text-secondary" th:text="'average : ' + ${rating.getRating()}"></p>
+          </div>
+
+          <div th:replace="fragments/category-slider :: category-slider"></div>
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</body>
+</html>
