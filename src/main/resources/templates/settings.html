@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" lang="en"
       xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
 <head>
     <meta charset="UTF-8">
@@ -27,6 +27,8 @@
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
                         <span class="text-primary">Privacy settings</span>
                     </h4>
+
+                    <input hidden th:field="*{id}">
 
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-sm">
@@ -57,7 +59,7 @@
                             <input type="text" th:field="*{profile.fullName}"
                                    class="form-control" id="fullName" placeholder="" value="" required="">
                             <div class="invalid-feedback">
-                                Valid first name is required.
+                                Valid name is required.
                             </div>
                         </div>
 
@@ -66,8 +68,7 @@
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>
                                 <input type="text" th:field="*{account.username}"
-                                       class="form-control" id="username" placeholder="Username"
-                                       required="">
+                                       class="form-control" id="username" placeholder="Username" required="">
                                 <div class="invalid-feedback">
                                     Your username is required.
                                 </div>
@@ -80,25 +81,32 @@
                             <input th:field="*{profile.email}"
                                    type="email" class="form-control" id="email" placeholder="you@example.com">
                             <div class="invalid-feedback">
-                                Please enter a valid email address for shipping updates.
+                                Please enter a valid email address.
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="address" class="form-label">Address</label>
+                            <label for="dateOfBirth" class="form-label">Date of birth <span
+                                    class="text-muted">(Optional)</span></label>
+                            <input th:field="*{profile.dateOfBirth}"
+                                   type="date" class="form-control" id="dateOfBirth" placeholder="dd-mm-yyyy">
+                        </div>
+
+                        <div class="col-12">
+                            <label for="address" class="form-label">Address
+                                <span class="text-muted">(Optional)</span></label>
                             <input th:field="*{profile.placeOfResidence}"
-                                   type="text" class="form-control" id="address" placeholder="Russia, Saint-P"
-                                   required="">
+                                   type="text" class="form-control" id="address" placeholder="Russia, Saint-P">
                             <div class="invalid-feedback">
-                                Please enter your shipping address.
+                                Please enter your address.
                             </div>
                         </div>
 
                         <div class="col-12">
-                            <label for="address" class="form-label">Description</label>
+                            <label for="address" class="form-label">Description
+                                <span class="text-muted">(Optional)</span></label>
                             <input th:field="*{profile.description}"
-                                   type="text" class="form-control" id="description" placeholder="..."
-                                   required="">
+                                   type="text" class="form-control" id="description" placeholder="...">
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
                             </div>

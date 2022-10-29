@@ -2,6 +2,7 @@ package com.flight.overall.dto;
 
 public class SettingsDTO {
 
+    private long id;
     private AccountDTO account;
     private ProfileDTO profile;
     private boolean closedProfile;
@@ -13,6 +14,14 @@ public class SettingsDTO {
         this.profile = profile;
     }
 
+    public SettingsDTO(long id, AccountDTO account, ProfileDTO profile, boolean closedProfile, boolean closedGrades) {
+        this.id = id;
+        this.account = account;
+        this.profile = profile;
+        this.closedProfile = closedProfile;
+        this.closedGrades = closedGrades;
+    }
+
     public SettingsDTO(AccountDTO account, ProfileDTO profile, boolean closedProfile, boolean closedGrades) {
         this.account = account;
         this.profile = profile;
@@ -21,6 +30,14 @@ public class SettingsDTO {
     }
 
     public SettingsDTO() {
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public void setId(long id) {
+        this.id = id;
     }
 
     public AccountDTO getAccount() {

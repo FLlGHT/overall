@@ -19,12 +19,13 @@ public class ProfileDTO {
     }
 
     public ProfileDTO(long id, String fullName, String username, String dateOfBirth, Integer overallRating,
-                      String description, List<RatingDTO> ratings) {
+                      String placeOfResidence, String description, List<RatingDTO> ratings) {
         this.id = id;
         this.fullName = fullName;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.overallRating = overallRating;
+        this.placeOfResidence = placeOfResidence;
         this.description = description;
         this.ratings = ratings;
     }

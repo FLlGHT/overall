@@ -19,6 +19,10 @@ public class Account implements UserDetails {
     @OneToOne
     private Profile profile;
 
+    @OneToOne
+    @JoinColumn(name = "settings_id")
+    private Settings settings;
+
     public Account() {
     }
 
@@ -82,5 +86,13 @@ public class Account implements UserDetails {
     @Override
     public boolean isAccountNonExpired() {
         return true;
+    }
+
+    public Settings getSettings() {
+        return settings;
+    }
+
+    public void setSettings(Settings settings) {
+        this.settings = settings;
     }
 }

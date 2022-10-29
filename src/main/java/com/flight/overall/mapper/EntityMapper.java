@@ -20,6 +20,7 @@ public class EntityMapper {
                 profile.getUsername(),
                 DateUtils.dateToPrettyString(profile.getDateOfBirth()),
                 profile.getOverallRating(),
+                profile.getPlaceOfResidence(),
                 profile.getDescription(),
                 toRatingsDTO(ratings, grades)
         );
@@ -84,10 +85,14 @@ public class EntityMapper {
         );
     }
 
-    public SettingsDTO toSettingsDTO(Account account) {
+    public SettingsDTO toSettingsDTO(Settings settings, Account account) {
         ProfileDTO profileDTO = toProfileDTO(account.getProfile());
         AccountDTO accountDTO = toAccountDTO(account);
 
-        return new SettingsDTO(accountDTO, profileDTO);
+        return settings == null ? new SettingsDTO(accountDTO, profileDTO) :
+                new SettingsDTO(settings.getId(),
+                        accountDTO, profileDTO,
+                        settings.isProfileClosed(),
+                        settings.isGradesClosed());
     }
 }
