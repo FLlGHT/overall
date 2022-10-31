@@ -93,6 +93,12 @@
 			<scope>test</scope>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.apis</groupId>
+			<artifactId>google-api-services-webfonts</artifactId>
+			<version>v1-rev20200819-2.0.0</version>
+		</dependency>
+
 	</dependencies>
 
 	<build>

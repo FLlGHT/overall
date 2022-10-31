@@ -20,8 +20,10 @@ public class Profile {
     private Integer overallRating;
     private String description;
     private String placeOfResidence;
-
     private String email;
+    @OneToOne
+    @JoinColumn(name = "profile_image_id")
+    private Image profileImage;
 
     public Profile(long id, String username, String fullName, LocalDate dateOfBirth,
                    Integer overallRating, String description) {
@@ -98,5 +100,13 @@ public class Profile {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public Image getProfileImage() {
+        return profileImage;
+    }
+
+    public void setProfileImage(Image profileImage) {
+        this.profileImage = profileImage;
     }
 }

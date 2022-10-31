@@ -4,6 +4,7 @@ import com.flight.overall.dto.AccountDTO;
 import com.flight.overall.dto.ProfileDTO;
 import com.flight.overall.dto.SettingsDTO;
 import com.flight.overall.entity.Account;
+import com.flight.overall.entity.Image;
 import com.flight.overall.entity.Profile;
 import com.flight.overall.entity.Settings;
 import com.flight.overall.mapper.EntityMapper;
@@ -11,9 +12,14 @@ import com.flight.overall.repository.AccountRepository;
 import com.flight.overall.repository.ProfileRepository;
 import com.flight.overall.repository.SettingsRepository;
 import com.flight.overall.utils.DateUtils;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.ui.Model;
+import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
+import java.util.Optional;
 
 /**
  * @author FLIGHT
@@ -31,6 +37,9 @@ public class SettingsService {
 
     @Autowired
     private ProfileRepository profileRepository;
+
+    @Autowired
+    private ImageService imageService;
 
     @Autowired
     private EntityMapper mapper;
@@ -56,11 +65,14 @@ public class SettingsService {
     }
 
     private void saveSettings(Profile profile, ProfileDTO profileDTO) {
+        Optional<Image> newImage = imageService.uploadImage(profileDTO.getImage());
+
         profile.setFullName(profileDTO.getFullName());
         profile.setDateOfBirth(DateUtils.prettyStringToDate(profileDTO.getDateOfBirth()));
         profile.setDescription(profileDTO.getDescription());
         profile.setEmail(profileDTO.getEmail());
         profile.setPlaceOfResidence(profileDTO.getPlaceOfResidence());
+        newImage.ifPresent(profile::setProfileImage);
 
         profileRepository.save(profile);
     }

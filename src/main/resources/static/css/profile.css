@@ -50,6 +50,12 @@
     -moz-box-shadow: 2px 8px 13px -3px rgba(116, 114, 116, 0.75);
 }
 
+.profile-image {
+    border-radius: 50%;
+    width: 250px;
+    height: 250px;
+}
+
 
 
 

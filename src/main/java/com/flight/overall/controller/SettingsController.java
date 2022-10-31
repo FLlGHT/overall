@@ -1,6 +1,5 @@
 package com.flight.overall.controller;
 
-import com.flight.overall.dto.ProfileDTO;
 import com.flight.overall.dto.SettingsDTO;
 import com.flight.overall.entity.Account;
 import com.flight.overall.mapper.EntityMapper;

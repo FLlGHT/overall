@@ -1,5 +1,7 @@
 package com.flight.overall.dto;
 
+import org.springframework.web.multipart.MultipartFile;
+
 import java.util.List;
 
 public class ProfileDTO {
@@ -11,15 +13,16 @@ public class ProfileDTO {
     private String placeOfResidence;
     private Integer overallRating;
     private String description;
-
     private String email;
     private List<RatingDTO> ratings;
+    private MultipartFile image;
+    private String imageString;
 
     public ProfileDTO() {
     }
 
     public ProfileDTO(long id, String fullName, String username, String dateOfBirth, Integer overallRating,
-                      String placeOfResidence, String description, List<RatingDTO> ratings) {
+                      String placeOfResidence, String description, String imageString, List<RatingDTO> ratings) {
         this.id = id;
         this.fullName = fullName;
         this.username = username;
@@ -27,6 +30,7 @@ public class ProfileDTO {
         this.overallRating = overallRating;
         this.placeOfResidence = placeOfResidence;
         this.description = description;
+        this.imageString = imageString;
         this.ratings = ratings;
     }
 
@@ -111,5 +115,21 @@ public class ProfileDTO {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public MultipartFile getImage() {
+        return image;
+    }
+
+    public void setImage(MultipartFile image) {
+        this.image = image;
+    }
+
+    public String getImageString() {
+        return imageString;
+    }
+
+    public void setImageString(String imageString) {
+        this.imageString = imageString;
     }
 }

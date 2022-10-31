@@ -9,7 +9,6 @@
     <link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.css">
     <link rel="stylesheet" href="/webjars/bootstrap-icons/1.9.1/font/bootstrap-icons.css">
 
-
     <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
     <script type="text/javascript" src="/webjars/bootstrap/5.2.0/js/bootstrap.bundle.min.js"></script>
 </head>
@@ -18,10 +17,11 @@
 
 <div th:replace="fragments/header :: plain-header"></div>
 
+
 <div class="container">
     <main>
         <form class="needs-validation" novalidate=""
-              th:action="@{/settings/save}" method="post" th:object="${settings}">
+              th:action="@{/settings/save}" method="post" th:object="${settings}" enctype="multipart/form-data">
             <div class="row g-5">
                 <div class="col-md-5 col-lg-4 order-md-last">
                     <h4 class="d-flex justify-content-between align-items-center mb-3">
@@ -53,7 +53,14 @@
                 </div>
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Profile information</h4>
+
                     <div class="row g-3">
+                        <div class="col-12">
+                            <label for="image-upload" class="form-label">Profile image</label>
+                            <input type="file" th:field="*{profile.image}"
+                                   class="form-control" id="image-upload" placeholder="choose a new profile picture" value="">
+                        </div>
+
                         <div class="col-6">
                             <label for="fullName" class="form-label">Name</label>
                             <input type="text" th:field="*{profile.fullName}"
@@ -103,7 +110,7 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="address" class="form-label">Description
+                            <label for="description" class="form-label">Description
                                 <span class="text-muted">(Optional)</span></label>
                             <input th:field="*{profile.description}"
                                    type="text" class="form-control" id="description" placeholder="...">

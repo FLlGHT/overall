@@ -22,6 +22,7 @@ public class EntityMapper {
                 profile.getOverallRating(),
                 profile.getPlaceOfResidence(),
                 profile.getDescription(),
+                toProfileImage(profile),
                 toRatingsDTO(ratings, grades)
         );
     }
@@ -94,5 +95,10 @@ public class EntityMapper {
                         accountDTO, profileDTO,
                         settings.isProfileClosed(),
                         settings.isGradesClosed());
+    }
+
+    private String toProfileImage(Profile profile) {
+        Image image = profile.getProfileImage();
+        return image == null ? null : Base64.getEncoder().encodeToString(image.getContent());
     }
 }
