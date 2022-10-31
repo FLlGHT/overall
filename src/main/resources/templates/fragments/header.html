@@ -15,7 +15,7 @@
             <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="/settings" class="nav-link px-2 link-dark">Settings</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/settings" class="nav-link px-2 link-dark">Settings</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
@@ -45,7 +45,7 @@
             <li><a href="/" class="nav-link px-2 link-secondary">Home</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">Features</a></li>
             <li><a href="#" class="nav-link px-2 link-dark">FAQs</a></li>
-            <li><a href="/settings" class="nav-link px-2 link-dark">Settings</a></li>
+            <li sec:authorize="isAuthenticated()"><a href="/settings" class="nav-link px-2 link-dark">Settings</a></li>
         </ul>
 
         <div class="col-md-3 text-end">
