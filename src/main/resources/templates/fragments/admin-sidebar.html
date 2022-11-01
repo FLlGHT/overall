@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+
+<div th:fragment="admin-sidebar" class="d-flex flex-column flex-shrink-0 p-3 bg-light sidebar-container-custom">
+  <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto link-dark text-decoration-none">
+    <span class="fs-4">Admin page</span>
+  </a>
+  <hr>
+  <ul class="nav nav-pills flex-column mb-auto">
+    <li>
+      <a href="/admin/categories" class="nav-link link-dark">
+        <i class="bi bi-exclamation-diamond"></i>
+        Categories
+      </a>
+    </li>
+    <li>
+      <a href="/" class="nav-link link-dark">
+        <i class="bi bi-cloud-upload"></i>
+        Coming soon...
+      </a>
+    </li>
+    <li>
+      <a href="/" class="nav-link link-dark">
+        <i class="bi bi-cloud-upload"></i>
+        Coming soon...
+      </a>
+    </li>
+    <li>
+      <a href="/" class="nav-link link-dark">
+        <i class="bi bi-cloud-upload"></i>
+        Coming soon...
+      </a>
+    </li>
+    <li>
+      <a href="/" class="nav-link link-dark">
+        <i class="bi bi-cloud-upload"></i>
+        Coming soon...
+      </a>
+    </li>
+  </ul>
+  <hr>
+</div>
+
+</body>
+</html>
