@@ -67,6 +67,12 @@ public class EntityMapper {
         );
     }
 
+    public List<CategoryDTO> toCategories(Iterable<Category> categories) {
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        categories.forEach(category -> categoryDTOList.add(toCategoryDTO(category)));
+        return categoryDTOList;
+    }
+
     public GradeDTO toGradeDTO(Grade grade) {
         if (grade == null)
             return new GradeDTO();
@@ -101,4 +107,6 @@ public class EntityMapper {
         Image image = profile.getProfileImage();
         return image == null ? null : Base64.getEncoder().encodeToString(image.getContent());
     }
+
+
 }

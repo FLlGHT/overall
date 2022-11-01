@@ -1,11 +1,14 @@
 package com.flight.overall.entity;
 
 import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import javax.persistence.*;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
+import java.util.List;
 
 @Entity
 public class Account implements UserDetails {
@@ -18,10 +21,12 @@ public class Account implements UserDetails {
     @JoinColumn(name = "profile_id")
     @OneToOne
     private Profile profile;
-
     @OneToOne
     @JoinColumn(name = "settings_id")
     private Settings settings;
+
+    @Enumerated(EnumType.STRING)
+    private Role role;
 
     public Account() {
     }
@@ -65,7 +70,10 @@ public class Account implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return Collections.emptyList();
+        List<GrantedAuthority> roles = new ArrayList<>();
+        roles.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+
+        return roles;
     }
 
     @Override
@@ -94,5 +102,13 @@ public class Account implements UserDetails {
 
     public void setSettings(Settings settings) {
         this.settings = settings;
+    }
+
+    public Role getRole() {
+        return role;
+    }
+
+    public void setRole(Role role) {
+        this.role = role;
     }
 }

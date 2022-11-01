@@ -77,7 +77,7 @@ public class RatingService {
 
     public void createRatings(Profile profile) {
         List<Rating> ratings = new ArrayList<>();
-        Iterable<Category> categories = categoryService.getCategories();
+        Iterable<Category> categories = categoryService.findAllCategories();
 
         for (Category category : categories) {
             Rating rating = new Rating(category, profile, 0, 0, 0);
