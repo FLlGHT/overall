@@ -14,8 +14,14 @@ public class Category {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category")
     @SequenceGenerator(name = "category", sequenceName = "s_category", allocationSize = 1)
     private long id;
-
     private String title;
+    @ManyToOne
+    @JoinColumn(name = "category_group_id")
+    private CategoryGroup categoryGroup;
+
+    private String description;
+
+    private Double weight;
 
     public long getId() {
         return id;
@@ -31,5 +37,29 @@ public class Category {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public CategoryGroup getCategoryGroup() {
+        return categoryGroup;
+    }
+
+    public void setCategoryGroup(CategoryGroup categoryGroup) {
+        this.categoryGroup = categoryGroup;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 }

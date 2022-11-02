@@ -63,14 +63,34 @@ public class EntityMapper {
     public CategoryDTO toCategoryDTO(Category category) {
         return new CategoryDTO(
                 category.getId(),
-                category.getTitle()
+                category.getTitle(),
+                toCategoryGroupDTO(category.getCategoryGroup()),
+                category.getDescription(),
+                category.getWeight()
         );
     }
 
-    public List<CategoryDTO> toCategories(Iterable<Category> categories) {
+    public CategoryGroupDTO toCategoryGroupDTO(CategoryGroup categoryGroup) {
+        if (categoryGroup == null)
+            return new CategoryGroupDTO();
+
+        return new CategoryGroupDTO(
+                categoryGroup.getId(),
+                categoryGroup.getTitle(),
+                categoryGroup.getDescription()
+        );
+    }
+
+    public List<CategoryGroupDTO> toCategoryGroups(List<CategoryGroup> categoryGroups) {
+        List<CategoryGroupDTO> groups = new ArrayList<>();
+        categoryGroups.forEach(categoryGroup -> groups.add(toCategoryGroupDTO(categoryGroup)));
+        return groups;
+    }
+
+    public CategoriesDTO toCategories(List<Category> categories) {
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
         categories.forEach(category -> categoryDTOList.add(toCategoryDTO(category)));
-        return categoryDTOList;
+        return new CategoriesDTO(categoryDTOList);
     }
 
     public GradeDTO toGradeDTO(Grade grade) {
@@ -97,10 +117,11 @@ public class EntityMapper {
         AccountDTO accountDTO = toAccountDTO(account);
 
         return settings == null ? new SettingsDTO(accountDTO, profileDTO) :
-                new SettingsDTO(settings.getId(),
-                        accountDTO, profileDTO,
-                        settings.isProfileClosed(),
-                        settings.isGradesClosed());
+               new SettingsDTO(settings.getId(),
+                               accountDTO, profileDTO,
+                               settings.isProfileClosed(),
+                               settings.isGradesClosed()
+               );
     }
 
     private String toProfileImage(Profile profile) {

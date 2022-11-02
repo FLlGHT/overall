@@ -12,7 +12,7 @@
 
     <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
 </head>
-<body>
+<body class="bg-light">
 
 <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
 
@@ -24,19 +24,96 @@
         </div>
 
         <div class="col-md-10">
+            <div th:if="message != null">
+                <p class="text-bg-secondary" th:text="${message}"></p>
+            </div>
 
-            <div class="row row-cols-md-3 mb-3 text-center">
-                <div th:each="category : ${categories}">
+            <form th:action="@{/admin/categories/save}" method="post" th:object="${categories}">
+                <div id="list" class="row row-cols-md-3 mb-3 text-center">
+
+                    <div th:each="category, itemStat : ${categories.getCategories()}">
+                        <div class="col">
+                            <div class="card shadow-sm mt-2">
+                                <div class="card-body">
+                                    <input hidden class="form-control" id="category-id"
+                                           th:field="*{categories[__${itemStat.index}__].id}">
+
+                                    <div class="input-group">
+                                        <label class="col-md-3 form-label" for="category-title">Title</label>
+                                        <input class="col-md-9 form-control" id="category-title"
+                                               th:field="*{categories[__${itemStat.index}__].title}">
+                                    </div>
+
+                                    <div class="input-group mt-2">
+                                        <label class="col-md-3 form-label" for="category-group">Group</label>
+                                        <select class="col-md-9 form-select" id="category-group"
+                                                th:field="*{categories[__${itemStat.index}__].categoryGroup}">
+                                            <option th:each="group : ${groups}" th:value="${{group}}" th:text="${group.title}"></option>
+                                        </select>
+                                    </div>
+
+                                    <div class="input-group mt-2">
+                                        <label class="col-md-3 form-label" for="category-weight">Weight</label>
+                                        <input class="col-md-9 form-control" id="category-weight"
+                                               th:field="*{categories[__${itemStat.index}__].weight}">
+                                    </div>
+
+                                    <div class="input-group mt-2">
+                                        <label class="col-md-3 form-label" for="category-description">Description</label>
+                                        <textarea class="col-md-9 form-control rounded-0" id="category-description"
+                                                  th:field="*{categories[__${itemStat.index}__].description}" rows="3"></textarea>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+                <div class="text-center">
+                    <button type="submit" class="btn btn-outline-secondary">Save</button>
+                </div>
+            </form>
+
+            <form th:action="@{/admin/categories/add}" method="post" th:object="${newCategory}">
+                <div class="row row-cols-md-3 mb-3 text-center">
                     <div class="col">
                         <div class="card shadow-sm mt-2">
                             <div class="card-body">
-                                <p class="card-text" th:text="${category.getId()}"></p>
-                                <p class="card-text" th:text="${category.getTitle()}"></p>
+                                <div class="input-group">
+                                    <label class="col-md-3 form-label" for="newCategoryTitle">Title</label>
+                                    <input class="col-md-9 form-control" id="newCategoryTitle" placeholder="New category title"
+                                           th:field="*{title}">
+                                </div>
+
+                                <div class="input-group mt-2">
+                                    <label class="col-md-3 form-label" for="newCategoryGroup">Group</label>
+                                    <select class="col-md-9 form-select" id="newCategoryGroup" th:field="*{categoryGroup}">
+                                        <option th:each="group : ${groups}" th:value="${{group}}" th:text="${group.title}"></option>
+                                    </select>
+                                </div>
+
+                                <div class="input-group mt-2">
+                                    <label class="col-md-3 form-label" for="newCategoryWeight">Weight</label>
+                                    <input class="col-md-9 form-control" id="newCategoryWeight" placeholder="Weight"
+                                           th:field="*{weight}">
+                                </div>
+
+                                <div class="input-group mt-2">
+                                    <label class="col-md-3 form-label" for="newCategoryDescription">Description</label>
+                                    <textarea class="col-md-9 form-control rounded-0" id="newCategoryDescription" placeholder="Description..."
+                                              th:field="*{description}" rows="3"></textarea>
+                                </div>
+
                             </div>
                         </div>
                     </div>
                 </div>
-            </div>
+
+                <div>
+                    <button type="submit" class="btn btn-outline-secondary">Add</button>
+                </div>
+            </form>
         </div>
     </div>
 
