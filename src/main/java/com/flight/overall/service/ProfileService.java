@@ -44,6 +44,8 @@ public class ProfileService {
             model.addAttribute("profile", getProfileInfo(profile.get(), account));
             return "profile";
         }
+
+        model.addAttribute("message", "There is no user with this username");
         return "error";
     }
 

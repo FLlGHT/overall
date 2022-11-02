@@ -1,6 +1,7 @@
 package com.flight.overall.service;
 
 
+import com.flight.overall.dto.CategoriesDTO;
 import com.flight.overall.dto.CategoryDTO;
 import com.flight.overall.entity.Account;
 import com.flight.overall.entity.Category;
@@ -20,25 +21,8 @@ public class AdminService {
     @Autowired
     private EntityMapper mapper;
 
-    public String getAdminPage(Account account, Model model) {
-        if (account.getRole().equals(Role.ADMIN)) {
-            return "admin";
-        }
-        else {
-            model.addAttribute("message", "You do not have rights to this page");
-            return "error";
-        }
-    }
+    public String saveCategories(Account account, Model model, CategoriesDTO categories) {
 
-    public String getCategoriesPage(Account account, Model model) {
-        if (account.getRole().equals(Role.ADMIN)) {
-            List<CategoryDTO> categories = categoryService.getCategories();
-            model.addAttribute("categories", categories);
-            return "admin-categories";
-        }
-        else {
-            model.addAttribute("message", "You do not have rights to this page");
-            return "error";
-        }
+        return "admin/categories";
     }
 }
