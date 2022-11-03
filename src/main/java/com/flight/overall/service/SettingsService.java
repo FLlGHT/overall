@@ -12,13 +12,9 @@ import com.flight.overall.repository.AccountRepository;
 import com.flight.overall.repository.ProfileRepository;
 import com.flight.overall.repository.SettingsRepository;
 import com.flight.overall.utils.DateUtils;
-import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
-import org.springframework.web.multipart.MultipartFile;
 
-import java.io.IOException;
 import java.util.Optional;
 
 /**
@@ -65,7 +61,8 @@ public class SettingsService {
     private void saveSettings(Profile profile, ProfileDTO profileDTO) {
         Optional<Image> newImage = imageService.uploadImage(profileDTO.getImage());
 
-        profile.setFullName(profileDTO.getFullName());
+        profile.setFirstName(profileDTO.getFirstName());
+        profile.setSecondName(profileDTO.getSecondName());
         profile.setDateOfBirth(DateUtils.prettyStringToDate(profileDTO.getDateOfBirth()));
         profile.setDescription(profileDTO.getDescription());
         profile.setEmail(profileDTO.getEmail());

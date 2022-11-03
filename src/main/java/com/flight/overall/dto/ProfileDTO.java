@@ -7,7 +7,8 @@ import java.util.List;
 public class ProfileDTO {
 
     private long id;
-    private String fullName;
+    private String firstName;
+    private String secondName;
     private String username;
     private String dateOfBirth;
     private String placeOfResidence;
@@ -17,14 +18,27 @@ public class ProfileDTO {
     private List<RatingDTO> ratings;
     private MultipartFile image;
     private String imageString;
+    private List<ProfileDTO> contacts;
+    private boolean canAddToContacts;
 
     public ProfileDTO() {
     }
 
-    public ProfileDTO(long id, String fullName, String username, String dateOfBirth, Integer overallRating,
-                      String placeOfResidence, String description, String imageString, List<RatingDTO> ratings) {
+    public ProfileDTO(long id, String firstName, String secondName, String username, Integer overallRating, String imageString) {
         this.id = id;
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.username = username;
+        this.overallRating = overallRating;
+        this.imageString = imageString;
+    }
+
+    public ProfileDTO(long id, String firstName, String secondName, String username, String dateOfBirth, Integer overallRating,
+                      String placeOfResidence, String description, String imageString, List<RatingDTO> ratings,
+                      List<ProfileDTO> contacts, boolean canAddToContacts) {
+        this.id = id;
+        this.firstName = firstName;
+        this.secondName = secondName;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.overallRating = overallRating;
@@ -32,12 +46,15 @@ public class ProfileDTO {
         this.description = description;
         this.imageString = imageString;
         this.ratings = ratings;
+        this.contacts = contacts;
+        this.canAddToContacts = canAddToContacts;
     }
 
-    public ProfileDTO(long id, String fullName, String username, String dateOfBirth,
+    public ProfileDTO(long id, String firstName, String secondName, String username, String dateOfBirth,
                       String description, String email, String placeOfResidence) {
         this.id = id;
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.secondName = secondName;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.description = description;
@@ -53,12 +70,20 @@ public class ProfileDTO {
         this.id = id;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
     public String getUsername() {
@@ -131,5 +156,21 @@ public class ProfileDTO {
 
     public void setImageString(String imageString) {
         this.imageString = imageString;
+    }
+
+    public List<ProfileDTO> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<ProfileDTO> contacts) {
+        this.contacts = contacts;
+    }
+
+    public boolean getCanAddToContacts() {
+        return canAddToContacts;
+    }
+
+    public void setCanAddToContacts(boolean canAddToContacts) {
+        this.canAddToContacts = canAddToContacts;
     }
 }

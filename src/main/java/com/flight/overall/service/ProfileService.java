@@ -33,14 +33,19 @@ public class ProfileService {
 
 
     public Optional<Profile> getProfile(String username) {
-        return profileRepository.findByUsername(username);
+        return profileRepository.findByUsernameIgnoreCase(username);
     }
 
     public ProfileDTO getProfileInfo(Profile profile, Account account) {
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
         List<Grade> grades = gradeService.getAccountGrades(account);
 
-        return entityMapper.toProfileDTO(profile, ratings, grades);
+        return entityMapper.toProfileDTO(profile, account, ratings, grades);
+    }
+
+    public ProfileDTO getProfileContacts(Profile profile, Account account) {
+        List<Profile> contacts = profile.getContacts();
+        return entityMapper.toProfileContacts(profile, contacts);
     }
 
     public Profile saveProfile(ProfileDTO profileDTO, Account account) {

@@ -26,7 +26,7 @@
 
   <!--                Profile info-->
   <div class="col-lg-7 p-3">
-    <h1 class="display-4 fw-bold lh-1" th:text="${profile.getFullName()}"></h1>
+    <h1 class="display-4 fw-bold lh-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h1>
     <p class="lead fw-bold text-muted mt-3 display-6" th:text="'@' + ${profile.getUsername()}"></p>
     <p class="lead" th:text="${profile.getDateOfBirth()}"></p>
     <p class="lead" th:text="${profile.getPlaceOfResidence()}"></p>

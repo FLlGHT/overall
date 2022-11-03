@@ -3,6 +3,7 @@ package com.flight.overall.service;
 import com.flight.overall.dto.AccountDTO;
 import com.flight.overall.entity.Account;
 import com.flight.overall.entity.Profile;
+import com.flight.overall.entity.Role;
 import com.flight.overall.exception.ProfileAlreadyExistException;
 import com.flight.overall.repository.AccountRepository;
 import com.flight.overall.repository.ProfileRepository;
@@ -53,7 +54,9 @@ public class AccountService implements UserDetailsService {
     private Profile createNewProfile(AccountDTO accountDTO) {
         Profile profile = new Profile();
 
-        profile.setFullName(accountDTO.getFullName());
+        profile.setFirstName(accountDTO.getFirstName());
+        profile.setSecondName(accountDTO.getSecondName());
+
         profile.setUsername(accountDTO.getUsername());
         profile.setOverallRating(0);
 
@@ -69,6 +72,7 @@ public class AccountService implements UserDetailsService {
         account.setProfile(profile);
         account.setUsername(accountDTO.getUsername());
         account.setPassword(getPasswordEncoder().encode(accountDTO.getPassword()));
+        account.setRole(Role.USER);
 
         return accountRepository.save(account);
     }
@@ -79,7 +83,7 @@ public class AccountService implements UserDetailsService {
     }
 
     private boolean accountExists(AccountDTO accountDTO) {
-        Optional<Profile> profile = profileRepository.findByUsername(accountDTO.getUsername());
+        Optional<Profile> profile = profileRepository.findByUsernameIgnoreCase(accountDTO.getUsername());
         return profile.isPresent();
     }
 

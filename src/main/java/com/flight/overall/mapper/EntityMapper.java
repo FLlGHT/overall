@@ -13,29 +13,62 @@ import java.util.*;
 @Component
 public class EntityMapper {
 
-    public ProfileDTO toProfileDTO(Profile profile, List<Rating> ratings, List<Grade> grades) {
+    public ProfileDTO toProfileDTO(Profile profile, Account account, List<Rating> ratings, List<Grade> grades) {
         return new ProfileDTO(
                 profile.getId(),
-                profile.getFullName(),
+                profile.getFirstName(),
+                profile.getSecondName(),
                 profile.getUsername(),
                 DateUtils.dateToPrettyString(profile.getDateOfBirth()),
                 profile.getOverallRating(),
                 profile.getPlaceOfResidence(),
                 profile.getDescription(),
                 toProfileImage(profile),
-                toRatingsDTO(ratings, grades)
+                toRatingsDTO(ratings, grades),
+                toShowedContacts(profile.getContacts()),
+                canAddToContacts(profile, account)
         );
     }
 
     public ProfileDTO toProfileDTO(Profile profile) {
         return new ProfileDTO(
                 profile.getId(),
-                profile.getFullName(),
+                profile.getFirstName(),
+                profile.getSecondName(),
                 profile.getUsername(),
                 DateUtils.dateToPrettyString(profile.getDateOfBirth()),
                 profile.getDescription(),
                 profile.getEmail(),
                 profile.getPlaceOfResidence()
+        );
+    }
+
+    private List<ProfileDTO> toShowedContacts(List<Profile> contacts) {
+        List<ProfileDTO> contactsDTO = new ArrayList<>();
+        contacts.stream().sorted(Comparator.comparing(Profile::getOverallRating).reversed())
+                .limit(10)
+                .forEach(contact -> contactsDTO.add(toContactDTO(contact)));
+
+        return contactsDTO;
+    }
+
+    public ProfileDTO toProfileContacts(Profile profile, List<Profile> contacts) {
+        ProfileDTO profileDTO = toProfileDTO(profile);
+        List<ProfileDTO> contactsDTO = new ArrayList<>();
+        contacts.forEach(contact -> contactsDTO.add(toContactDTO(contact)));
+        profileDTO.setContacts(contactsDTO);
+
+        return profileDTO;
+    }
+
+    private ProfileDTO toContactDTO(Profile contact) {
+        return new ProfileDTO(
+                contact.getId(),
+                contact.getFirstName(),
+                contact.getSecondName(),
+                contact.getUsername(),
+                contact.getOverallRating(),
+                toProfileImage(contact)
         );
     }
 
@@ -129,5 +162,11 @@ public class EntityMapper {
         return image == null ? null : Base64.getEncoder().encodeToString(image.getContent());
     }
 
+    private boolean canAddToContacts(Profile profile, Account account) {
+        boolean unauthorized = account == null;
+        boolean ownProfile = account != null && profile.getId() == account.getProfile().getId();
+        boolean alreadyInContacts = account != null && profile.getContacts().contains(account.getProfile());
 
+        return !unauthorized && !ownProfile && !alreadyInContacts;
+    }
 }

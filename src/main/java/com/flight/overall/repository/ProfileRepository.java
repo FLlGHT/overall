@@ -15,7 +15,7 @@ import java.util.Optional;
 
 public interface ProfileRepository extends CrudRepository<Profile, Long> {
 
-    Optional<Profile> findByUsername(String username);
+    Optional<Profile> findByUsernameIgnoreCase(String username);
 
     @Query("SELECT p" +
             " FROM Profile p " +

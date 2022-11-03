@@ -62,15 +62,24 @@
                         </div>
 
                         <div class="col-6">
-                            <label for="fullName" class="form-label">Name</label>
-                            <input type="text" th:field="*{profile.fullName}"
+                            <label for="fullName" class="form-label">First Name</label>
+                            <input type="text" th:field="*{profile.firstName}"
                                    class="form-control" id="fullName" placeholder="" value="" required="">
                             <div class="invalid-feedback">
-                                Valid name is required.
+                                Valid first name is required.
                             </div>
                         </div>
 
                         <div class="col-6">
+                            <label for="secondName" class="form-label">Second Name</label>
+                            <input type="text" th:field="*{profile.secondName}"
+                                   class="form-control" id="secondName" placeholder="" value="" required="">
+                            <div class="invalid-feedback">
+                                Valid second name is required.
+                            </div>
+                        </div>
+
+                        <div class="col-12">
                             <label for="username" class="form-label">Username</label>
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>

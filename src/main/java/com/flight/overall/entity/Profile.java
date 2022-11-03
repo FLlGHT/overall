@@ -2,6 +2,8 @@ package com.flight.overall.entity;
 
 import javax.persistence.*;
 import java.time.LocalDate;
+import java.util.List;
+import java.util.Objects;
 
 /**
  * @author FLIGHT
@@ -15,7 +17,8 @@ public class Profile {
     @SequenceGenerator(name = "profile", sequenceName = "s_profile", allocationSize = 1)
     private long id;
     private String username;
-    private String fullName;
+    private String firstName;
+    private String secondName;
     private LocalDate dateOfBirth;
     private Integer overallRating;
     private String description;
@@ -25,11 +28,18 @@ public class Profile {
     @JoinColumn(name = "profile_image_id")
     private Image profileImage;
 
-    public Profile(long id, String username, String fullName, LocalDate dateOfBirth,
+    @ManyToMany(fetch = FetchType.EAGER)
+    @JoinTable(name = "contact",
+            joinColumns = @JoinColumn(name = "profile_1"),
+            inverseJoinColumns = @JoinColumn(name = "profile_2"))
+    private List<Profile> contacts;
+
+    public Profile(long id, String username, String firstName, String secondName, LocalDate dateOfBirth,
                    Integer overallRating, String description) {
         this.id = id;
         this.username = username;
-        this.fullName = fullName;
+        this.firstName = firstName;
+        this.secondName = secondName;
         this.dateOfBirth = dateOfBirth;
         this.overallRating = overallRating;
         this.description = description;
@@ -54,12 +64,20 @@ public class Profile {
         this.username = username;
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String fullName) {
+        this.firstName = fullName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
     public LocalDate getDateOfBirth() {
@@ -108,5 +126,39 @@ public class Profile {
 
     public void setProfileImage(Image profileImage) {
         this.profileImage = profileImage;
+    }
+
+    public List<Profile> getContacts() {
+        return contacts;
+    }
+
+    public void setContacts(List<Profile> contacts) {
+        this.contacts = contacts;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Profile profile = (Profile) o;
+        return id == profile.id && Objects.equals(username, profile.username) && Objects.equals(
+                firstName, profile.firstName) && Objects.equals(
+                secondName, profile.secondName) && Objects.equals(
+                dateOfBirth, profile.dateOfBirth) && Objects.equals(
+                overallRating, profile.overallRating) && Objects.equals(
+                description, profile.description) && Objects.equals(
+                placeOfResidence, profile.placeOfResidence) && Objects.equals(
+                email, profile.email) && Objects.equals(
+                profileImage, profile.profileImage);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, username, firstName, secondName, dateOfBirth, overallRating, description,
+                            placeOfResidence,
+                            email, profileImage, contacts
+        );
     }
 }

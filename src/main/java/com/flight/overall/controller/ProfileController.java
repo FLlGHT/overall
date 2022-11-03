@@ -3,8 +3,10 @@ package com.flight.overall.controller;
 import com.flight.overall.dto.ProfileDTO;
 import com.flight.overall.entity.Account;
 import com.flight.overall.entity.Profile;
+import com.flight.overall.service.ContactService;
 import com.flight.overall.service.ProfileService;
 import com.flight.overall.utils.ErrorHandler;
+import org.checkerframework.checker.units.qual.A;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -26,6 +28,9 @@ public class ProfileController {
 
     @Autowired
     private ProfileService profileService;
+
+    @Autowired
+    private ContactService contactService;
 
 
     @GetMapping("/{username}")
@@ -49,4 +54,27 @@ public class ProfileController {
         Profile profile = profileService.saveProfile(profileDTO, account);
         return "redirect:/" + profile.getUsername();
     }
+
+    @PostMapping("/add-contact")
+    public String addToContacts(@ModelAttribute ProfileDTO profileDTO,
+                                @AuthenticationPrincipal Account account,
+                                Model model) {
+        contactService.addContact(account, profileDTO);
+        return "redirect:/" + profileDTO.getUsername();
+    }
+
+    @GetMapping("/{username}/contacts")
+    public String getProfileContacts(@PathVariable String username,
+                                     Account account,
+                                     Model model) {
+        Optional<Profile> profile = profileService.getProfile(username);
+
+        if (profile.isPresent()) {
+            model.addAttribute("profile", profileService.getProfileContacts(profile.get(), account));
+            return "profile/contacts";
+        }
+
+        return ErrorHandler.handleUserAbsence(model);
+    }
+
 }
