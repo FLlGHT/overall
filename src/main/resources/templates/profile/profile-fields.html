@@ -8,11 +8,12 @@
 <body>
 
 <div hidden th:fragment="profile-fields">
-  <input hidden th:name="|id|" th:value="${profile.getId()}">
-  <input hidden th:name="|fullName|" th:value="${profile.getFullName()}">
-  <input hidden th:name="|username|" th:value="${profile.getUsername()}">
-  <input hidden th:name="|dateOfBirth|" th:value="${profile.getDateOfBirth()}">
-  <input hidden th:name="|overallRating|" th:value="${profile.getOverallRating()}">
+    <input hidden th:name="|id|" th:value="${profile.getId()}">
+    <input hidden th:name="|firstName|" th:value="${profile.getFirstName()}">
+    <input hidden th:name="|secondName|" th:value="${profile.getSecondName()}">
+    <input hidden th:name="|username|" th:value="${profile.getUsername()}">
+    <input hidden th:name="|dateOfBirth|" th:value="${profile.getDateOfBirth()}">
+    <input hidden th:name="|overallRating|" th:value="${profile.getOverallRating()}">
 </div>
 </body>
 </html>

@@ -8,7 +8,9 @@ public class AccountDTO {
     private long id;
     @NotNull
     @NotEmpty
-    private String fullName;
+    private String firstName;
+
+    private String secondName;
 
     @NotNull
     @NotEmpty
@@ -19,8 +21,8 @@ public class AccountDTO {
     @NotEmpty
     private String username;
 
-    public AccountDTO(String fullName, String password, String matchingPassword, String username) {
-        this.fullName = fullName;
+    public AccountDTO(String firstName, String password, String matchingPassword, String username) {
+        this.firstName = firstName;
         this.password = password;
         this.matchingPassword = matchingPassword;
         this.username = username;
@@ -43,12 +45,20 @@ public class AccountDTO {
     public AccountDTO() {
     }
 
-    public String getFullName() {
-        return fullName;
+    public String getFirstName() {
+        return firstName;
     }
 
-    public void setFullName(String fullName) {
-        this.fullName = fullName;
+    public void setFirstName(String firstName) {
+        this.firstName = firstName;
+    }
+
+    public String getSecondName() {
+        return secondName;
+    }
+
+    public void setSecondName(String secondName) {
+        this.secondName = secondName;
     }
 
     public String getPassword() {
