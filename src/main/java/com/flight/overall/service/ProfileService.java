@@ -9,7 +9,6 @@ import com.flight.overall.mapper.EntityMapper;
 import com.flight.overall.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import org.springframework.ui.Model;
 
 import java.util.List;
 import java.util.Optional;
@@ -37,35 +36,21 @@ public class ProfileService {
         return profileRepository.findByUsername(username);
     }
 
-    public String getProfile(String username, Account account, Model model) {
-        Optional<Profile> profile = getProfile(username);
-
-        if (profile.isPresent()) {
-            model.addAttribute("profile", getProfileInfo(profile.get(), account));
-            return "profile";
-        }
-
-        model.addAttribute("message", "There is no user with this username");
-        return "error";
-    }
-
-    private ProfileDTO getProfileInfo(Profile profile, Account account) {
+    public ProfileDTO getProfileInfo(Profile profile, Account account) {
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
         List<Grade> grades = gradeService.getAccountGrades(account);
 
         return entityMapper.toProfileDTO(profile, ratings, grades);
     }
 
-    public String saveProfile(ProfileDTO profileDTO, Account account, Model model) {
+    public Profile saveProfile(ProfileDTO profileDTO, Account account) {
         Profile profile = profileRepository.findProfile(profileDTO.getId());
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
 
         ratingService.updateRatings(account, ratings, profileDTO.getRatings());
         ratingService.updateOverall(profile);
 
-        profileRepository.save(profile);
-
-        return "redirect:/" + profile.getUsername();
+        return profileRepository.save(profile);
     }
 
 }

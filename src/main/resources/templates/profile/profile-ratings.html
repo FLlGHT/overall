@@ -12,8 +12,8 @@
 
         <form action="#" method="post" th:action="@{/profile-save}" th:object="${profile}">
 
-            <div th:replace="fragments/profile-fields :: profile-fields"></div>
-            <div th:replace="fragments/rating-categories :: rating-categories"></div>
+            <div th:replace="profile/profile-fields :: profile-fields"></div>
+            <div th:replace="profile/rating-categories :: rating-categories"></div>
 
             <div sec:authorize="isAuthenticated()" class="d-flex justify-content-center">
                 <button class="btn btn-outline-primary mt-3" type="submit">Save</button>

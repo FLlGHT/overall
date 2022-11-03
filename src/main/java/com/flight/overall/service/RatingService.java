@@ -80,7 +80,7 @@ public class RatingService {
         Iterable<Category> categories = categoryService.findAllCategories();
 
         for (Category category : categories) {
-            Rating rating = new Rating(category, profile, 0, 0, 0);
+            Rating rating = new Rating(category, profile);
             ratings.add(rating);
         }
 

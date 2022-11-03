@@ -29,10 +29,4 @@ public class ImageService {
             return Optional.empty();
         }
     }
-
-    public Image getImage(long id) {
-        Optional<Image> image = imageRepository.findById(id);
-
-        return image.orElse(null);
-    }
 }

@@ -45,11 +45,9 @@ public class SettingsService {
     private EntityMapper mapper;
 
 
-    public String getSettings(Model model, Account account) {
+    public SettingsDTO getSettings(Account account) {
         Settings settings = account.getSettings();
-
-        model.addAttribute("settings", mapper.toSettingsDTO(settings, account));
-        return "settings";
+        return mapper.toSettingsDTO(settings, account);
     }
 
     public void saveSettings(Account account, SettingsDTO settingsDTO) {

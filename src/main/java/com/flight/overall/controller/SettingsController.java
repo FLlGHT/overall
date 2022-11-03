@@ -2,8 +2,10 @@ package com.flight.overall.controller;
 
 import com.flight.overall.dto.SettingsDTO;
 import com.flight.overall.entity.Account;
+import com.flight.overall.entity.Settings;
 import com.flight.overall.mapper.EntityMapper;
 import com.flight.overall.service.SettingsService;
+import com.flight.overall.utils.ErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -16,16 +18,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 public class SettingsController {
 
     @Autowired
-    private EntityMapper mapper;
-
-    @Autowired
     private SettingsService settingsService;
 
     @GetMapping("/settings")
     public String openSettings(@AuthenticationPrincipal Account account,
                                Model model) {
+        if (account != null) {
+            model.addAttribute("settings", settingsService.getSettings(account));
+            return "settings/settings";
+        }
 
-        return settingsService.getSettings(model, account);
+        return ErrorHandler.handleAccessViolation(model);
     }
 
     @PostMapping("/settings/save")

@@ -6,7 +6,6 @@ import com.flight.overall.exception.ProfileAlreadyExistException;
 import com.flight.overall.service.AccountService;
 import com.flight.overall.service.RatingService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.authentication.InternalAuthenticationServiceException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -26,17 +25,15 @@ public class RegistrationController {
 
     @GetMapping("/registration")
     public String showRegistrationForm(Model model) {
-        AccountDTO accountDTO = new AccountDTO();
-        model.addAttribute("account", accountDTO);
+        model.addAttribute("account", new AccountDTO());
 
-        return "registration";
+        return "authentication/registration";
     }
 
     @PostMapping("/registration")
     public String registerNewAccount(@ModelAttribute("account") @Valid AccountDTO account, Model model) {
         try {
-            Account registered = accountService.registerNewAccount(account);
-            accountService.authenticate(registered);
+            accountService.registerAndAuthenticate(account);
         } catch (ProfileAlreadyExistException alreadyExistsException) {
             model.addAttribute("account", account);
             return "redirect:/registration?error";
@@ -47,6 +44,6 @@ public class RegistrationController {
 
     @GetMapping("/login")
     public String getLogin(Model model) {
-        return "login";
+        return "authentication/login";
     }
 }

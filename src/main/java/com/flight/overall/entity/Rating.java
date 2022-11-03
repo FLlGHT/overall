@@ -34,6 +34,14 @@ public class Rating {
         this.rating = rating;
     }
 
+    public Rating(Category category, Profile profile) {
+        this.category = category;
+        this.profile = profile;
+        this.total = 0;
+        this.count = 0;
+        this.rating = 0;
+    }
+
     public Rating() {
     }
 

@@ -9,7 +9,7 @@
 
 <div class="slider-container" th:fragment="category-slider">
 
-  <div th:replace="fragments/category-fields :: category-fields"></div>
+  <div th:replace="profile/category-fields :: category-fields"></div>
 
   <div sec:authorize="isAuthenticated()">
     <input th:name="|ratings[${itemStat.index}].grade.currentGrade|"

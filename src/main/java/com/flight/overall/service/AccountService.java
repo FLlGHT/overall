@@ -37,6 +37,11 @@ public class AccountService implements UserDetailsService {
         return accountRepository.findByUsername(username);
     }
 
+    public void registerAndAuthenticate(AccountDTO account) {
+        Account registered = registerNewAccount(account);
+        authenticate(registered);
+    }
+
     public Account registerNewAccount(AccountDTO accountDTO) throws ProfileAlreadyExistException {
         if (accountExists(accountDTO))
             throw new ProfileAlreadyExistException(accountDTO.getUsername());

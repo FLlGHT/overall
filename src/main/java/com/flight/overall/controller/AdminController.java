@@ -8,6 +8,7 @@ import com.flight.overall.entity.Account;
 import com.flight.overall.entity.Role;
 import com.flight.overall.service.AdminService;
 import com.flight.overall.service.CategoryService;
+import com.flight.overall.utils.ErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
@@ -31,13 +32,10 @@ public class AdminController {
     @GetMapping("/start")
     public String getAdminPage(@AuthenticationPrincipal Account account,
                                Model model) {
-        if (account.getRole().equals(Role.ADMIN)) {
-            return "admin";
-        }
-        else {
-            model.addAttribute("message", "You do not have rights to this page");
-            return "error";
-        }
+        if (account.getRole().equals(Role.ADMIN))
+            return "admin/admin";
+
+        return ErrorHandler.handleAccessViolation(model);
     }
 
     @GetMapping("/categories")
@@ -51,12 +49,10 @@ public class AdminController {
             model.addAttribute("groups", groups);
             model.addAttribute("newCategory", new CategoryDTO());
 
-            return "admin-categories";
+            return "admin/admin-categories";
         }
-        else {
-            model.addAttribute("message", "You do not have rights to this page");
-            return "error";
-        }
+
+        return ErrorHandler.handleAccessViolation(model);
     }
 
     @PostMapping("/categories/save")
