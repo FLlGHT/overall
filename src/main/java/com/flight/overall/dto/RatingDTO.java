@@ -2,9 +2,9 @@ package com.flight.overall.dto;
 
 public class RatingDTO {
     private long id;
-    private CategoryDTO category;
+    private CategoryDTO category = new CategoryDTO();
 
-    private GradeDTO grade;
+    private GradeDTO grade = new GradeDTO();
     private int rating;
 
 
@@ -16,6 +16,10 @@ public class RatingDTO {
     }
 
     public RatingDTO() {
+    }
+
+    public RatingDTO(CategoryDTO category) {
+        this.category = category;
     }
 
     public long getId() {

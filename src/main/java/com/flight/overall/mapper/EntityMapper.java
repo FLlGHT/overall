@@ -13,7 +13,8 @@ import java.util.*;
 @Component
 public class EntityMapper {
 
-    public ProfileDTO toProfileDTO(Profile profile, Account account, List<Rating> ratings, List<Grade> grades) {
+    public ProfileDTO toProfileDTO(Profile profile, Account account, List<Category> categories,
+                                   List<Rating> ratings, List<Grade> grades) {
         return new ProfileDTO(
                 profile.getId(),
                 profile.getFirstName(),
@@ -24,7 +25,7 @@ public class EntityMapper {
                 profile.getPlaceOfResidence(),
                 profile.getDescription(),
                 toProfileImage(profile),
-                toRatingsDTO(ratings, grades),
+                toRatingsDTO(categories, ratings, grades),
                 toShowedContacts(profile.getContacts()),
                 canAddToContacts(profile, account)
         );
@@ -72,25 +73,37 @@ public class EntityMapper {
         );
     }
 
-    public List<RatingDTO> toRatingsDTO(List<Rating> ratings, List<Grade> grades) {
+    public List<RatingDTO> toRatingsDTO(List<Category> categories, List<Rating> ratings, List<Grade> grades) {
+        Map<Long, Rating> categoryToRating = new HashMap<>();
+        for (Rating rating : ratings)
+            categoryToRating.put(rating.getCategory().getId(), rating);
+
         Map<Long, Grade> ratingToGrade = new HashMap<>();
         for (Grade grade : grades)
             ratingToGrade.put(grade.getRating().getId(), grade);
 
         List<RatingDTO> ratingDTOS = new ArrayList<>();
-        for (Rating rating : ratings) {
-            Grade grade = ratingToGrade.get(rating.getId());
-            RatingDTO ratingDTO = new RatingDTO(
-                    rating.getId(),
-                    toCategoryDTO(rating.getCategory()),
-                    rating.getRating(),
-                    toGradeDTO(grade)
-            );
 
-            ratingDTOS.add(ratingDTO);
+        for (Category category : categories) {
+            Rating rating = categoryToRating.get(category.getId());
+            Grade grade = rating == null ? null : ratingToGrade.get(rating.getId());
+
+            ratingDTOS.add(toRatingDTO(category, rating, grade));
         }
 
         return ratingDTOS;
+    }
+
+    private RatingDTO toRatingDTO(Category category, Rating rating, Grade grade) {
+        if (rating == null)
+            return new RatingDTO(toCategoryDTO(category));
+
+        return new RatingDTO(
+                rating.getId(),
+                toCategoryDTO(category),
+                rating.getRating(),
+                toGradeDTO(grade)
+        );
     }
 
     public CategoryDTO toCategoryDTO(Category category) {
@@ -150,11 +163,11 @@ public class EntityMapper {
         AccountDTO accountDTO = toAccountDTO(account);
 
         return settings == null ? new SettingsDTO(accountDTO, profileDTO) :
-               new SettingsDTO(settings.getId(),
-                               accountDTO, profileDTO,
-                               settings.isProfileClosed(),
-                               settings.isGradesClosed()
-               );
+                new SettingsDTO(settings.getId(),
+                        accountDTO, profileDTO,
+                        settings.isProfileClosed(),
+                        settings.isGradesClosed()
+                );
     }
 
     private String toProfileImage(Profile profile) {

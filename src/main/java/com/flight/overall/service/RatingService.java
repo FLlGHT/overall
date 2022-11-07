@@ -33,17 +33,23 @@ public class RatingService {
         return ratingRepository.getProfileRatings(id);
     }
 
-    public void updateRatings(Account account, List<Rating> ratings, List<RatingDTO> ratingDTOs) {
-        Map<Long, GradeDTO> ratingToGrade = new HashMap<>();
-        for (RatingDTO rating : ratingDTOs)
-            ratingToGrade.put(rating.getId(), rating.getGrade());
+    public void updateRatings(Account account, Profile profile, List<Rating> ratings, List<RatingDTO> ratingDTOs) {
+        Map<Long, Rating> idToRating = new HashMap<>();
+        for (Rating rating : ratings)
+            idToRating.put(rating.getId(), rating);
 
-        for (Rating rating : ratings) {
-            GradeDTO grade = ratingToGrade.get(rating.getId());
+        for (RatingDTO ratingDTO : ratingDTOs) {
+            Rating rating = idToRating.getOrDefault(ratingDTO.getId(), createRating(ratingDTO, profile));
+            GradeDTO grade = ratingDTO.getGrade();
 
             updateRating(rating, grade);
             gradeService.saveGrade(account, rating, grade);
         }
+    }
+
+    private Rating createRating(RatingDTO ratingDTO, Profile profile) {
+        Category category = categoryService.findCategory(ratingDTO.getCategory());
+        return new Rating(category, profile);
     }
 
     public void updateRating(Rating rating, GradeDTO grade) {
