@@ -1,10 +1,7 @@
 package com.flight.overall.service;
 
 import com.flight.overall.dto.ProfileDTO;
-import com.flight.overall.entity.Account;
-import com.flight.overall.entity.Grade;
-import com.flight.overall.entity.Profile;
-import com.flight.overall.entity.Rating;
+import com.flight.overall.entity.*;
 import com.flight.overall.mapper.EntityMapper;
 import com.flight.overall.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -21,13 +18,15 @@ import java.util.Optional;
 @Service
 public class ProfileService {
 
-    @Autowired
-    private ProfileRepository profileRepository;
-    @Autowired
-    private RatingService ratingService;
 
     @Autowired
+    private RatingService ratingService;
+    @Autowired
+    private CategoryService categoryService;
+    @Autowired
     private GradeService gradeService;
+    @Autowired
+    private ProfileRepository profileRepository;
     @Autowired
     private EntityMapper entityMapper;
 
@@ -37,10 +36,11 @@ public class ProfileService {
     }
 
     public ProfileDTO getProfileInfo(Profile profile, Account account) {
+        List<Category> categories = categoryService.findAllCategories();
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
-        List<Grade> grades = gradeService.getAccountGrades(account);
+        List<Grade> grades = gradeService.getAccountGrades(account, profile);
 
-        return entityMapper.toProfileDTO(profile, account, ratings, grades);
+        return entityMapper.toProfileDTO(profile, account, categories, ratings, grades);
     }
 
     public ProfileDTO getProfileContacts(Profile profile, Account account) {
@@ -52,7 +52,7 @@ public class ProfileService {
         Profile profile = profileRepository.findProfile(profileDTO.getId());
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
 
-        ratingService.updateRatings(account, ratings, profileDTO.getRatings());
+        ratingService.updateRatings(account, profile, ratings, profileDTO.getRatings());
         ratingService.updateOverall(profile);
 
         return profileRepository.save(profile);

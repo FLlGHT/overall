@@ -3,6 +3,7 @@ package com.flight.overall.repository;
 import com.flight.overall.entity.Category;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.data.repository.query.Param;
 
 import java.util.List;
 
@@ -11,4 +12,9 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
             " FROM Category c " +
             "ORDER BY c.id")
     List<Category> findCategories();
+
+    @Query("SELECT c " +
+            " FROM Category c " +
+            "WHERE c.id =:id")
+    Category findCategory(@Param("id") long id);
 }

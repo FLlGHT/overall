@@ -4,6 +4,7 @@ package com.flight.overall.service;
 import com.flight.overall.dto.GradeDTO;
 import com.flight.overall.entity.Account;
 import com.flight.overall.entity.Grade;
+import com.flight.overall.entity.Profile;
 import com.flight.overall.entity.Rating;
 import com.flight.overall.repository.GradeRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,11 +18,11 @@ public class GradeService {
     @Autowired
     private GradeRepository gradeRepository;
 
-    public List<Grade> getAccountGrades(Account account) {
+    public List<Grade> getAccountGrades(Account account, Profile profile) {
         if (account == null)
             return Collections.emptyList();
 
-        return gradeRepository.findAllAccountGrades(account.getId());
+        return gradeRepository.findAllAccountGrades(account.getId(), profile.getId());
     }
 
     public void saveGrade(Account account, Rating rating, GradeDTO gradeDTO) {

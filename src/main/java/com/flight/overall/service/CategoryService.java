@@ -71,4 +71,8 @@ public class CategoryService {
         category.setDescription(categoryDTO.getDescription());
         categoryGroup.ifPresent(category::setCategoryGroup);
     }
+
+    public Category findCategory(CategoryDTO categoryDTO) {
+        return categoryRepository.findCategory(categoryDTO.getId());
+    }
 }
