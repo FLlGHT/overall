@@ -1,6 +1,9 @@
 package com.flight.overall.entity;
 
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 @Entity
@@ -17,6 +20,7 @@ public class Grade {
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "rating_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Rating rating;
 
     private Integer value;

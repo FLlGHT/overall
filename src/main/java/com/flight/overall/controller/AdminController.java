@@ -129,7 +129,7 @@ public class AdminController {
                                       Model model) {
 
         categoryService.deleteCategoryGroup(id);
-        model.addAttribute("message", "Category delete successfully");
+        model.addAttribute("message", "Category group delete successfully");
         return getCategoriesPage(account, model);
     }
 }

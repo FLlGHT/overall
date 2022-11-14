@@ -1,7 +1,6 @@
 package com.flight.overall.entity;
 
 import org.hibernate.annotations.Type;
-import org.hibernate.type.ImageType;
 
 import javax.persistence.*;
 

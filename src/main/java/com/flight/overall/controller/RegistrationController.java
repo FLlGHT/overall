@@ -1,7 +1,6 @@
 package com.flight.overall.controller;
 
 import com.flight.overall.dto.AccountDTO;
-import com.flight.overall.entity.Account;
 import com.flight.overall.exception.ProfileAlreadyExistException;
 import com.flight.overall.service.AccountService;
 import com.flight.overall.service.RatingService;

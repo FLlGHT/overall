@@ -2,8 +2,6 @@ package com.flight.overall.controller;
 
 import com.flight.overall.dto.SettingsDTO;
 import com.flight.overall.entity.Account;
-import com.flight.overall.entity.Settings;
-import com.flight.overall.mapper.EntityMapper;
 import com.flight.overall.service.SettingsService;
 import com.flight.overall.utils.ErrorHandler;
 import org.springframework.beans.factory.annotation.Autowired;

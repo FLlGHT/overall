@@ -64,6 +64,7 @@ public class CategoryService {
     }
 
     public void deleteCategoryGroup(Long id) {
+        categoryRepository.deleteCategoryGroup(id);
         categoryGroupRepository.deleteById(id);
     }
 

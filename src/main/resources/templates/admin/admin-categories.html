@@ -95,6 +95,7 @@
 
                                 <div class="input-group mt-2">
                                     <select class="form-select" id="newCategoryGroup" th:field="*{categoryGroup}">
+                                        <option th:value="${emptyGroup}"></option>
                                         <option th:each="group : ${groups}" th:value="${{group}}"
                                                 th:text="${group.title}"></option>
                                     </select>
