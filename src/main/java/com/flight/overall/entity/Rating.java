@@ -1,5 +1,8 @@
 package com.flight.overall.entity;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
+
 import javax.persistence.*;
 
 /**
@@ -16,6 +19,7 @@ public class Rating {
 
     @OneToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "category_id")
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
     @OneToOne(fetch = FetchType.EAGER)

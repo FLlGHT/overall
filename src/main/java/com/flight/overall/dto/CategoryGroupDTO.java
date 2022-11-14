@@ -3,9 +3,7 @@ package com.flight.overall.dto;
 public class CategoryGroupDTO {
 
     private long id;
-
     private String title;
-
     private String description;
 
     public CategoryGroupDTO(long id, String title, String description) {

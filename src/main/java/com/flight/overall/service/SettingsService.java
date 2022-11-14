@@ -53,7 +53,6 @@ public class SettingsService {
         settings.setGradesClosed(settingsDTO.isClosedGrades());
 
         settingsRepository.save(settings);
-
         saveSettings(account, settings, settingsDTO);
     }
 

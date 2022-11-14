@@ -4,11 +4,8 @@ public class CategoryDTO {
 
     private long id;
     private String title;
-
     private CategoryGroupDTO categoryGroup = new CategoryGroupDTO();
-
     private String description;
-
     private Double weight;
 
     public CategoryDTO(long id, String title) {
