@@ -3,6 +3,7 @@ package com.flight.overall.service;
 import com.flight.overall.dto.CategoriesDTO;
 import com.flight.overall.dto.CategoryDTO;
 import com.flight.overall.dto.CategoryGroupDTO;
+import com.flight.overall.dto.CategoryGroupsDTO;
 import com.flight.overall.entity.Category;
 import com.flight.overall.entity.CategoryGroup;
 import com.flight.overall.mapper.EntityMapper;
@@ -52,6 +53,20 @@ public class CategoryService {
         categoryRepository.save(category);
     }
 
+    public void createCategoryGroup(CategoryGroupDTO categoryGroupDTO) {
+        CategoryGroup categoryGroup = new CategoryGroup();
+        updateCategoryGroup(categoryGroup, categoryGroupDTO);
+        categoryGroupRepository.save(categoryGroup);
+    }
+
+    public void deleteCategory(Long id) {
+        categoryRepository.deleteById(id);
+    }
+
+    public void deleteCategoryGroup(Long id) {
+        categoryGroupRepository.deleteById(id);
+    }
+
     public void saveCategories(CategoriesDTO categoriesDTO) {
         Map<Long, CategoryDTO> categoryById = new HashMap<>();
         for (CategoryDTO category : categoriesDTO.getCategories())
@@ -64,12 +79,29 @@ public class CategoryService {
         categoryRepository.saveAll(categories);
     }
 
+    public void saveCategoryGroups(CategoryGroupsDTO categoryGroupsDTO) {
+        Map<Long, CategoryGroupDTO> categoryGroupById = new HashMap<>();
+        for (CategoryGroupDTO categoryGroup : categoryGroupsDTO.getCategoryGroups())
+            categoryGroupById.put(categoryGroup.getId(), categoryGroup);
+
+        List<CategoryGroup> categoryGroups = categoryGroupRepository.findCategoryGroups();
+        for (CategoryGroup categoryGroup : categoryGroups)
+            updateCategoryGroup(categoryGroup, categoryGroupById.get(categoryGroup.getId()));
+
+        categoryGroupRepository.saveAll(categoryGroups);
+    }
+
     private void updateCategory(Category category, CategoryDTO categoryDTO) {
         Optional<CategoryGroup> categoryGroup = categoryGroupRepository.findById(categoryDTO.getCategoryGroup().getId());
         category.setTitle(categoryDTO.getTitle());
         category.setWeight(categoryDTO.getWeight());
         category.setDescription(categoryDTO.getDescription());
-        categoryGroup.ifPresent(category::setCategoryGroup);
+        categoryGroup.ifPresentOrElse(category::setCategoryGroup, () -> category.setCategoryGroup(null));
+    }
+
+    private void updateCategoryGroup(CategoryGroup categoryGroup, CategoryGroupDTO categoryGroupDTO) {
+        categoryGroup.setTitle(categoryGroupDTO.getTitle());
+        categoryGroup.setDescription(categoryGroupDTO.getDescription());
     }
 
     public Category findCategory(CategoryDTO categoryDTO) {
