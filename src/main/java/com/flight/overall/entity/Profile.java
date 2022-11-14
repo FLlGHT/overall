@@ -150,8 +150,7 @@ public class Profile {
                 overallRating, profile.overallRating) && Objects.equals(
                 description, profile.description) && Objects.equals(
                 placeOfResidence, profile.placeOfResidence) && Objects.equals(
-                email, profile.email) && Objects.equals(
-                profileImage, profile.profileImage);
+                email, profile.email);
     }
 
     @Override

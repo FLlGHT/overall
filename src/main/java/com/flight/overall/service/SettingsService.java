@@ -54,30 +54,29 @@ public class SettingsService {
 
         settingsRepository.save(settings);
 
-        saveSettings(account, settings, settingsDTO.getAccount());
-        saveSettings(account.getProfile(), settingsDTO.getProfile());
+        saveSettings(account, settings, settingsDTO);
     }
 
-    private void saveSettings(Profile profile, ProfileDTO profileDTO) {
+    private void saveSettings(Account account, Settings settings, SettingsDTO settingsDTO) {
+        ProfileDTO profileDTO = settingsDTO.getProfile();
+        AccountDTO accountDTO = settingsDTO.getAccount();
+        Profile profile = account.getProfile();
+
         Optional<Image> newImage = imageService.uploadImage(profileDTO.getImage());
 
         profile.setFirstName(profileDTO.getFirstName());
         profile.setSecondName(profileDTO.getSecondName());
-        profile.setUsername(profileDTO.getUsername());
+        profile.setUsername(accountDTO.getUsername());
         profile.setDateOfBirth(DateUtils.prettyStringToDate(profileDTO.getDateOfBirth()));
         profile.setDescription(profileDTO.getDescription());
         profile.setEmail(profileDTO.getEmail());
         profile.setPlaceOfResidence(profileDTO.getPlaceOfResidence());
         newImage.ifPresent(profile::setProfileImage);
 
-        profileRepository.save(profile);
-    }
-
-    private void saveSettings(Account account, Settings settings, AccountDTO accountDTO) {
         account.setUsername(accountDTO.getUsername());
         account.setSettings(settings);
 
+        profileRepository.save(profile);
         accountRepository.save(account);
     }
-
 }
