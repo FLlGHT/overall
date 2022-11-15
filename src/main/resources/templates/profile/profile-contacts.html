@@ -10,12 +10,13 @@
 <div th:fragment="profile-contacts" class="container px-4 py-5" id="icon-grid">
     <div class="row border-bottom">
         <h2 class="col-md-auto pb-2">Contacts</h2>
-        <form class="col" th:if="${profile.canAddToContacts}" th:action="@{/add-contact}" th:object="${profile}" method="post">
-        <input hidden th:field="*{id}">
-        <input hidden th:field="*{username}">
-        <button class="btn btn-outline-secondary" type="submit">Add</button>
-    </form>
-    <h2 class="text-center pb-2 text-secondary border-bottom">Contacts</h2>
+        <form class="col" th:if="${profile.canAddToContacts}" th:action="@{/add-contact}" th:object="${profile}"
+              method="post">
+            <input hidden th:field="*{id}">
+            <input hidden th:field="*{username}">
+            <button class="btn btn-outline-secondary" type="submit">Add</button>
+        </form>
+    </div>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 py-5">
         <div th:each="contact : ${profile.getContacts()}">
