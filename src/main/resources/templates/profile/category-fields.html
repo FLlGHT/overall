@@ -8,11 +8,12 @@
 <body>
 
 <div hidden th:fragment="category-fields">
-    <input hidden th:name="|ratings[${itemStat.index}].id|" th:value="${rating.getId()}">
-    <input hidden th:name="|ratings[${itemStat.index}].category.id|" th:value="${rating.getCategory().getId()}">
-    <input hidden th:name="|ratings[${itemStat.index}].category.title|" th:value="${rating.getCategory().getTitle()}">
-    <input hidden th:name="|ratings[${itemStat.index}].rating|" th:value="${rating.getRating()}">
-    <input hidden th:name="|ratings[${itemStat.index}].grade.previousGrade|" th:value="${rating.getGrade().getPreviousGrade()}">
+
+    <input hidden th:name="|ratingGroups[${itemGroup.index}].ratings[${itemStat.index}].id|" th:value="${rating.getId()}">
+    <input hidden th:name="|ratingGroups[${itemGroup.index}].ratings[${itemStat.index}].category.id|" th:value="${rating.getCategory().getId()}">
+    <input hidden th:name="|ratingGroups[${itemGroup.index}].ratings[${itemStat.index}].category.title|" th:value="${rating.getCategory().getTitle()}">
+    <input hidden th:name="|ratingGroups[${itemGroup.index}].ratings[${itemStat.index}].rating|" th:value="${rating.getRating()}">
+    <input hidden th:name="|ratingGroups[${itemGroup.index}].ratings[${itemStat.index}].grade.previousGrade|" th:value="${rating.getGrade().getPreviousGrade()}">
 </div>
 </body>
 </html>

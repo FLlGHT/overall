@@ -29,8 +29,8 @@ public class CategoryService {
     @Autowired
     private EntityMapper mapper;
 
-    public List<Category> findAllCategories() {
-        return categoryRepository.findCategories();
+    public List<Category> findAllActiveCategories() {
+        return categoryRepository.findActiveCategories();
     }
 
     public List<CategoryGroup> findAllCategoryGroups() {
@@ -38,7 +38,7 @@ public class CategoryService {
     }
 
     public CategoriesDTO getCategories() {
-        List<Category> categories = findAllCategories();
+        List<Category> categories = findAllActiveCategories();
         return mapper.toCategories(categories);
     }
 

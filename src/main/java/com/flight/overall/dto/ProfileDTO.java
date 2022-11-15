@@ -2,6 +2,7 @@ package com.flight.overall.dto;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import java.util.ArrayList;
 import java.util.List;
 
 public class ProfileDTO {
@@ -15,7 +16,7 @@ public class ProfileDTO {
     private Integer overallRating;
     private String description;
     private String email;
-    private List<RatingDTO> ratings;
+    private List<RatingGroupDTO> ratingGroups = new ArrayList<>();
     private MultipartFile image;
     private String imageString;
     private List<ProfileDTO> contacts;
@@ -34,7 +35,7 @@ public class ProfileDTO {
     }
 
     public ProfileDTO(long id, String firstName, String secondName, String username, String dateOfBirth, Integer overallRating,
-                      String placeOfResidence, String description, String imageString, List<RatingDTO> ratings,
+                      String placeOfResidence, String description, String imageString, List<RatingGroupDTO> ratingGroups,
                       List<ProfileDTO> contacts, boolean canAddToContacts) {
         this.id = id;
         this.firstName = firstName;
@@ -45,7 +46,7 @@ public class ProfileDTO {
         this.placeOfResidence = placeOfResidence;
         this.description = description;
         this.imageString = imageString;
-        this.ratings = ratings;
+        this.ratingGroups = ratingGroups;
         this.contacts = contacts;
         this.canAddToContacts = canAddToContacts;
     }
@@ -102,14 +103,13 @@ public class ProfileDTO {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public List<RatingDTO> getRatings() {
-        return ratings;
+    public List<RatingGroupDTO> getRatingGroups() {
+        return ratingGroups;
     }
 
-    public void setRatings(List<RatingDTO> ratings) {
-        this.ratings = ratings;
+    public void setRatingGroups(List<RatingGroupDTO> ratingGroups) {
+        this.ratingGroups = ratingGroups;
     }
-
     public Integer getOverallRating() {
         return overallRating;
     }

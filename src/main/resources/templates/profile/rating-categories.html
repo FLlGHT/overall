@@ -7,24 +7,37 @@
 </head>
 <body>
 
-<div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3" th:fragment="rating-categories">
-  <div th:each="rating, itemStat : ${profile.getRatings()}">
-    <div class="col">
+<div th:fragment="rating-categories">
+    <div th:each="ratingGroup, itemGroup : ${profile.getRatingGroups()}">
 
-      <!-- Category card                                -->
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <div class="row">
-            <p class="col-sm-8" id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
-            <p class="col-sm-4 text-secondary" th:text="'average : ' + ${rating.getRating()}"></p>
-          </div>
 
-          <div th:replace="profile/category-slider :: category-slider"></div>
-
+        <div class="mt-5">
+            <h2 class="pb-2" th:text="${ratingGroup.getTitle()}"></h2>
         </div>
-      </div>
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+            <div th:each="rating, itemStat : ${ratingGroup.getRatings()}">
+                <div class="col">
+
+                    <!-- Category card                                -->
+                    <div class="card shadow-sm">
+                        <div class="card-body">
+                            <div class="row">
+                                <p class="col-sm-8" id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
+                                <p class="col-sm-4 text-secondary" th:text="'average : ' + ${rating.getRating()}"></p>
+                            </div>
+
+                            <div th:replace="profile/category-slider :: category-slider"></div>
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <input hidden th:name="|ratingGroups[${itemGroup.index}].id|" th:value="${ratingGroup.getId()}">
+        <input hidden th:name="|ratingGroups[${itemGroup.index}].title|" th:value="${ratingGroup.getTitle()}">
     </div>
-  </div>
 </div>
 </body>
 </html>

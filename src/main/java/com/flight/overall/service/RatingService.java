@@ -2,6 +2,7 @@ package com.flight.overall.service;
 
 import com.flight.overall.dto.GradeDTO;
 import com.flight.overall.dto.RatingDTO;
+import com.flight.overall.dto.RatingGroupDTO;
 import com.flight.overall.entity.*;
 import com.flight.overall.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,17 +34,19 @@ public class RatingService {
         return ratingRepository.getProfileRatings(id);
     }
 
-    public void updateRatings(Account account, Profile profile, List<Rating> ratings, List<RatingDTO> ratingDTOs) {
+    public void updateRatings(Account account, Profile profile, List<Rating> ratings, List<RatingGroupDTO> ratingGroups) {
         Map<Long, Rating> idToRating = new HashMap<>();
         for (Rating rating : ratings)
             idToRating.put(rating.getId(), rating);
 
-        for (RatingDTO ratingDTO : ratingDTOs) {
-            Rating rating = idToRating.getOrDefault(ratingDTO.getId(), createRating(ratingDTO, profile));
-            GradeDTO grade = ratingDTO.getGrade();
+        for (RatingGroupDTO ratingGroup : ratingGroups) {
+            for (RatingDTO ratingDTO : ratingGroup.getRatings()) {
+                Rating rating = idToRating.getOrDefault(ratingDTO.getId(), createRating(ratingDTO, profile));
+                GradeDTO grade = ratingDTO.getGrade();
 
-            updateRating(rating, grade);
-            gradeService.saveGrade(account, rating, grade);
+                updateRating(rating, grade);
+                gradeService.saveGrade(account, rating, grade);
+            }
         }
     }
 
@@ -83,7 +86,7 @@ public class RatingService {
 
     public void createRatings(Profile profile) {
         List<Rating> ratings = new ArrayList<>();
-        Iterable<Category> categories = categoryService.findAllCategories();
+        Iterable<Category> categories = categoryService.findAllActiveCategories();
 
         for (Category category : categories) {
             Rating rating = new Rating(category, profile);
