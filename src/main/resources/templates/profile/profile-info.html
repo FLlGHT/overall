@@ -10,7 +10,7 @@
 <div class="row" th:fragment="profile-info">
 
   <!--                Profile image-->
-  <div  class="col">
+  <div class="col">
 
     <svg th:if="${profile.getImageString() == null}" class="bd-placeholder-img rounded-circle" width="250" height="250"
          xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
@@ -25,12 +25,14 @@
   </div>
 
   <!--                Profile info-->
-  <div class="col-lg-7 p-3">
-    <h1 class="display-4 fw-bold lh-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h1>
-    <p class="lead fw-bold text-muted mt-3 display-6" th:text="'@' + ${profile.getUsername()}"></p>
-    <p class="lead" th:text="${profile.getDateOfBirth()}"></p>
-    <p class="lead" th:text="${profile.getPlaceOfResidence()}"></p>
-    <p class="lead" th:text="${profile.getDescription()}"></p>
+  <div class="col-lg-7">
+    <div class="row">
+      <h1 class="col-md-auto fw-bold lh-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h1>
+      <h1 class="col fw-bold lh-1 text-muted" th:text="'@' + ${profile.getUsername()}"></h1>
+    </div>
+    <h6 class="lead" th:text="${profile.getDateOfBirth()}"></h6>
+    <h6 class="lead" th:text="${profile.getPlaceOfResidence()}"></h6>
+    <h6 class="lead" th:text="${profile.getDescription()}"></h6>
   </div>
 
   <!--                Profile overall-->
