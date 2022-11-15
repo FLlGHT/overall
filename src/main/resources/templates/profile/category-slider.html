@@ -12,7 +12,7 @@
   <div th:replace="profile/category-fields :: category-fields"></div>
 
   <div sec:authorize="isAuthenticated()">
-    <input th:name="|ratings[${itemStat.index}].grade.currentGrade|"
+    <input th:name="|ratingGroups[${itemGroup.index}].ratings[${itemStat.index}].grade.currentGrade|"
            th:value="${rating.getGrade.getCurrentGrade()}"
            type="range" min="0" max="99"
            th:id="${rating.getCategory().getId()}" class="range-slider"

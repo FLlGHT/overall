@@ -9,9 +9,7 @@ public class CategoryGroup {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "category_group")
     @SequenceGenerator(name = "category_group", sequenceName = "s_category_group", allocationSize = 1)
     private long id;
-
     private String title;
-
     private String description;
 
     public long getId() {

@@ -25,7 +25,7 @@ public class EntityMapper {
                 profile.getPlaceOfResidence(),
                 profile.getDescription(),
                 toProfileImage(profile),
-                toRatingsDTO(categories, ratings, grades),
+                toRatingGroups(categories, ratings, grades),
                 toShowedContacts(profile.getContacts()),
                 canAddToContacts(profile, account)
         );
@@ -71,6 +71,23 @@ public class EntityMapper {
                 contact.getOverallRating(),
                 toProfileImage(contact)
         );
+    }
+
+    public List<RatingGroupDTO> toRatingGroups(List<Category> categories, List<Rating> ratings, List<Grade> grades) {
+        List<RatingDTO> ratingDTOS = toRatingsDTO(categories, ratings, grades);
+        Map<Long, RatingGroupDTO> ratingGroups = new HashMap<>();
+
+        for (Category category : categories) {
+            CategoryGroup group = category.getCategoryGroup();
+            ratingGroups.putIfAbsent(group.getId(), new RatingGroupDTO(group.getId(), group.getTitle(), group.getDescription()));
+        }
+
+        for (RatingDTO rating : ratingDTOS) {
+            long groupId = rating.getCategory().getCategoryGroup().getId();
+            ratingGroups.get(groupId).getRatings().add(rating);
+        }
+
+        return new ArrayList<>(ratingGroups.values());
     }
 
     public List<RatingDTO> toRatingsDTO(List<Category> categories, List<Rating> ratings, List<Grade> grades) {

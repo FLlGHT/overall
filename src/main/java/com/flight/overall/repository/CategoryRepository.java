@@ -12,8 +12,9 @@ import java.util.List;
 public interface CategoryRepository extends CrudRepository<Category, Long> {
     @Query("SELECT c " +
             " FROM Category c " +
+            "WHERE c.categoryGroup IS NOT NULL " +
             "ORDER BY c.id")
-    List<Category> findCategories();
+    List<Category> findActiveCategories();
 
     @Query("SELECT c " +
             " FROM Category c " +

@@ -36,7 +36,7 @@ public class ProfileService {
     }
 
     public ProfileDTO getProfileInfo(Profile profile, Account account) {
-        List<Category> categories = categoryService.findAllCategories();
+        List<Category> categories = categoryService.findAllActiveCategories();
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
         List<Grade> grades = gradeService.getAccountGrades(account, profile);
 
@@ -52,7 +52,7 @@ public class ProfileService {
         Profile profile = profileRepository.findProfile(profileDTO.getId());
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
 
-        ratingService.updateRatings(account, profile, ratings, profileDTO.getRatings());
+        ratingService.updateRatings(account, profile, ratings, profileDTO.getRatingGroups());
         ratingService.updateOverall(profile);
 
         return profileRepository.save(profile);

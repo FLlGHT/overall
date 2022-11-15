@@ -13,7 +13,7 @@
         <input hidden th:field="*{username}">
         <button class="ms-5 mb-2 mt-0 btn btn-outline-secondary" type="submit">Add to contacts</button>
     </form>
-    <h2 class="text-center pb-2 border-bottom">Contacts</h2>
+    <h2 class="text-center pb-2 text-secondary border-bottom">Contacts</h2>
 
     <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 py-5">
         <div th:each="contact : ${profile.getContacts()}">
