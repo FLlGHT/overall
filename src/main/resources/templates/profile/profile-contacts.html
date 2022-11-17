@@ -7,18 +7,18 @@
 </head>
 <body>
 
-<div th:fragment="profile-contacts" class="container px-4 py-5" id="icon-grid">
+<div th:fragment="profile-contacts" class="container px-4 pt-4" id="icon-grid">
     <div class="row border-bottom">
-        <h2 class="col-md-auto pb-2">Contacts</h2>
+        <a class="h4 col-md-auto text-decoration-none text-muted" th:href="@{'/' + ${profile.getUsername()} + '/contacts'}" th:text="${profile.getContacts().size()} + ' contacts'">Contacts</a>
         <form class="col" th:if="${profile.canAddToContacts}" th:action="@{/add-contact}" th:object="${profile}"
               method="post">
             <input hidden th:field="*{id}">
             <input hidden th:field="*{username}">
-            <button class="btn btn-outline-secondary" type="submit">Add</button>
+            <button class="btn btn-outline-secondary btn-sm" type="submit">Add</button>
         </form>
     </div>
 
-    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 py-5">
+    <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 py-3">
         <div th:each="contact : ${profile.getContacts()}">
             <div class="col d-flex align-items-start">
                 <svg th:if="${contact.getImageString() == null}" class="bd-placeholder-img rounded-circle me-3"
@@ -45,10 +45,6 @@
                 </div>
             </div>
         </div>
-    </div>
-
-    <div class="text-center">
-        <a class="btn btn-outline-secondary" th:href="@{'/' + ${profile.getUsername()} + '/contacts'}">Show all</a>
     </div>
 
 </div>

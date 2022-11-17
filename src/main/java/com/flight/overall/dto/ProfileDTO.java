@@ -1,8 +1,10 @@
 package com.flight.overall.dto;
 
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 public class ProfileDTO {
@@ -11,7 +13,8 @@ public class ProfileDTO {
     private String firstName;
     private String secondName;
     private String username;
-    private String dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
     private String placeOfResidence;
     private Integer overallRating;
     private String description;
@@ -21,6 +24,7 @@ public class ProfileDTO {
     private String imageString;
     private List<ProfileDTO> contacts;
     private boolean canAddToContacts;
+    private List<ExternalLinkDTO> externalLinks = new ArrayList<>(2);
 
     public ProfileDTO() {
     }
@@ -34,9 +38,9 @@ public class ProfileDTO {
         this.imageString = imageString;
     }
 
-    public ProfileDTO(long id, String firstName, String secondName, String username, String dateOfBirth, Integer overallRating,
+    public ProfileDTO(long id, String firstName, String secondName, String username, Date dateOfBirth, Integer overallRating,
                       String placeOfResidence, String description, String imageString, List<RatingGroupDTO> ratingGroups,
-                      List<ProfileDTO> contacts, boolean canAddToContacts) {
+                      List<ProfileDTO> contacts, boolean canAddToContacts, List<ExternalLinkDTO> externalLinks) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -49,9 +53,10 @@ public class ProfileDTO {
         this.ratingGroups = ratingGroups;
         this.contacts = contacts;
         this.canAddToContacts = canAddToContacts;
+        this.externalLinks = externalLinks;
     }
 
-    public ProfileDTO(long id, String firstName, String secondName, String username, String dateOfBirth,
+    public ProfileDTO(long id, String firstName, String secondName, String username, Date dateOfBirth,
                       String description, String email, String placeOfResidence) {
         this.id = id;
         this.firstName = firstName;
@@ -95,12 +100,16 @@ public class ProfileDTO {
         this.username = username;
     }
 
-    public String getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(String dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
+    }
+
+    public boolean isCanAddToContacts() {
+        return canAddToContacts;
     }
 
     public List<RatingGroupDTO> getRatingGroups() {
@@ -172,5 +181,13 @@ public class ProfileDTO {
 
     public void setCanAddToContacts(boolean canAddToContacts) {
         this.canAddToContacts = canAddToContacts;
+    }
+
+    public List<ExternalLinkDTO> getExternalLinks() {
+        return externalLinks;
+    }
+
+    public void setExternalLinks(List<ExternalLinkDTO> externalLinks) {
+        this.externalLinks = externalLinks;
     }
 }

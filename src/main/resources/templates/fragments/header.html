@@ -38,7 +38,7 @@
 </div>
 
 <div class="container" th:fragment="plain-header">
-    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
+    <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
         <a href="/" class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none">Overall</a>
 
         <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
@@ -51,7 +51,7 @@
         <div class="col-md-3 text-end">
             <div sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" method="post">
-                    <a th:href="@{'/' + ${#authentication.name}}" class="align-bottom h2 text-decoration-none text-muted" sec:authentication="name"></a>
+                    <button th:href="@{'/' + ${#authentication.name}}" class="btn btn-light text-decoration-none text-muted" sec:authentication="name"></button>
                     <button class="btn btn-light ms-2" type="submit">Sign out</button>
                 </form>
             </div>

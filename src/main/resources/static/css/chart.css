@@ -14,13 +14,13 @@
     stroke-miterlimit: 1.5;
     fill: none;
     stroke: royalblue;
-    stroke-width: 5px;
+    stroke-width: 20px;
 }
 
 .pie-trail {
     fill: none;
     stroke: lightgrey;
-    stroke-width: 5px;
+    stroke-width: 20px;
 }
 
 .counter {

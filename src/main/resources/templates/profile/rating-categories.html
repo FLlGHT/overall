@@ -12,7 +12,10 @@
 
 
         <div class="mt-5">
-            <h2 class="pb-2" th:text="${ratingGroup.getTitle()}"></h2>
+            <div class="row">
+                <h4 class="col-md-auto pb-2" th:text="${ratingGroup.getTitle()}"></h4>
+                <h4 class="col text-muted" th:text="${ratingGroup.getGroupRating} == 0 ? '' : 'average: ' + ${ratingGroup.getGroupRating}"></h4>
+            </div>
         </div>
         <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
 

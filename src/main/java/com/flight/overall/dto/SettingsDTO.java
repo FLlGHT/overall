@@ -4,7 +4,7 @@ public class SettingsDTO {
 
     private long id;
     private AccountDTO account;
-    private ProfileDTO profile;
+    private ProfileDTO profile = new ProfileDTO();
     private boolean closedProfile;
     private boolean closedGrades;
 

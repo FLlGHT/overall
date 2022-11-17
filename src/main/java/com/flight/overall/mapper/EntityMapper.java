@@ -20,14 +20,15 @@ public class EntityMapper {
                 profile.getFirstName(),
                 profile.getSecondName(),
                 profile.getUsername(),
-                DateUtils.dateToPrettyString(profile.getDateOfBirth()),
+                profile.getDateOfBirth(),
                 profile.getOverallRating(),
                 profile.getPlaceOfResidence(),
                 profile.getDescription(),
                 toProfileImage(profile),
                 toRatingGroups(categories, ratings, grades),
                 toShowedContacts(profile.getContacts()),
-                canAddToContacts(profile, account)
+                canAddToContacts(profile, account),
+                toExternalLinks(profile.getLinks())
         );
     }
 
@@ -37,7 +38,7 @@ public class EntityMapper {
                 profile.getFirstName(),
                 profile.getSecondName(),
                 profile.getUsername(),
-                DateUtils.dateToPrettyString(profile.getDateOfBirth()),
+                profile.getDateOfBirth(),
                 profile.getDescription(),
                 profile.getEmail(),
                 profile.getPlaceOfResidence()
@@ -47,7 +48,7 @@ public class EntityMapper {
     private List<ProfileDTO> toShowedContacts(List<Profile> contacts) {
         List<ProfileDTO> contactsDTO = new ArrayList<>();
         contacts.stream().sorted(Comparator.comparing(Profile::getOverallRating).reversed())
-                .limit(10)
+                .limit(5)
                 .forEach(contact -> contactsDTO.add(toContactDTO(contact)));
 
         return contactsDTO;
@@ -87,7 +88,23 @@ public class EntityMapper {
             ratingGroups.get(groupId).getRatings().add(rating);
         }
 
+        fillGroupsRating(ratingGroups);
+
         return new ArrayList<>(ratingGroups.values());
+    }
+
+    private void fillGroupsRating(Map<Long, RatingGroupDTO> ratingGroups) {
+        for (RatingGroupDTO ratingGroup : ratingGroups.values()) {
+            int sum = 0, count = 0;
+            for (RatingDTO rating : ratingGroup.getRatings()) {
+                if (rating.getRating() > 0) {
+                    sum += rating.getRating();
+                    count++;
+                }
+            }
+            if (count > 0)
+                ratingGroup.setGroupRating(sum / count);
+        }
     }
 
     public List<RatingDTO> toRatingsDTO(List<Category> categories, List<Rating> ratings, List<Grade> grades) {
@@ -198,5 +215,19 @@ public class EntityMapper {
         boolean alreadyInContacts = account != null && profile.getContacts().contains(account.getProfile());
 
         return !unauthorized && !ownProfile && !alreadyInContacts;
+    }
+
+    public List<ExternalLinkDTO> toExternalLinks(List<ExternalLink> externalLinks) {
+        List<ExternalLinkDTO> links = new ArrayList<>();
+        externalLinks.forEach(externalLink -> links.add(toExternalLink(externalLink)));
+        return links;
+    }
+
+    public ExternalLinkDTO toExternalLink(ExternalLink externalLink) {
+        return new ExternalLinkDTO(
+                externalLink.getId(),
+                externalLink.getTitle(),
+                externalLink.getLink()
+        );
     }
 }

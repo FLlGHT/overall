@@ -66,7 +66,7 @@ public class SettingsService {
         profile.setFirstName(profileDTO.getFirstName());
         profile.setSecondName(profileDTO.getSecondName());
         profile.setUsername(accountDTO.getUsername());
-        profile.setDateOfBirth(DateUtils.prettyStringToDate(profileDTO.getDateOfBirth()));
+        profile.setDateOfBirth(profileDTO.getDateOfBirth());
         profile.setDescription(profileDTO.getDescription());
         profile.setEmail(profileDTO.getEmail());
         profile.setPlaceOfResidence(profileDTO.getPlaceOfResidence());

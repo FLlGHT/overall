@@ -37,7 +37,8 @@
                                 <small class="text-muted">Only friends can view profile</small>
                             </div>
                             <label hidden for="isClosedProfile"></label>
-                            <input id="isClosedProfile" type="checkbox" name="closedProfile" th:checked="*{closedProfile}">
+                            <input id="isClosedProfile" type="checkbox" name="closedProfile"
+                                   th:checked="*{closedProfile}">
                         </li>
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
@@ -58,7 +59,8 @@
                         <div class="col-12">
                             <label for="image-upload" class="form-label">Profile image</label>
                             <input type="file" th:field="*{profile.image}"
-                                   class="form-control" id="image-upload" placeholder="choose a new profile picture" value="">
+                                   class="form-control" id="image-upload" placeholder="choose a new profile picture"
+                                   value="">
                         </div>
 
                         <div class="col-6">
@@ -121,8 +123,9 @@
                         <div class="col-12">
                             <label for="description" class="form-label">Description
                                 <span class="text-muted">(Optional)</span></label>
-                            <input th:field="*{profile.description}"
-                                   type="text" class="form-control" id="description" placeholder="...">
+                            <textarea th:field="*{profile.description}"
+                                      type="text" class="form-control" id="description" rows="3" placeholder="...">
+                            </textarea>
                             <div class="invalid-feedback">
                                 Please enter your shipping address.
                             </div>
