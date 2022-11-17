@@ -1,7 +1,10 @@
 package com.flight.overall.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import org.springframework.format.annotation.DateTimeFormat;
+
 import javax.persistence.*;
-import java.time.LocalDate;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -19,8 +22,10 @@ public class Profile {
     private String username;
     private String firstName;
     private String secondName;
-    private LocalDate dateOfBirth;
+    @DateTimeFormat(pattern = "yyyy-MM-dd")
+    private Date dateOfBirth;
     private Integer overallRating;
+    @Column(length = 450)
     private String description;
     private String placeOfResidence;
     private String email;
@@ -28,13 +33,17 @@ public class Profile {
     @JoinColumn(name = "profile_image_id")
     private Image profileImage;
 
+    @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
+    @JsonIgnoreProperties(value = "profile", allowSetters = true)
+    private List<ExternalLink> links;
+
     @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "contact",
             joinColumns = @JoinColumn(name = "profile_1"),
             inverseJoinColumns = @JoinColumn(name = "profile_2"))
     private List<Profile> contacts;
 
-    public Profile(long id, String username, String firstName, String secondName, LocalDate dateOfBirth,
+    public Profile(long id, String username, String firstName, String secondName, Date dateOfBirth,
                    Integer overallRating, String description) {
         this.id = id;
         this.username = username;
@@ -80,11 +89,11 @@ public class Profile {
         this.secondName = secondName;
     }
 
-    public LocalDate getDateOfBirth() {
+    public Date getDateOfBirth() {
         return dateOfBirth;
     }
 
-    public void setDateOfBirth(LocalDate dateOfBirth) {
+    public void setDateOfBirth(Date dateOfBirth) {
         this.dateOfBirth = dateOfBirth;
     }
 
@@ -134,6 +143,14 @@ public class Profile {
 
     public void setContacts(List<Profile> contacts) {
         this.contacts = contacts;
+    }
+
+    public List<ExternalLink> getLinks() {
+        return links;
+    }
+
+    public void setLinks(List<ExternalLink> links) {
+        this.links = links;
     }
 
     @Override

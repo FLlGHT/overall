@@ -27,12 +27,24 @@
   <!--                Profile info-->
   <div class="col-lg-7">
     <div class="row">
-      <h1 class="col-md-auto fw-bold lh-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h1>
-      <h1 class="col fw-bold lh-1 text-muted" th:text="'@' + ${profile.getUsername()}"></h1>
+      <h2 class="col-md-auto fw-bold lh-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h2>
+      <h2 class="col fw-bold lh-1 text-muted" th:text="'@' + ${profile.getUsername()}"></h2>
     </div>
-    <h6 class="lead" th:text="${profile.getDateOfBirth()}"></h6>
-    <h6 class="lead" th:text="${profile.getPlaceOfResidence()}"></h6>
-    <h6 class="lead" th:text="${profile.getDescription()}"></h6>
+    <div class="row mt-2">
+      <i class="col-md-auto bi bi-calendar2-heart"></i>
+      <h5 class="col-md-auto" th:text="${#dates.format(profile.getDateOfBirth(), 'dd-MM-yyyy')}"></h5>
+      <i class="ms-4 col-md-auto bi bi-house"></i>
+      <h5 class="col-md-auto" th:text="${profile.getPlaceOfResidence()}"></h5>
+    </div>
+    <div class="row">
+      <i class="col-md-auto bi bi-body-text"></i>
+      <h6 class="col lead" th:text="${profile.getDescription()}"></h6>
+    </div>
+    <div th:each="externalLink : ${profile.getExternalLinks()}" class="row">
+      <i class="col-md-auto bi bi-link"></i>
+      <a class="col-md-auto h6" th:text="${externalLink.link}"></a>
+    </div>
+
   </div>
 
   <!--                Profile overall-->

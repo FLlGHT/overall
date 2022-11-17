@@ -11,6 +11,8 @@ public class RatingGroupDTO {
 
     private String description;
 
+    private int groupRating;
+
     private List<RatingDTO> ratings = new ArrayList<>();
 
     public RatingGroupDTO() {
@@ -42,6 +44,14 @@ public class RatingGroupDTO {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getGroupRating() {
+        return groupRating;
+    }
+
+    public void setGroupRating(int groupRating) {
+        this.groupRating = groupRating;
     }
 
     public List<RatingDTO> getRatings() {
