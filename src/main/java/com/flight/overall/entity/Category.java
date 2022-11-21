@@ -19,6 +19,7 @@ public class Category {
     @JoinColumn(name = "category_group_id")
     private CategoryGroup categoryGroup;
 
+    @Column(length = 512)
     private String description;
 
     private Double weight;

@@ -76,6 +76,10 @@
     font: 16px Arial, sans-serif;
 }
 
+.profile-description {
+    white-space: pre-wrap;
+}
+
 
 
 

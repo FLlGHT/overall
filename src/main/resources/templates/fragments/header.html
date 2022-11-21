@@ -21,7 +21,7 @@
         <div class="col-md-3 text-end">
             <div sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" method="post">
-                    <a th:href="@{'/' + ${#authentication.name}}" class="align-bottom h2 text-decoration-none text-muted" sec:authentication="name"></a>
+                    <a th:href="@{'/' + ${#authentication.name}}" class="btn btn-light text-decoration-none text-muted" sec:authentication="name"></a>
                     <button class="btn btn-light ms-2" type="submit">Sign out</button>
                 </form>
             </div>
@@ -51,7 +51,7 @@
         <div class="col-md-3 text-end">
             <div sec:authorize="isAuthenticated()">
                 <form th:action="@{/logout}" method="post">
-                    <button th:href="@{'/' + ${#authentication.name}}" class="btn btn-light text-decoration-none text-muted" sec:authentication="name"></button>
+                    <a th:href="@{'/' + ${#authentication.name}}" class="btn btn-light text-decoration-none text-muted" sec:authentication="name"></a>
                     <button class="btn btn-light ms-2" type="submit">Sign out</button>
                 </form>
             </div>

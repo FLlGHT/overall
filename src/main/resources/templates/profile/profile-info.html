@@ -38,7 +38,7 @@
     </div>
     <div class="row">
       <i class="col-md-auto bi bi-body-text"></i>
-      <h6 class="col lead" th:text="${profile.getDescription()}"></h6>
+      <h6 class="col lead profile-description" th:text="${profile.getDescription()}"></h6>
     </div>
     <div th:each="externalLink : ${profile.getExternalLinks()}" class="row">
       <i class="col-md-auto bi bi-link"></i>
