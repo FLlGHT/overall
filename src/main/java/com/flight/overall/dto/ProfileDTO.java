@@ -25,6 +25,9 @@ public class ProfileDTO {
     private List<ProfileDTO> contacts;
     private boolean canAddToContacts;
     private List<ExternalLinkDTO> externalLinks = new ArrayList<>();
+    private CompanyDTO company;
+
+    private String role;
 
     public ProfileDTO() {
     }
@@ -40,7 +43,8 @@ public class ProfileDTO {
 
     public ProfileDTO(long id, String firstName, String secondName, String username, Date dateOfBirth, Integer overallRating,
                       String placeOfResidence, String description, String imageString, List<RatingGroupDTO> ratingGroups,
-                      List<ProfileDTO> contacts, boolean canAddToContacts, List<ExternalLinkDTO> externalLinks) {
+                      List<ProfileDTO> contacts, boolean canAddToContacts, List<ExternalLinkDTO> externalLinks, CompanyDTO company,
+                      String role) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -54,10 +58,13 @@ public class ProfileDTO {
         this.contacts = contacts;
         this.canAddToContacts = canAddToContacts;
         this.externalLinks = externalLinks;
+        this.company = company;
+        this.role = role;
     }
 
     public ProfileDTO(long id, String firstName, String secondName, String username, Date dateOfBirth,
-                      String description, String email, String placeOfResidence, List<ExternalLinkDTO> externalLinks) {
+                      String description, String email, String placeOfResidence, List<ExternalLinkDTO> externalLinks,
+                      CompanyDTO company, String role) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -67,6 +74,8 @@ public class ProfileDTO {
         this.email = email;
         this.placeOfResidence = placeOfResidence;
         this.externalLinks = externalLinks;
+        this.company = company;
+        this.role = role;
     }
 
     public long getId() {
@@ -190,5 +199,21 @@ public class ProfileDTO {
 
     public void setExternalLinks(List<ExternalLinkDTO> externalLinks) {
         this.externalLinks = externalLinks;
+    }
+
+    public CompanyDTO getCompany() {
+        return company;
+    }
+
+    public void setCompany(CompanyDTO company) {
+        this.company = company;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 }

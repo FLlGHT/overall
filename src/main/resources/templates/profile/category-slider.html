@@ -16,6 +16,7 @@
            th:value="${rating.getGrade.getCurrentGrade()}"
            type="range" min="0" max="99"
            th:id="${rating.getCategory().getId()}" class="range-slider"
+           th:style="'background: linear-gradient(to right, #6b8dff 0%, #ff2a5f ' + ${rating.getGrade.getPreviousGrade()} + '%, #fff ' + ${rating.getGrade.getPreviousGrade()} + '%, #fff 100%)'"
            oninput="changeRangeValue(this)">
 
     <label th:id="'output' + ${rating.getCategory().getId()}"
