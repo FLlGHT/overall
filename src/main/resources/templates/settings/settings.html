@@ -29,12 +29,19 @@
                     </h4>
 
                     <input hidden th:field="*{id}">
+                    <input hidden th:field="*{profile.externalLinks[0].id}">
+                    <input hidden th:field="*{profile.externalLinks[1].id}">
+                    <input hidden th:field="*{profile.externalLinks[2].id}">
+                    <input hidden th:field="*{profile.externalLinks[0].title}">
+                    <input hidden th:field="*{profile.externalLinks[1].title}">
+                    <input hidden th:field="*{profile.externalLinks[2].title}">
+                    <input hidden th:field="*{profile.company.id}">
 
                     <ul class="list-group mb-3">
                         <li class="list-group-item d-flex justify-content-between lh-sm">
                             <div>
                                 <h6 class="my-0">Closed profile</h6>
-                                <small class="text-muted">Only friends can view profile</small>
+                                <small class="text-muted">Only contacts can view profile</small>
                             </div>
                             <label hidden for="isClosedProfile"></label>
                             <input id="isClosedProfile" type="checkbox" name="closedProfile"
@@ -65,8 +72,12 @@
                                        type="text" class="form-control" id="link2"
                                        placeholder="www.example.com/profile">
                             </li>
-                            <input hidden th:field="*{profile.externalLinks[0].id}">
-                            <input hidden th:field="*{profile.externalLinks[1].id}">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <input th:field="*{profile.externalLinks[2].link}"
+                                       type="text" class="form-control" id="link3"
+                                       placeholder="www.example.com/profile">
+                            </li>
+
                         </ul>
                     </div>
 
@@ -107,7 +118,8 @@
                             <div class="input-group has-validation">
                                 <span class="input-group-text">@</span>
                                 <input type="text" th:field="*{account.username}"
-                                       class="form-control" id="username" placeholder="Username" required="">
+                                       class="form-control" id="username" placeholder="Username"
+                                       required="">
                                 <div class="invalid-feedback">
                                     Your username is required.
                                 </div>
@@ -115,7 +127,7 @@
                         </div>
 
                         <div class="col-12">
-                            <label for="email" class="form-label">Email <span
+                            <label for="email" class="form-label">Email<span
                                     class="text-muted">(Optional)</span></label>
                             <input th:field="*{profile.email}"
                                    type="email" class="form-control" id="email" placeholder="you@example.com">
@@ -138,11 +150,24 @@
                                    type="text" class="form-control" id="address" placeholder="Russia, Saint-P">
                         </div>
 
+                        <div class="col-6">
+                            <label for="company" class="form-label">Company</label>
+                            <input type="text" th:field="*{profile.company.name}"
+                                   class="form-control" id="company" placeholder="" value="">
+                        </div>
+
+                        <div class="col-6">
+                            <label for="role" class="form-label">Role</label>
+                            <input type="text" th:field="*{profile.role}"
+                                   class="form-control" id="role" placeholder="" value="">
+                        </div>
+
                         <div class="col-12">
                             <label for="description" class="form-label">Description
                                 <span class="text-muted">(Optional)</span></label>
                             <textarea th:field="*{profile.description}"
-                                      type="text" class="form-control" id="description" rows="3" placeholder="...">
+                                      type="text" class="form-control" id="description" rows="3" placeholder="..."
+                                      maxlength="255">
                             </textarea>
                         </div>
 

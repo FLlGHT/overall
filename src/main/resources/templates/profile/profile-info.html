@@ -26,23 +26,35 @@
 
   <!--                Profile info-->
   <div class="col-lg-7">
-    <div class="row">
-      <h2 class="col-md-auto fw-bold lh-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h2>
-      <h2 class="col fw-bold lh-1 text-muted" th:text="'@' + ${profile.getUsername()}"></h2>
+    <div class="row row-cols-auto">
+      <h2 class="col fw-bold lh-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h2>
+      <h2 class="col fw-bold lh-1 text-muted username" th:text="'@ ' + ${profile.getUsername()}"></h2>
     </div>
-    <div class="row mt-2">
-      <i class="col-md-auto bi bi-calendar2-heart"></i>
-      <h5 class="col-md-auto" th:text="${#dates.format(profile.getDateOfBirth(), 'dd-MM-yyyy')}"></h5>
-      <i class="ms-4 col-md-auto bi bi-house"></i>
-      <h5 class="col-md-auto" th:text="${profile.getPlaceOfResidence()}"></h5>
+
+    <div class="d-flex align-items-baseline pt-3">
+      <i th:if="${profile.getDateOfBirth() != null}" class="bi bi-calendar2-heart"></i>
+      <h6 th:if="${profile.getDateOfBirth() != null}" class="ps-2 pe-4" th:text="${#dates.format(profile.getDateOfBirth(), 'dd-MM-yyyy')}"></h6>
+      <i th:if="${profile.getPlaceOfResidence() != null}" class="bi bi-house"></i>
+      <h6 th:if="${profile.getPlaceOfResidence() != null}" class="ps-2" th:text="${profile.getPlaceOfResidence()}"></h6>
     </div>
-    <div class="row">
-      <i class="col-md-auto bi bi-body-text"></i>
-      <h6 class="col lead profile-description" th:text="${profile.getDescription()}"></h6>
+
+    <div th:if="${profile.getCompany().getName() != null || profile.getRole() != null}" class="d-flex align-items-baseline">
+      <i class="bi bi-people-fill pe-2"></i>
+      <h6 th:if="${profile.getCompany().getName() != null}" class="text-dark pe-2" th:text="${profile.getCompany().getName()}"></h6>
+      <h6 class="text-muted" th:text="${profile.getRole()}"></h6>
     </div>
-    <div th:each="externalLink : ${profile.getExternalLinks()}" class="row">
-      <i class="col-md-auto bi bi-link"></i>
-      <a class="col-md-auto h6" th:text="${externalLink.link}"></a>
+
+    <div class="row row-cols-auto pt-2">
+      <blockquote class="blockquote text-secondary">
+      <p class="col profile-description" th:text="${profile.getDescription()}"></p>
+      </blockquote>
+    </div>
+
+    <div class="row row-cols-md-auto pt-2">
+      <div th:each="externalLink : ${profile.getExternalLinks()}">
+        <i class="col-md-auto bi bi-link"></i>
+        <a class="col-md-auto link-dark" th:href="${externalLink.link}" th:text="${externalLink.title}"></a>
+      </div>
     </div>
 
   </div>

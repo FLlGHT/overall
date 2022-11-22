@@ -27,7 +27,9 @@ public class EntityMapper {
                 toRatingGroups(categories, ratings, grades),
                 toShowedContacts(profile.getContacts()),
                 canAddToContacts(profile, account),
-                toExternalLinks(profile.getLinks())
+                toExternalLinks(profile.getLinks()),
+                toCompanyDTO(profile.getCompany()),
+                profile.getRole()
         );
     }
 
@@ -41,7 +43,9 @@ public class EntityMapper {
                 profile.getDescription(),
                 profile.getEmail(),
                 profile.getPlaceOfResidence(),
-                toExternalLinks(profile.getLinks())
+                toExternalLinks(profile.getLinks()),
+                toCompanyDTO(profile.getCompany()),
+                profile.getRole()
         );
     }
 
@@ -228,6 +232,17 @@ public class EntityMapper {
                 externalLink.getId(),
                 externalLink.getTitle(),
                 externalLink.getLink()
+        );
+    }
+
+    public CompanyDTO toCompanyDTO(Company company) {
+        if (company == null)
+            return new CompanyDTO();
+
+        return new CompanyDTO(
+                company.getId(),
+                company.getName(),
+                company.getDescription()
         );
     }
 }

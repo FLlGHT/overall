@@ -1,18 +1,13 @@
 package com.flight.overall.service;
 
-import com.flight.overall.dto.AccountDTO;
-import com.flight.overall.dto.ExternalLinkDTO;
-import com.flight.overall.dto.ProfileDTO;
-import com.flight.overall.dto.SettingsDTO;
+import com.flight.overall.dto.*;
 import com.flight.overall.entity.*;
 import com.flight.overall.mapper.EntityMapper;
-import com.flight.overall.repository.AccountRepository;
-import com.flight.overall.repository.ExternalLinkRepository;
-import com.flight.overall.repository.ProfileRepository;
-import com.flight.overall.repository.SettingsRepository;
-import com.flight.overall.utils.DateUtils;
+import com.flight.overall.repository.*;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.util.UriComponents;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import java.util.List;
 import java.util.Optional;
@@ -27,19 +22,16 @@ public class SettingsService {
 
     @Autowired
     private SettingsRepository settingsRepository;
-
     @Autowired
     private AccountRepository accountRepository;
-
     @Autowired
     private ProfileRepository profileRepository;
-
     @Autowired
     private ExternalLinkRepository externalLinkRepository;
-
+    @Autowired
+    private CompanyRepository companyRepository;
     @Autowired
     private ImageService imageService;
-
     @Autowired
     private EntityMapper mapper;
 
@@ -74,7 +66,10 @@ public class SettingsService {
         profile.setEmail(profileDTO.getEmail());
         profile.setPlaceOfResidence(profileDTO.getPlaceOfResidence());
         newImage.ifPresent(profile::setProfileImage);
+
         saveExternalLinks(profileDTO.getExternalLinks(), profile);
+        saveCompany(profileDTO.getCompany(), profile);
+        profile.setRole(profileDTO.getRole());
 
         account.setUsername(accountDTO.getUsername());
         account.setSettings(settings);
@@ -92,9 +87,27 @@ public class SettingsService {
                 externalLinkRepository.delete(externalLink);
             else if (!linkIsEmpty) {
                 externalLink.setLink(externalLinkDTO.getLink());
+                externalLink.setTitle(toTitle(externalLinkDTO.getLink()));
                 externalLink.setProfile(profile);
                 externalLinkRepository.save(externalLink);
             }
         }
+    }
+
+    private String toTitle(String link) {
+        UriComponents uriComponents = UriComponentsBuilder.fromUriString(link).build();
+        String host = uriComponents.getHost();
+        return host == null ? null : (host.startsWith("www.") ? host.substring(4) : host);
+    }
+
+    private void saveCompany(CompanyDTO companyDTO, Profile profile) {
+        Company company = companyRepository.findById(companyDTO.getId()).orElse(new Company());
+
+        company.setName(companyDTO.getName());
+        company.setDescription(companyDTO.getDescription());
+
+        companyRepository.save(company);
+        profile.setCompany(company);
+
     }
 }

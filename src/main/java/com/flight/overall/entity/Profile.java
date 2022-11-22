@@ -25,10 +25,15 @@ public class Profile {
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
     private Integer overallRating;
-    @Column(length = 450)
+    @Column(length = 255)
     private String description;
     private String placeOfResidence;
     private String email;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "company_id")
+    private Company company;
+    private String role;
     @OneToOne
     @JoinColumn(name = "profile_image_id")
     private Image profileImage;
@@ -151,6 +156,22 @@ public class Profile {
 
     public void setLinks(List<ExternalLink> links) {
         this.links = links;
+    }
+
+    public Company getCompany() {
+        return company;
+    }
+
+    public void setCompany(Company company) {
+        this.company = company;
+    }
+
+    public String getRole() {
+        return role;
+    }
+
+    public void setRole(String role) {
+        this.role = role;
     }
 
     @Override
