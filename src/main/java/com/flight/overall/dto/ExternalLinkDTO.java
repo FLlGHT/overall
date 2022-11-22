@@ -3,9 +3,7 @@ package com.flight.overall.dto;
 public class ExternalLinkDTO {
 
     private long id;
-
     private String title;
-
     private String link;
 
     public ExternalLinkDTO(long id, String title, String link) {

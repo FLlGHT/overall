@@ -3,7 +3,6 @@ package com.flight.overall.mapper;
 
 import com.flight.overall.dto.*;
 import com.flight.overall.entity.*;
-import com.flight.overall.utils.DateUtils;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
@@ -41,7 +40,8 @@ public class EntityMapper {
                 profile.getDateOfBirth(),
                 profile.getDescription(),
                 profile.getEmail(),
-                profile.getPlaceOfResidence()
+                profile.getPlaceOfResidence(),
+                toExternalLinks(profile.getLinks())
         );
     }
 
