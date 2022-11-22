@@ -3,7 +3,7 @@ package com.flight.overall.dto;
 public class SettingsDTO {
 
     private long id;
-    private AccountDTO account;
+    private AccountDTO account = new AccountDTO();
     private ProfileDTO profile = new ProfileDTO();
     private boolean closedProfile;
     private boolean closedGrades;

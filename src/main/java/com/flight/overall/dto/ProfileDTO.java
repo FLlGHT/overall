@@ -24,7 +24,7 @@ public class ProfileDTO {
     private String imageString;
     private List<ProfileDTO> contacts;
     private boolean canAddToContacts;
-    private List<ExternalLinkDTO> externalLinks = new ArrayList<>(2);
+    private List<ExternalLinkDTO> externalLinks = new ArrayList<>();
 
     public ProfileDTO() {
     }
@@ -57,7 +57,7 @@ public class ProfileDTO {
     }
 
     public ProfileDTO(long id, String firstName, String secondName, String username, Date dateOfBirth,
-                      String description, String email, String placeOfResidence) {
+                      String description, String email, String placeOfResidence, List<ExternalLinkDTO> externalLinks) {
         this.id = id;
         this.firstName = firstName;
         this.secondName = secondName;
@@ -66,6 +66,7 @@ public class ProfileDTO {
         this.description = description;
         this.email = email;
         this.placeOfResidence = placeOfResidence;
+        this.externalLinks = externalLinks;
     }
 
     public long getId() {

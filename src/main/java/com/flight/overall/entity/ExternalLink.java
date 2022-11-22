@@ -5,6 +5,8 @@ import javax.persistence.*;
 @Entity
 public class ExternalLink {
     @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "externalLink")
+    @SequenceGenerator(name = "externalLink", sequenceName = "s_external_link", allocationSize = 1)
     private long id;
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")

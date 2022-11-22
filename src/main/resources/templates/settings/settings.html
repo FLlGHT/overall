@@ -50,8 +50,29 @@
                         </li>
                     </ul>
 
+                    <h4 class="d-flex justify-content-between align-items-center mb-3">
+                        <span class="text-secondary">Links</span>
+                    </h4>
+                    <div>
+                        <ul class="list-group mb-3">
+                            <li class="list-group-item d-flex justify-content-between">
+                                <input th:field="*{profile.externalLinks[0].link}"
+                                       type="text" class="form-control" id="link1"
+                                       placeholder="www.example.com/profile">
+                            </li>
+                            <li class="list-group-item d-flex justify-content-between">
+                                <input th:field="*{profile.externalLinks[1].link}"
+                                       type="text" class="form-control" id="link2"
+                                       placeholder="www.example.com/profile">
+                            </li>
+                            <input hidden th:field="*{profile.externalLinks[0].id}">
+                            <input hidden th:field="*{profile.externalLinks[1].id}">
+                        </ul>
+                    </div>
 
                 </div>
+
+
                 <div class="col-md-7 col-lg-8">
                     <h4 class="mb-3">Profile information</h4>
 
@@ -115,9 +136,6 @@
                                 <span class="text-muted">(Optional)</span></label>
                             <input th:field="*{profile.placeOfResidence}"
                                    type="text" class="form-control" id="address" placeholder="Russia, Saint-P">
-                            <div class="invalid-feedback">
-                                Please enter your address.
-                            </div>
                         </div>
 
                         <div class="col-12">
@@ -126,9 +144,6 @@
                             <textarea th:field="*{profile.description}"
                                       type="text" class="form-control" id="description" rows="3" placeholder="...">
                             </textarea>
-                            <div class="invalid-feedback">
-                                Please enter your shipping address.
-                            </div>
                         </div>
 
                     </div>
