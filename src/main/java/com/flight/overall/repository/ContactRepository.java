@@ -14,7 +14,7 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
 
     @Query("SELECT p " +
             " FROM Profile p " +
-            " JOIN p.ratings r " +
+            " LEFT JOIN Rating r ON (r.profile.id = p.id AND r.category.id =:categoryId) " +
             "WHERE (" +
             "       p.id IN (SELECT c.profile2.id" +
             "                  FROM Contact c " +
@@ -25,8 +25,7 @@ public interface ContactRepository extends CrudRepository<Contact, Long> {
             "                     WHERE c.profile2.id =:profileId" +
             "                    )" +
             "       ) " +
-            "  AND r.category.id =:categoryId " +
-            "ORDER BY r.rating DESC")
+            "ORDER BY r.rating DESC NULLS LAST")
     List<Profile> getSortedContacts(@Param("profileId") long profileId,
                                     @Param("categoryId") long categoryId);
 

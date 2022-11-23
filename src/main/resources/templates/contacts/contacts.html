@@ -35,9 +35,9 @@
                 </div>
 
 
-                <form class="p-2 d-flex" th:object="${filterPane}" method="get">
-                    <div>
-                        <select th:field="*{selectedCategory}">
+                <form class="p-2 d-flex align-items-baseline" th:object="${filterPane}" method="get">
+                    <div class="me-1">
+                        <select th:field="*{selectedCategory}" class="form-select">
                             <option th:value="${filterPane.emptyCategory}" th:text="'Overall'"></option>
                             <option th:each="category : ${filterPane.getCategories()}" th:value="${{category}}"
                                     th:text="${category.title}">
