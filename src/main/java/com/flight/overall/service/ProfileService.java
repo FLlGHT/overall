@@ -43,11 +43,6 @@ public class ProfileService {
         return entityMapper.toProfileDTO(profile, account, categories, ratings, grades);
     }
 
-    public ProfileDTO getProfileContacts(Profile profile, Account account) {
-        List<Profile> contacts = profile.getContacts();
-        return entityMapper.toProfileContacts(profile, contacts);
-    }
-
     public Profile saveProfile(ProfileDTO profileDTO, Account account) {
         Profile profile = profileRepository.findProfile(profileDTO.getId());
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());

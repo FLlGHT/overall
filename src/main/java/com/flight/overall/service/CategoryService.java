@@ -42,6 +42,11 @@ public class CategoryService {
         return mapper.toCategories(categories);
     }
 
+    public List<CategoryDTO> getCategoriesList() {
+        List<Category> categories = findAllActiveCategories();
+        return mapper.toCategoriesList(categories);
+    }
+
     public List<CategoryGroupDTO> getCategoryGroups() {
         List<CategoryGroup> groups = findAllCategoryGroups();
         return mapper.toCategoryGroups(groups);

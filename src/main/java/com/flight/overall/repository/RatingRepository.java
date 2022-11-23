@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 /**
  * @author FLIGHT
@@ -18,4 +19,11 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
             "WHERE r.profile.id =:profileId " +
             "ORDER BY r.category.id")
     List<Rating> getProfileRatings(@Param("profileId") long profileId);
+
+    @Query("SELECT r " +
+            " FROM Rating r " +
+            "WHERE r.category.id =:categoryId" +
+            "  AND r.profile.id =:profileId")
+    Optional<Rating> findProfileRatingByCategory(@Param("profileId") long profileId,
+                                                 @Param("categoryId") long categoryId);
 }

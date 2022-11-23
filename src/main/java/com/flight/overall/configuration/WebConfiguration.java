@@ -1,6 +1,7 @@
 package com.flight.overall.configuration;
 
 
+import com.flight.overall.utils.CategoryFormatter;
 import com.flight.overall.utils.GroupFormatter;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.format.FormatterRegistry;
@@ -18,5 +19,6 @@ public class WebConfiguration implements WebMvcConfigurer {
     @Override
     public void addFormatters(FormatterRegistry registry) {
         registry.addFormatter(new GroupFormatter());
+        registry.addFormatter(new CategoryFormatter());
     }
 }
