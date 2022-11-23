@@ -61,19 +61,4 @@ public class ProfileController {
         contactService.addContact(account, profileDTO);
         return "redirect:/" + profileDTO.getUsername();
     }
-
-    @GetMapping("/{username}/contacts")
-    public String getProfileContacts(@PathVariable String username,
-                                     Account account,
-                                     Model model) {
-        Optional<Profile> profile = profileService.getProfile(username);
-
-        if (profile.isPresent()) {
-            model.addAttribute("profile", profileService.getProfileContacts(profile.get(), account));
-            return "profile/contacts";
-        }
-
-        return ErrorHandler.handleUserAbsence(model);
-    }
-
 }

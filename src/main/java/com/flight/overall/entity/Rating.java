@@ -22,7 +22,7 @@ public class Rating {
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Category category;
 
-    @OneToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")
     private Profile profile;
 

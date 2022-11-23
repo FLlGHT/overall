@@ -38,6 +38,10 @@ public class Profile {
     @JoinColumn(name = "profile_image_id")
     private Image profileImage;
 
+    @OneToMany(mappedBy = "profile")
+    @JsonIgnoreProperties(value = "profile", allowGetters = true)
+    private List<Rating> ratings;
+
     @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = "profile", allowSetters = true)
     private List<ExternalLink> links;
@@ -148,6 +152,14 @@ public class Profile {
 
     public void setContacts(List<Profile> contacts) {
         this.contacts = contacts;
+    }
+
+    public List<Rating> getRatings() {
+        return ratings;
+    }
+
+    public void setRatings(List<Rating> ratings) {
+        this.ratings = ratings;
     }
 
     public List<ExternalLink> getLinks() {

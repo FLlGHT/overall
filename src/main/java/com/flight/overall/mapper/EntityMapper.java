@@ -26,6 +26,7 @@ public class EntityMapper {
                 toProfileImage(profile),
                 toRatingGroups(categories, ratings, grades),
                 toShowedContacts(profile.getContacts()),
+                profile.getContacts().size(),
                 canAddToContacts(profile, account),
                 toExternalLinks(profile.getLinks()),
                 toCompanyDTO(profile.getCompany()),
@@ -58,22 +59,34 @@ public class EntityMapper {
         return contactsDTO;
     }
 
-    public ProfileDTO toProfileContacts(Profile profile, List<Profile> contacts) {
-        ProfileDTO profileDTO = toProfileDTO(profile);
+    public List<ProfileDTO> toDefaultProfileContacts(Profile profile) {
         List<ProfileDTO> contactsDTO = new ArrayList<>();
-        contacts.forEach(contact -> contactsDTO.add(toContactDTO(contact)));
-        profileDTO.setContacts(contactsDTO);
 
-        return profileDTO;
+        List<Profile> contacts = profile.getContacts();
+        contacts.forEach(contact -> contactsDTO.add(toContactDTO(contact)));
+        contactsDTO.sort(Comparator.comparing(ProfileDTO::getOverallRating).reversed());
+
+        return contactsDTO;
     }
 
-    private ProfileDTO toContactDTO(Profile contact) {
+    public ProfileDTO toContactDTO(Profile contact) {
         return new ProfileDTO(
                 contact.getId(),
                 contact.getFirstName(),
                 contact.getSecondName(),
                 contact.getUsername(),
                 contact.getOverallRating(),
+                toProfileImage(contact)
+        );
+    }
+
+    public ProfileDTO toContactDTO(Profile contact, int categoryRating) {
+        return new ProfileDTO(
+                contact.getId(),
+                contact.getFirstName(),
+                contact.getSecondName(),
+                contact.getUsername(),
+                categoryRating,
                 toProfileImage(contact)
         );
     }
@@ -175,6 +188,12 @@ public class EntityMapper {
         List<CategoryDTO> categoryDTOList = new ArrayList<>();
         categories.forEach(category -> categoryDTOList.add(toCategoryDTO(category)));
         return new CategoriesDTO(categoryDTOList);
+    }
+
+    public List<CategoryDTO> toCategoriesList(List<Category> categories) {
+        List<CategoryDTO> categoryDTOList = new ArrayList<>();
+        categories.forEach(category -> categoryDTOList.add(toCategoryDTO(category)));
+        return categoryDTOList;
     }
 
     public GradeDTO toGradeDTO(Grade grade) {
