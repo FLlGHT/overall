@@ -103,6 +103,7 @@ public class CategoryService {
         category.setWeight(categoryDTO.getWeight());
         category.setDescription(categoryDTO.getDescription());
         categoryGroup.ifPresentOrElse(category::setCategoryGroup, () -> category.setCategoryGroup(null));
+        category.setCategoryType(categoryDTO.getCategoryType());
     }
 
     private void updateCategoryGroup(CategoryGroup categoryGroup, CategoryGroupDTO categoryGroupDTO) {

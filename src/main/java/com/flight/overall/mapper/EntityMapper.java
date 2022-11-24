@@ -114,7 +114,8 @@ public class EntityMapper {
         for (RatingGroupDTO ratingGroup : ratingGroups.values()) {
             int sum = 0, count = 0;
             for (RatingDTO rating : ratingGroup.getRatings()) {
-                if (rating.getRating() > 0) {
+                CategoryDTO category = rating.getCategory();
+                if (rating.getRating() > 0 && category.getCategoryType() == CategoryType.AFFECT) {
                     sum += rating.getRating();
                     count++;
                 }
@@ -162,6 +163,7 @@ public class EntityMapper {
                 category.getId(),
                 category.getTitle(),
                 toCategoryGroupDTO(category.getCategoryGroup()),
+                category.getCategoryType(),
                 category.getDescription(),
                 category.getWeight()
         );

@@ -21,6 +21,7 @@ public class RatingGroupDTO {
     public RatingGroupDTO(long id, String title, String description) {
         this.id = id;
         this.title = title;
+        this.description = description;
     }
 
     public RatingGroupDTO(long id, String title, String description, List<RatingDTO> ratings) {

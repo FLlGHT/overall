@@ -19,6 +19,9 @@ public class Category {
     @JoinColumn(name = "category_group_id")
     private CategoryGroup categoryGroup;
 
+    @Enumerated(EnumType.STRING)
+    private CategoryType categoryType;
+
     @Column(length = 512)
     private String description;
 
@@ -62,5 +65,13 @@ public class Category {
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    public CategoryType getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(CategoryType categoryType) {
+        this.categoryType = categoryType;
     }
 }

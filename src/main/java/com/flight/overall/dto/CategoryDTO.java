@@ -1,10 +1,13 @@
 package com.flight.overall.dto;
 
+import com.flight.overall.entity.CategoryType;
+
 public class CategoryDTO {
 
     private long id;
     private String title;
     private CategoryGroupDTO categoryGroup = new CategoryGroupDTO();
+    private CategoryType categoryType;
     private String description;
     private Double weight;
 
@@ -13,10 +16,12 @@ public class CategoryDTO {
         this.title = title;
     }
 
-    public CategoryDTO(long id, String title, CategoryGroupDTO categoryGroup, String description, Double weight) {
+    public CategoryDTO(long id, String title, CategoryGroupDTO categoryGroup, CategoryType categoryType,
+                       String description, Double weight) {
         this.id = id;
         this.title = title;
         this.categoryGroup = categoryGroup;
+        this.categoryType = categoryType;
         this.description = description;
         this.weight = weight;
     }
@@ -62,5 +67,13 @@ public class CategoryDTO {
 
     public void setWeight(Double weight) {
         this.weight = weight;
+    }
+
+    public CategoryType getCategoryType() {
+        return categoryType;
+    }
+
+    public void setCategoryType(CategoryType categoryType) {
+        this.categoryType = categoryType;
     }
 }
