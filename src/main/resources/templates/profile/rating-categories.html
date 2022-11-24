@@ -26,7 +26,11 @@
                     <div class="card shadow-sm">
                         <div class="card-body">
                             <div class="row">
-                                <p class="col-sm-8" id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
+                                <div class="col-sm-8 d-flex">
+                                    <p class="me-1" id="rangeCategory" th:text="${rating.getCategory().getTitle()}"></p>
+                                    <i th:if="${rating.getCategory().getCategoryType().name() == 'AFFECT'}"
+                                       class="bi bi-star"></i>
+                                </div>
                                 <p class="col-sm-4 text-secondary" th:text="'average : ' + ${rating.getRating()}"></p>
                             </div>
 

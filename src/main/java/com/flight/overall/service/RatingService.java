@@ -38,11 +38,13 @@ public class RatingService {
 
         for (RatingGroupDTO ratingGroup : ratingGroups) {
             for (RatingDTO ratingDTO : ratingGroup.getRatings()) {
-                Rating rating = idToRating.getOrDefault(ratingDTO.getId(), createRating(ratingDTO, profile));
                 GradeDTO grade = ratingDTO.getGrade();
 
-                updateRating(rating, grade);
-                gradeService.saveGrade(account, rating, grade);
+                if (grade.getCurrentGrade() > 0) {
+                    Rating rating = idToRating.getOrDefault(ratingDTO.getId(), createRating(ratingDTO, profile));
+                    updateRating(rating, grade);
+                    gradeService.saveGrade(account, rating, grade);
+                }
             }
         }
     }
@@ -53,7 +55,7 @@ public class RatingService {
     }
 
     public void updateRating(Rating rating, GradeDTO grade) {
-        boolean isFirstGrade = grade.getPreviousGrade() == 0 && grade.getCurrentGrade() > 0;
+        boolean isFirstGrade = grade.getPreviousGrade() == 0;
 
         long total = rating.getTotal() - grade.getPreviousGrade() + grade.getCurrentGrade();
         long count = rating.getCount() + (isFirstGrade ? 1 : 0);
@@ -68,7 +70,7 @@ public class RatingService {
     }
 
     public void updateOverall(Profile profile) {
-        List<Rating> ratings = ratingRepository.getProfileRatings(profile.getId());
+        List<Rating> ratings = ratingRepository.getAffectsRatings(profile.getId());
 
         long sum = 0, count = 0;
         for (Rating rating : ratings) {
@@ -79,18 +81,6 @@ public class RatingService {
         }
 
         profile.setOverallRating(Math.min(99, (int) Math.round(sum * 1.00 / count)));
-    }
-
-    public void createRatings(Profile profile) {
-        List<Rating> ratings = new ArrayList<>();
-        Iterable<Category> categories = categoryService.findAllActiveCategories();
-
-        for (Category category : categories) {
-            Rating rating = new Rating(category, profile);
-            ratings.add(rating);
-        }
-
-        ratingRepository.saveAll(ratings);
     }
 
     public int getProfileRating(long profileId, long categoryId) {

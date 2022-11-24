@@ -48,14 +48,24 @@ public class SettingsService {
         settings.setGradesClosed(settingsDTO.isClosedGrades());
 
         settingsRepository.save(settings);
-        saveSettings(account, settings, settingsDTO);
+        saveProfileSettings(account, settings, settingsDTO);
     }
 
-    private void saveSettings(Account account, Settings settings, SettingsDTO settingsDTO) {
-        ProfileDTO profileDTO = settingsDTO.getProfile();
-        AccountDTO accountDTO = settingsDTO.getAccount();
+    private void saveProfileSettings(Account account, Settings settings, SettingsDTO settingsDTO) {
         Profile profile = account.getProfile();
 
+        updateProfileFields(settingsDTO.getProfile(), settingsDTO.getAccount(), profile);
+        updateAccountFields(account, settings, settingsDTO.getAccount());
+    }
+
+    private void updateAccountFields(Account account, Settings settings, AccountDTO accountDTO) {
+        account.setUsername(accountDTO.getUsername());
+        account.setSettings(settings);
+
+        accountRepository.save(account);
+    }
+
+    private void updateProfileFields(ProfileDTO profileDTO, AccountDTO accountDTO, Profile profile) {
         Optional<Image> newImage = imageService.uploadImage(profileDTO.getImage());
 
         profile.setFirstName(profileDTO.getFirstName());
@@ -66,16 +76,11 @@ public class SettingsService {
         profile.setEmail(profileDTO.getEmail());
         profile.setPlaceOfResidence(profileDTO.getPlaceOfResidence());
         newImage.ifPresent(profile::setProfileImage);
-
         saveExternalLinks(profileDTO.getExternalLinks(), profile);
-        saveCompany(profileDTO.getCompany(), profile);
+        saveCompany(profileDTO, profile);
         profile.setRole(profileDTO.getRole());
 
-        account.setUsername(accountDTO.getUsername());
-        account.setSettings(settings);
-
         profileRepository.save(profile);
-        accountRepository.save(account);
     }
 
     private void saveExternalLinks(List<ExternalLinkDTO> externalLinks, Profile profile) {
@@ -100,7 +105,9 @@ public class SettingsService {
         return host == null ? null : (host.startsWith("www.") ? host.substring(4) : host);
     }
 
-    private void saveCompany(CompanyDTO companyDTO, Profile profile) {
+    private void saveCompany(ProfileDTO profileDTO, Profile profile) {
+        CompanyDTO companyDTO = profileDTO.getCompany();
+
         Company company = companyRepository.findById(companyDTO.getId()).orElse(new Company());
 
         company.setName(companyDTO.getName());
@@ -108,6 +115,5 @@ public class SettingsService {
 
         companyRepository.save(company);
         profile.setCompany(company);
-
     }
 }

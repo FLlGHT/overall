@@ -61,7 +61,6 @@ public class AccountService implements UserDetailsService {
         profile.setOverallRating(0);
 
         profileRepository.save(profile);
-        ratingService.createRatings(profile);
 
         return profile;
     }
