@@ -74,8 +74,14 @@ public class RatingService {
 
         long sum = 0, count = 0;
         for (Rating rating : ratings) {
+            CategoryType categoryType = rating.getCategory().getCategoryType();
             if (rating.getRating() > 0) {
-                sum += rating.getRating();
+
+                if (categoryType == CategoryType.IN_DIRECT_RATIO)
+                    sum += rating.getRating();
+                else
+                    sum += (100 - rating.getRating());
+
                 count++;
             }
         }

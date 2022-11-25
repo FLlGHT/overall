@@ -24,7 +24,7 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
             " FROM Rating r" +
             " JOIN r.category c " +
             "WHERE r.profile.id =:profileId" +
-            "  AND c.categoryType = 'AFFECT' " +
+            "  AND c.categoryType <> 'NOT_AFFECT' " +
             "ORDER BY r.category.id")
     List<Rating> getAffectsRatings(@Param("profileId") long profileId);
 
