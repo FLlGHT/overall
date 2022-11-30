@@ -114,8 +114,8 @@ public class EntityMapper {
         for (RatingGroupDTO ratingGroup : ratingGroups.values()) {
             int sum = 0, count = 0;
             for (RatingDTO rating : ratingGroup.getRatings()) {
-                CategoryDTO category = rating.getCategory();
-                CategoryType categoryType = category.getCategoryType();
+                CategoryType categoryType = rating.getCategory().getCategoryType();
+
                 if (rating.getRating() > 0 && categoryType != CategoryType.NOT_AFFECT) {
 
                     if (categoryType == CategoryType.IN_DIRECT_RATIO)
