@@ -26,6 +26,9 @@ public class Rating {
     @JoinColumn(name = "profile_id")
     private Profile profile;
 
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "group_rating_id")
+    private GroupRating groupRating;
     private long total;
     private long count;
     private int rating;
@@ -38,7 +41,8 @@ public class Rating {
         this.rating = rating;
     }
 
-    public Rating(Category category, Profile profile) {
+    public Rating(GroupRating groupRating, Category category, Profile profile) {
+        this.groupRating = groupRating;
         this.category = category;
         this.profile = profile;
         this.total = 0;
@@ -95,5 +99,13 @@ public class Rating {
 
     public void setRating(int rating) {
         this.rating = rating;
+    }
+
+    public GroupRating getGroupRating() {
+        return groupRating;
+    }
+
+    public void setGroupRating(GroupRating groupRating) {
+        this.groupRating = groupRating;
     }
 }

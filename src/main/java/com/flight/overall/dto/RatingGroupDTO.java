@@ -9,6 +9,8 @@ public class RatingGroupDTO {
 
     private String title;
 
+    private CategoryGroupDTO categoryGroup;
+
     private String description;
 
     private int groupRating;
@@ -18,9 +20,17 @@ public class RatingGroupDTO {
     public RatingGroupDTO() {
     }
 
-    public RatingGroupDTO(long id, String title, String description) {
+    public RatingGroupDTO(String title, CategoryGroupDTO categoryGroup, String description) {
+        this.title = title;
+        this.categoryGroup = categoryGroup;
+        this.description = description;
+    }
+
+    public RatingGroupDTO(long id, String title, CategoryGroupDTO categoryGroup, int groupRating, String description) {
         this.id = id;
         this.title = title;
+        this.categoryGroup = categoryGroup;
+        this.groupRating = groupRating;
         this.description = description;
     }
 
@@ -69,5 +79,13 @@ public class RatingGroupDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public CategoryGroupDTO getCategoryGroup() {
+        return categoryGroup;
+    }
+
+    public void setCategoryGroup(CategoryGroupDTO categoryGroup) {
+        this.categoryGroup = categoryGroup;
     }
 }

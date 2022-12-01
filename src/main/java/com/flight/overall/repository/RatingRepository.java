@@ -34,4 +34,11 @@ public interface RatingRepository extends CrudRepository<Rating, Long> {
             "  AND r.profile.id =:profileId")
     Optional<Rating> findProfileRatingByCategory(@Param("profileId") long profileId,
                                                  @Param("categoryId") long categoryId);
+
+    @Query("SELECT r " +
+            " FROM Rating r " +
+            "WHERE r.profile.id =:profileId" +
+            "  AND r.groupRating.id =:groupId")
+    List<Rating> findRatingsFromGroup(@Param("profileId") long profileId,
+                                      @Param("groupId") long groupId);
 }

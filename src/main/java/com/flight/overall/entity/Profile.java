@@ -42,6 +42,10 @@ public class Profile {
     @JsonIgnoreProperties(value = "profile", allowGetters = true)
     private List<Rating> ratings;
 
+    @OneToMany(mappedBy = "profile")
+    @JsonIgnoreProperties(value = "profile", allowGetters = true)
+    private List<GroupRating> groupRatings;
+
     @OneToMany(mappedBy = "profile", fetch = FetchType.EAGER)
     @JsonIgnoreProperties(value = "profile", allowSetters = true)
     private List<ExternalLink> links;
@@ -156,6 +160,14 @@ public class Profile {
 
     public List<Rating> getRatings() {
         return ratings;
+    }
+
+    public List<GroupRating> getGroupRatings() {
+        return groupRatings;
+    }
+
+    public void setGroupRatings(List<GroupRating> groupRatings) {
+        this.groupRatings = groupRatings;
     }
 
     public void setRatings(List<Rating> ratings) {

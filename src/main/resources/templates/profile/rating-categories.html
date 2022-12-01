@@ -43,6 +43,8 @@
 
         <input hidden th:name="|ratingGroups[${itemGroup.index}].id|" th:value="${ratingGroup.getId()}">
         <input hidden th:name="|ratingGroups[${itemGroup.index}].title|" th:value="${ratingGroup.getTitle()}">
+        <input hidden th:name="|ratingGroups[${itemGroup.index}].categoryGroup.id|" th:value="${ratingGroup.getCategoryGroup().getId()}">
+        <input hidden th:name="|ratingGroups[${itemGroup.index}].categoryGroup.title|" th:value="${ratingGroup.getCategoryGroup().getTitle()}">
     </div>
 </div>
 </body>

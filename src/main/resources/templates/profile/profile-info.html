@@ -26,9 +26,9 @@
 
   <!--                Profile info-->
   <div class="col-lg-7">
-    <div class="row row-cols-auto">
-      <h2 class="col fw-bold lh-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h2>
-      <h2 class="col fw-bold lh-1 text-muted username" th:text="'@ ' + ${profile.getUsername()}"></h2>
+    <div class="d-flex align-items-baseline">
+      <h2 class="fw-bold lh-1 me-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h2>
+      <h2 class="text-muted username" th:text="'@ ' + ${profile.getUsername()}"></h2>
     </div>
 
     <div class="d-flex align-items-baseline pt-3">
