@@ -38,16 +38,16 @@ public class ProfileService {
     public ProfileDTO getProfileInfo(Profile profile, Account account) {
         List<Category> categories = categoryService.findAllActiveCategories();
         List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
+        List<GroupRating> groupRatings = ratingService.getProfileGroupRatings(profile.getId());
         List<Grade> grades = gradeService.getAccountGrades(account, profile);
 
-        return entityMapper.toProfileDTO(profile, account, categories, ratings, grades);
+        return entityMapper.toProfileDTO(profile, account, categories, ratings, groupRatings, grades);
     }
 
     public Profile saveProfile(ProfileDTO profileDTO, Account account) {
         Profile profile = profileRepository.findProfile(profileDTO.getId());
-        List<Rating> ratings = ratingService.getProfileRatings(profile.getId());
 
-        ratingService.updateRatings(account, profile, ratings, profileDTO.getRatingGroups());
+        ratingService.updateRatings(account, profile, profileDTO.getRatingGroups());
         ratingService.updateOverall(profile);
 
         return profileRepository.save(profile);

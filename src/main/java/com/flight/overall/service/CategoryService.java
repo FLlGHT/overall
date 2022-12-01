@@ -111,6 +111,9 @@ public class CategoryService {
         categoryGroup.setDescription(categoryGroupDTO.getDescription());
     }
 
+    public CategoryGroup findCategoryGroup(CategoryGroupDTO categoryGroupDTO) {
+        return categoryGroupRepository.findCategoryGroup(categoryGroupDTO.getId());
+    }
     public Category findCategory(CategoryDTO categoryDTO) {
         return categoryRepository.findCategory(categoryDTO.getId());
     }

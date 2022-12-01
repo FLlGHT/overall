@@ -13,7 +13,7 @@ import java.util.*;
 public class EntityMapper {
 
     public ProfileDTO toProfileDTO(Profile profile, Account account, List<Category> categories,
-                                   List<Rating> ratings, List<Grade> grades) {
+                                   List<Rating> ratings, List<GroupRating> groupRatings, List<Grade> grades) {
         return new ProfileDTO(
                 profile.getId(),
                 profile.getFirstName(),
@@ -24,7 +24,7 @@ public class EntityMapper {
                 profile.getPlaceOfResidence(),
                 profile.getDescription(),
                 toProfileImage(profile),
-                toRatingGroups(categories, ratings, grades),
+                toRatingGroups(categories, ratings, groupRatings, grades),
                 toShowedContacts(profile.getContacts()),
                 profile.getContacts().size(),
                 canAddToContacts(profile, account),
@@ -91,44 +91,52 @@ public class EntityMapper {
         );
     }
 
-    public List<RatingGroupDTO> toRatingGroups(List<Category> categories, List<Rating> ratings, List<Grade> grades) {
+    public List<RatingGroupDTO> toRatingGroups(List<Category> categories, List<Rating> ratings,
+                                               List<GroupRating> groupRatings, List<Grade> grades) {
         List<RatingDTO> ratingDTOS = toRatingsDTO(categories, ratings, grades);
-        Map<Long, RatingGroupDTO> ratingGroups = new HashMap<>();
-
-        for (Category category : categories) {
-            CategoryGroup group = category.getCategoryGroup();
-            ratingGroups.putIfAbsent(group.getId(), new RatingGroupDTO(group.getId(), group.getTitle(), group.getDescription()));
-        }
+        Map<Long, RatingGroupDTO> ratingGroupDTOS = toRatingGroups(categories, groupRatings);
 
         for (RatingDTO rating : ratingDTOS) {
             long groupId = rating.getCategory().getCategoryGroup().getId();
-            ratingGroups.get(groupId).getRatings().add(rating);
+            ratingGroupDTOS.get(groupId).getRatings().add(rating);
         }
 
-        fillGroupsRating(ratingGroups);
-
-        return new ArrayList<>(ratingGroups.values());
+        return new ArrayList<>(ratingGroupDTOS.values());
     }
 
-    private void fillGroupsRating(Map<Long, RatingGroupDTO> ratingGroups) {
-        for (RatingGroupDTO ratingGroup : ratingGroups.values()) {
-            int sum = 0, count = 0;
-            for (RatingDTO rating : ratingGroup.getRatings()) {
-                CategoryType categoryType = rating.getCategory().getCategoryType();
+    private Map<Long, RatingGroupDTO> toRatingGroups(List<Category> categories, List<GroupRating> groupRatings) {
+        Map<Long, RatingGroupDTO> categoryGroupToRatingGroupDTO = new HashMap<>();
+        Map<Long, GroupRating> categoryGroupToRatingGroup = new HashMap<>();
 
-                if (rating.getRating() > 0 && categoryType != CategoryType.NOT_AFFECT) {
-
-                    if (categoryType == CategoryType.IN_DIRECT_RATIO)
-                        sum += rating.getRating();
-                    else
-                        sum += (100 - rating.getRating());
-
-                    count++;
-                }
-            }
-            if (count > 0)
-                ratingGroup.setGroupRating(sum / count);
+        for (GroupRating groupRating : groupRatings) {
+            CategoryGroup categoryGroup = groupRating.getCategoryGroup();
+            categoryGroupToRatingGroup.put(categoryGroup.getId(), groupRating);
         }
+
+        for (Category category : categories) {
+            CategoryGroup group = category.getCategoryGroup();
+            GroupRating groupRating = categoryGroupToRatingGroup.get(group.getId());
+            categoryGroupToRatingGroupDTO.putIfAbsent(group.getId(), createRatingGroupDTO(group, groupRating));
+        }
+
+        return categoryGroupToRatingGroupDTO;
+    }
+
+    private RatingGroupDTO createRatingGroupDTO(CategoryGroup group, GroupRating groupRating) {
+        if (groupRating == null)
+            return new RatingGroupDTO(
+                    group.getTitle(),
+                    toCategoryGroupDTO(group),
+                    group.getDescription()
+            );
+
+        return new RatingGroupDTO(
+                groupRating.getId(),
+                group.getTitle(),
+                toCategoryGroupDTO(group),
+                groupRating.getRating(),
+                group.getDescription()
+        );
     }
 
     public List<RatingDTO> toRatingsDTO(List<Category> categories, List<Rating> ratings, List<Grade> grades) {
