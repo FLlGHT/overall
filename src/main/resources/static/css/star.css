@@ -1,0 +1,46 @@
+.star {
+    height: 100px;
+    width: 100px;
+    -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+    padding-top: 10px;
+    text-align: center;
+    /*background: royalblue;*/
+    color: white;
+    font-size: 30px;
+}
+
+
+.star::before {
+    display: inline-block;
+    height: 100%;
+    background: black;
+    vertical-align: middle;
+    content: '';
+}
+
+.royalblue {
+    background: royalblue;
+}
+
+.blue {
+    background: #0081C8;
+}
+
+.black {
+   background: #000000;
+}
+
+.red {
+    background: #EE334E;
+}
+
+.yellow {
+    background: #FCB131;
+}
+
+.green {
+    background: #00A651;
+}
+
+

@@ -11,6 +11,7 @@ public class CategoryGroup {
     private long id;
     private String title;
     private String description;
+    private String color;
 
     public long getId() {
         return id;
@@ -34,5 +35,13 @@ public class CategoryGroup {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

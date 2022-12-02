@@ -127,7 +127,8 @@ public class EntityMapper {
             return new RatingGroupDTO(
                     group.getTitle(),
                     toCategoryGroupDTO(group),
-                    group.getDescription()
+                    group.getDescription(),
+                    group.getColor()
             );
 
         return new RatingGroupDTO(
@@ -135,7 +136,8 @@ public class EntityMapper {
                 group.getTitle(),
                 toCategoryGroupDTO(group),
                 groupRating.getRating(),
-                group.getDescription()
+                group.getDescription(),
+                group.getColor()
         );
     }
 
@@ -190,7 +192,8 @@ public class EntityMapper {
         return new CategoryGroupDTO(
                 categoryGroup.getId(),
                 categoryGroup.getTitle(),
-                categoryGroup.getDescription()
+                categoryGroup.getDescription(),
+                categoryGroup.getColor()
         );
     }
 

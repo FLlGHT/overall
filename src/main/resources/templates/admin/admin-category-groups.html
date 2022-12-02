@@ -44,17 +44,22 @@
                                         </button>
                                     </div>
 
-                                    <input hidden class="form-control" id="category-id"
+                                    <input hidden class="form-control"
                                            th:field="*{categoryGroups[__${itemStat.index}__].id}">
 
                                     <div class="input-group">
-                                        <input class="form-control" id="category-title" placeholder="Title"
+                                        <input class="form-control" placeholder="Title"
                                                th:field="*{categoryGroups[__${itemStat.index}__].title}">
+                                    </div>
+
+                                    <div class="input-group mt-2">
+                                        <input class="form-control" placeholder="Color"
+                                               th:field="*{categoryGroups[__${itemStat.index}__].color}">
                                     </div>
 
 
                                     <div class="input-group mt-2">
-                                        <textarea class="form-control rounded-0" id="category-description"
+                                        <textarea class="form-control rounded-0"
                                                   placeholder="Description"
                                                   th:field="*{categoryGroups[__${itemStat.index}__].description}"
                                                   rows="3"></textarea>
@@ -77,13 +82,19 @@
                         <div class="card shadow-sm mt-2">
                             <div class="card-body">
                                 <div class="input-group">
-                                    <input class="form-control" id="newCategoryTitle"
+                                    <input class="form-control"
                                            placeholder="New category group title"
                                            th:field="*{title}">
                                 </div>
 
                                 <div class="input-group mt-2">
-                                    <textarea class="form-control rounded-0" id="newCategoryDescription"
+                                    <input class="form-control"
+                                           placeholder="New category group title"
+                                           th:field="*{color}">
+                                </div>
+
+                                <div class="input-group mt-2">
+                                    <textarea class="form-control rounded-0"
                                               placeholder="Description..."
                                               th:field="*{description}" rows="3"></textarea>
                                 </div>
