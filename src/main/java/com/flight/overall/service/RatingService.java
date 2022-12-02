@@ -5,6 +5,7 @@ import com.flight.overall.dto.RatingDTO;
 import com.flight.overall.dto.RatingGroupDTO;
 import com.flight.overall.entity.*;
 import com.flight.overall.repository.GroupRatingRepository;
+import com.flight.overall.repository.OverallRatingRepository;
 import com.flight.overall.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,9 @@ public class RatingService {
 
     @Autowired
     private GradeService gradeService;
+
+    @Autowired
+    private OverallRatingRepository overallRatingRepository;
 
     public List<Rating> getProfileRatings(long id) {
         return ratingRepository.getProfileRatings(id);
@@ -82,7 +86,7 @@ public class RatingService {
         }
 
         if (count > 0)
-            groupRating.setRating((int) Math.round(sum / count));
+            groupRating.setRating(Math.min(99, (int) Math.round(sum / count)));
 
         groupRatingRepository.save(groupRating);
     }
@@ -142,23 +146,22 @@ public class RatingService {
     }
 
     public void updateOverall(Profile profile) {
-        List<Rating> ratings = ratingRepository.getAffectsRatings(profile.getId());
+        OverallRating overallRating = profile.getOverallRating();
 
-        long sum = 0, count = 0;
-        for (Rating rating : ratings) {
-            CategoryType categoryType = rating.getCategory().getCategoryType();
-            if (rating.getRating() > 0) {
-
-                if (categoryType == CategoryType.IN_DIRECT_RATIO)
-                    sum += rating.getRating();
-                else
-                    sum += (100 - rating.getRating());
-
-                count++;
+        List<GroupRating> groupRatings = getProfileGroupRatings(profile.getId());
+        double sum = 0, count = 0;
+        for (GroupRating groupRating : groupRatings) {
+            if (groupRating.getRating() > 0) {
+                double weight = groupRating.getCategoryGroup().getWeight();
+                sum += groupRating.getRating() * weight;
+                count += weight;
             }
         }
 
-        profile.setOverallRating(Math.min(99, (int) Math.round(sum * 1.00 / count)));
+        if (count > 0)
+            overallRating.setRating(Math.min(99, (int) Math.round(sum / count)));
+
+        overallRatingRepository.save(overallRating);
     }
 
     public int getProfileRating(long profileId, long categoryId) {

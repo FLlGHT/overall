@@ -1,5 +1,6 @@
 package com.flight.overall.entity;
 
+import org.hibernate.annotations.ColumnDefault;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 
@@ -19,6 +20,7 @@ public class GroupRating {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name = "profile_id")
     private Profile profile;
+    @ColumnDefault("0")
     private int rating;
 
     public GroupRating() {

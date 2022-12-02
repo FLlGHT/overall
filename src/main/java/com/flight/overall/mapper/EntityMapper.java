@@ -20,7 +20,7 @@ public class EntityMapper {
                 profile.getSecondName(),
                 profile.getUsername(),
                 profile.getDateOfBirth(),
-                profile.getOverallRating(),
+                profile.getOverallRating().getRating(),
                 profile.getPlaceOfResidence(),
                 profile.getDescription(),
                 toProfileImage(profile),
@@ -52,7 +52,9 @@ public class EntityMapper {
 
     private List<ProfileDTO> toShowedContacts(List<Profile> contacts) {
         List<ProfileDTO> contactsDTO = new ArrayList<>();
-        contacts.stream().sorted(Comparator.comparing(Profile::getOverallRating).reversed())
+        contacts.stream()
+                .sorted((c1, c2) -> Integer.compare(c2.getOverallRating().getRating(),
+                                                    c1.getOverallRating().getRating()))
                 .limit(5)
                 .forEach(contact -> contactsDTO.add(toContactDTO(contact)));
 
@@ -75,7 +77,7 @@ public class EntityMapper {
                 contact.getFirstName(),
                 contact.getSecondName(),
                 contact.getUsername(),
-                contact.getOverallRating(),
+                contact.getOverallRating().getRating(),
                 toProfileImage(contact)
         );
     }
@@ -261,8 +263,12 @@ public class EntityMapper {
     }
 
     public List<ExternalLinkDTO> toExternalLinks(List<ExternalLink> externalLinks) {
+        if (externalLinks == null)
+            return new ArrayList<>();
+
         List<ExternalLinkDTO> links = new ArrayList<>();
         externalLinks.forEach(externalLink -> links.add(toExternalLink(externalLink)));
+
         return links;
     }
 

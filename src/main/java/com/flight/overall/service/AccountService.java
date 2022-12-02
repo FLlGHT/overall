@@ -2,10 +2,12 @@ package com.flight.overall.service;
 
 import com.flight.overall.dto.AccountDTO;
 import com.flight.overall.entity.Account;
+import com.flight.overall.entity.OverallRating;
 import com.flight.overall.entity.Profile;
 import com.flight.overall.entity.Role;
 import com.flight.overall.exception.ProfileAlreadyExistException;
 import com.flight.overall.repository.AccountRepository;
+import com.flight.overall.repository.OverallRatingRepository;
 import com.flight.overall.repository.ProfileRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -26,12 +28,12 @@ public class AccountService implements UserDetailsService {
 
     @Autowired
     private ProfileRepository profileRepository;
-
     @Autowired
     private AccountRepository accountRepository;
 
     @Autowired
-    private RatingService ratingService;
+    private OverallRatingRepository overallRatingRepository;
+
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
@@ -58,7 +60,7 @@ public class AccountService implements UserDetailsService {
         profile.setSecondName(accountDTO.getSecondName());
 
         profile.setUsername(accountDTO.getUsername());
-        profile.setOverallRating(0);
+        profile.setOverallRating(createOverallRating());
 
         profileRepository.save(profile);
 
@@ -90,5 +92,8 @@ public class AccountService implements UserDetailsService {
         return new BCryptPasswordEncoder();
     }
 
-
+    private OverallRating createOverallRating() {
+        OverallRating overallRating = new OverallRating();
+        return overallRatingRepository.save(overallRating);
+    }
 }

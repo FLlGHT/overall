@@ -78,7 +78,7 @@ public class SettingsService {
         newImage.ifPresent(profile::setProfileImage);
         saveExternalLinks(profileDTO.getExternalLinks(), profile);
         saveCompany(profileDTO, profile);
-        profile.setRole(profileDTO.getRole());
+
 
         profileRepository.save(profile);
     }
@@ -108,12 +108,15 @@ public class SettingsService {
     private void saveCompany(ProfileDTO profileDTO, Profile profile) {
         CompanyDTO companyDTO = profileDTO.getCompany();
 
-        Company company = companyRepository.findById(companyDTO.getId()).orElse(new Company());
+        if (!companyDTO.getName().isEmpty()) {
+            Company company = companyRepository.findById(companyDTO.getId()).orElse(new Company());
 
-        company.setName(companyDTO.getName());
-        company.setDescription(companyDTO.getDescription());
+            company.setName(companyDTO.getName());
+            company.setDescription(companyDTO.getDescription());
 
-        companyRepository.save(company);
-        profile.setCompany(company);
+            companyRepository.save(company);
+            profile.setCompany(company);
+            profile.setRole(profileDTO.getRole());
+        }
     }
 }

@@ -15,6 +15,7 @@ import java.util.Objects;
 
 @Entity
 public class Profile {
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "profile")
     @SequenceGenerator(name = "profile", sequenceName = "s_profile", allocationSize = 1)
@@ -24,7 +25,9 @@ public class Profile {
     private String secondName;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
-    private Integer overallRating;
+    @OneToOne
+    @JoinColumn(name = "overall_rating_id")
+    private OverallRating overallRating;
     @Column(length = 255)
     private String description;
     private String placeOfResidence;
@@ -57,7 +60,7 @@ public class Profile {
     private List<Profile> contacts;
 
     public Profile(long id, String username, String firstName, String secondName, Date dateOfBirth,
-                   Integer overallRating, String description) {
+                   OverallRating overallRating, String description) {
         this.id = id;
         this.username = username;
         this.firstName = firstName;
@@ -110,11 +113,11 @@ public class Profile {
         this.dateOfBirth = dateOfBirth;
     }
 
-    public Integer getOverallRating() {
+    public OverallRating getOverallRating() {
         return overallRating;
     }
 
-    public void setOverallRating(Integer overallRating) {
+    public void setOverallRating(OverallRating overallRating) {
         this.overallRating = overallRating;
     }
 
@@ -209,7 +212,6 @@ public class Profile {
                 firstName, profile.firstName) && Objects.equals(
                 secondName, profile.secondName) && Objects.equals(
                 dateOfBirth, profile.dateOfBirth) && Objects.equals(
-                overallRating, profile.overallRating) && Objects.equals(
                 description, profile.description) && Objects.equals(
                 placeOfResidence, profile.placeOfResidence) && Objects.equals(
                 email, profile.email);
@@ -218,8 +220,7 @@ public class Profile {
     @Override
     public int hashCode() {
         return Objects.hash(id, username, firstName, secondName, dateOfBirth, overallRating, description,
-                            placeOfResidence,
-                            email, profileImage, contacts
+                            placeOfResidence, email, profileImage, contacts
         );
     }
 }
