@@ -5,11 +5,13 @@ public class CategoryGroupDTO {
     private long id;
     private String title;
     private String description;
+    private String color;
 
-    public CategoryGroupDTO(long id, String title, String description) {
+    public CategoryGroupDTO(long id, String title, String description, String color) {
         this.id = id;
         this.title = title;
         this.description = description;
+        this.color = color;
     }
 
     public CategoryGroupDTO() {
@@ -37,5 +39,13 @@ public class CategoryGroupDTO {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

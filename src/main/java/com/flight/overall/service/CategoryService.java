@@ -109,6 +109,7 @@ public class CategoryService {
     private void updateCategoryGroup(CategoryGroup categoryGroup, CategoryGroupDTO categoryGroupDTO) {
         categoryGroup.setTitle(categoryGroupDTO.getTitle());
         categoryGroup.setDescription(categoryGroupDTO.getDescription());
+        categoryGroup.setColor(categoryGroupDTO.getColor());
     }
 
     public CategoryGroup findCategoryGroup(CategoryGroupDTO categoryGroupDTO) {

@@ -13,6 +13,8 @@ public class RatingGroupDTO {
 
     private String description;
 
+    private String color;
+
     private int groupRating;
 
     private List<RatingDTO> ratings = new ArrayList<>();
@@ -20,18 +22,20 @@ public class RatingGroupDTO {
     public RatingGroupDTO() {
     }
 
-    public RatingGroupDTO(String title, CategoryGroupDTO categoryGroup, String description) {
+    public RatingGroupDTO(String title, CategoryGroupDTO categoryGroup, String description, String color) {
         this.title = title;
         this.categoryGroup = categoryGroup;
         this.description = description;
+        this.color = color.isEmpty() ? "royalblue" : color;
     }
 
-    public RatingGroupDTO(long id, String title, CategoryGroupDTO categoryGroup, int groupRating, String description) {
+    public RatingGroupDTO(long id, String title, CategoryGroupDTO categoryGroup, int groupRating, String description, String color) {
         this.id = id;
         this.title = title;
         this.categoryGroup = categoryGroup;
         this.groupRating = groupRating;
         this.description = description;
+        this.color = color.isEmpty() ? "royalblue" : color;
     }
 
     public RatingGroupDTO(long id, String title, String description, List<RatingDTO> ratings) {
@@ -87,5 +91,13 @@ public class RatingGroupDTO {
 
     public void setCategoryGroup(CategoryGroupDTO categoryGroup) {
         this.categoryGroup = categoryGroup;
+    }
+
+    public String getColor() {
+        return color;
+    }
+
+    public void setColor(String color) {
+        this.color = color;
     }
 }

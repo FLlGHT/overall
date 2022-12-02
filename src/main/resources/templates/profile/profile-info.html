@@ -10,7 +10,7 @@
 <div class="row" th:fragment="profile-info">
 
   <!--                Profile image-->
-  <div class="col">
+  <div class="col-md-auto">
 
     <svg th:if="${profile.getImageString() == null}" class="bd-placeholder-img rounded-circle" width="250" height="250"
          xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Placeholder: 140x140"
@@ -25,7 +25,7 @@
   </div>
 
   <!--                Profile info-->
-  <div class="col-lg-7">
+  <div class="col-md-6">
     <div class="d-flex align-items-baseline">
       <h2 class="fw-bold lh-1 me-1" th:text="${profile.getFirstName() + ' ' + profile.getSecondName()}"></h2>
       <h2 class="text-muted username" th:text="'@ ' + ${profile.getUsername()}"></h2>
@@ -59,11 +59,17 @@
 
   </div>
 
-  <!--                Profile overall-->
+  <!--                Profile summary (overall + group ratings) -->
   <div class="col">
-    <input type="hidden" id="overall-value" th:value="${profile.getOverallRating()}">
-    <div id="pie-mold" class="yummy-pie" data-percentage="80" data-baking-time="1200"></div>
-    <script type="text/javascript" src="/scripts/chart.js"></script>
+    <div class="row row-cols-3 justify-content-center">
+      <div th:class="${'star col ' + ratingGroup.getColor()}" th:text="${ratingGroup.getGroupRating()}" th:each="ratingGroup : ${profile.getRatingGroups()}">
+      </div>
+    </div>
+    <div>
+      <input type="hidden" id="overall-value" th:value="${profile.getOverallRating()}">
+      <div id="pie-mold" class="yummy-pie" data-percentage="80" data-baking-time="1200"></div>
+      <script type="text/javascript" src="/scripts/chart.js"></script>
+    </div>
   </div>
 
 </div>
