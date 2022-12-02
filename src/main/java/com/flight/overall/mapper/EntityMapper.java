@@ -193,7 +193,8 @@ public class EntityMapper {
                 categoryGroup.getId(),
                 categoryGroup.getTitle(),
                 categoryGroup.getDescription(),
-                categoryGroup.getColor()
+                categoryGroup.getColor(),
+                categoryGroup.getWeight()
         );
     }
 

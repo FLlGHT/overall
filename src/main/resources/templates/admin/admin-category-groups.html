@@ -57,6 +57,11 @@
                                                th:field="*{categoryGroups[__${itemStat.index}__].color}">
                                     </div>
 
+                                    <div class="input-group mt-2">
+                                        <input class="form-control" placeholder="Title"
+                                               th:field="*{categoryGroups[__${itemStat.index}__].weight}">
+                                    </div>
+
 
                                     <div class="input-group mt-2">
                                         <textarea class="form-control rounded-0"
@@ -89,8 +94,14 @@
 
                                 <div class="input-group mt-2">
                                     <input class="form-control"
-                                           placeholder="New category group title"
+                                           placeholder="Color"
                                            th:field="*{color}">
+                                </div>
+
+                                <div class="input-group mt-2">
+                                    <input class="form-control"
+                                           placeholder="Weight"
+                                           th:field="*{weight}">
                                 </div>
 
                                 <div class="input-group mt-2">

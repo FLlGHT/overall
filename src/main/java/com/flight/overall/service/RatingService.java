@@ -65,21 +65,24 @@ public class RatingService {
     private void updateGroupRating(Profile profile, GroupRating groupRating) {
         List<Rating> ratings = ratingRepository.findRatingsFromGroup(profile.getId(), groupRating.getId());
 
-        int sum = 0, count = 0;
+        double sum = 0, count = 0;
         for (Rating rating : ratings) {
-            CategoryType categoryType = rating.getCategory().getCategoryType();
+            Category category = rating.getCategory();
+            CategoryType categoryType = category.getCategoryType();
             if (rating.getRating() > 0 && categoryType != CategoryType.NOT_AFFECT) {
-                count++;
+                double weight = category.getWeight();
+                count += weight;
 
+                double ratingWithWeight = rating.getRating() * weight;
                 if (categoryType == CategoryType.IN_DIRECT_RATIO)
-                    sum += rating.getRating();
+                    sum += ratingWithWeight;
                 else
-                    sum += (100 - rating.getRating());
+                    sum += (100 - ratingWithWeight);
             }
         }
 
         if (count > 0)
-            groupRating.setRating(sum / count);
+            groupRating.setRating((int) Math.round(sum / count));
 
         groupRatingRepository.save(groupRating);
     }

@@ -1,5 +1,7 @@
 package com.flight.overall.entity;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 
 @Entity
@@ -12,6 +14,9 @@ public class CategoryGroup {
     private String title;
     private String description;
     private String color;
+
+    @ColumnDefault("1.00")
+    private Double weight;
 
     public long getId() {
         return id;
@@ -43,5 +48,13 @@ public class CategoryGroup {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public Double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(Double weight) {
+        this.weight = weight;
     }
 }

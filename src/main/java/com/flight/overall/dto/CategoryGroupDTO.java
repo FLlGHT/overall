@@ -7,11 +7,14 @@ public class CategoryGroupDTO {
     private String description;
     private String color;
 
-    public CategoryGroupDTO(long id, String title, String description, String color) {
+    private double weight;
+
+    public CategoryGroupDTO(long id, String title, String description, String color, double weight) {
         this.id = id;
         this.title = title;
         this.description = description;
         this.color = color;
+        this.weight = weight;
     }
 
     public CategoryGroupDTO() {
@@ -47,5 +50,13 @@ public class CategoryGroupDTO {
 
     public void setColor(String color) {
         this.color = color;
+    }
+
+    public double getWeight() {
+        return weight;
+    }
+
+    public void setWeight(double weight) {
+        this.weight = weight;
     }
 }
