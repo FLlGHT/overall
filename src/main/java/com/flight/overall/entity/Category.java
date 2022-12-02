@@ -1,5 +1,7 @@
 package com.flight.overall.entity;
 
+import org.hibernate.annotations.ColumnDefault;
+
 import javax.persistence.*;
 
 /**
@@ -25,6 +27,7 @@ public class Category {
     @Column(length = 512)
     private String description;
 
+    @ColumnDefault("1.00")
     private Double weight;
 
     public long getId() {
