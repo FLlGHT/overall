@@ -1,5 +1,7 @@
 package com.flight.overall.dto;
 
+import com.flight.overall.utils.StringUtils;
+
 import java.util.ArrayList;
 import java.util.List;
 
@@ -26,7 +28,7 @@ public class RatingGroupDTO {
         this.title = title;
         this.categoryGroup = categoryGroup;
         this.description = description;
-        this.color = color.isEmpty() ? "royalblue" : color;
+        this.color = StringUtils.isNullOrEmpty(color) ? "royalblue" : color;
     }
 
     public RatingGroupDTO(long id, String title, CategoryGroupDTO categoryGroup, int groupRating, String description, String color) {
@@ -35,7 +37,7 @@ public class RatingGroupDTO {
         this.categoryGroup = categoryGroup;
         this.groupRating = groupRating;
         this.description = description;
-        this.color = color.isEmpty() ? "royalblue" : color;
+        this.color = StringUtils.isNullOrEmpty(color) ? "royalblue" : color;
     }
 
     public RatingGroupDTO(long id, String title, String description, List<RatingDTO> ratings) {
