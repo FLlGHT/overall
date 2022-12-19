@@ -31,7 +31,7 @@ public class ProfileController {
     @Autowired
     private ContactService contactService;
 
-
+/*
     @GetMapping("/{username}")
     public String getProfile(@PathVariable String username,
                              @AuthenticationPrincipal Account account,
@@ -45,6 +45,8 @@ public class ProfileController {
 
         return ErrorHandler.handleUserAbsence(model);
     }
+
+ */
 
     @PostMapping("/profile-save")
     public String saveProfile(@ModelAttribute ProfileDTO profileDTO,

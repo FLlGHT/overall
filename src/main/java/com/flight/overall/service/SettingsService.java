@@ -69,7 +69,7 @@ public class SettingsService {
         Optional<Image> newImage = imageService.uploadImage(profileDTO.getImage());
 
         profile.setFirstName(profileDTO.getFirstName());
-        profile.setSecondName(profileDTO.getSecondName());
+        profile.setSecondName(profileDTO.getLastName());
         profile.setUsername(accountDTO.getUsername());
         profile.setDateOfBirth(profileDTO.getDateOfBirth());
         profile.setDescription(profileDTO.getDescription());

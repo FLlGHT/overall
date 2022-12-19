@@ -6,7 +6,6 @@ public class CategoryGroupDTO {
     private String title;
     private String description;
     private String color;
-
     private double weight;
 
     public CategoryGroupDTO(long id, String title, String description, String color, double weight) {

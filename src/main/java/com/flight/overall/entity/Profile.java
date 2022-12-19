@@ -40,11 +40,6 @@ public class Profile {
     @OneToOne
     @JoinColumn(name = "profile_image_id")
     private Image profileImage;
-
-    @OneToMany(mappedBy = "profile")
-    @JsonIgnoreProperties(value = "profile", allowGetters = true)
-    private List<Rating> ratings;
-
     @OneToMany(mappedBy = "profile")
     @JsonIgnoreProperties(value = "profile", allowGetters = true)
     private List<GroupRating> groupRatings;
@@ -161,9 +156,6 @@ public class Profile {
         this.contacts = contacts;
     }
 
-    public List<Rating> getRatings() {
-        return ratings;
-    }
 
     public List<GroupRating> getGroupRatings() {
         return groupRatings;
@@ -173,9 +165,6 @@ public class Profile {
         this.groupRatings = groupRatings;
     }
 
-    public void setRatings(List<Rating> ratings) {
-        this.ratings = ratings;
-    }
 
     public List<ExternalLink> getLinks() {
         return links;

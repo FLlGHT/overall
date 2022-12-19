@@ -6,19 +6,13 @@ import javax.validation.constraints.NotNull;
 public class AccountDTO {
 
     private long id;
-    @NotNull
-    @NotEmpty
     private String firstName;
 
     private String secondName;
 
-    @NotNull
-    @NotEmpty
     private String password;
     private String matchingPassword;
 
-    @NotNull
-    @NotEmpty
     private String username;
 
     public AccountDTO(String firstName, String password, String matchingPassword, String username) {
@@ -32,6 +26,12 @@ public class AccountDTO {
         this.id = id;
         this.username = username;
         this.password = password;
+    }
+
+    public AccountDTO(String firstName, String secondName, String username) {
+        this.firstName = firstName;
+        this.secondName = secondName;
+        this.username = username;
     }
 
     public long getId() {

@@ -34,10 +34,14 @@ public class AccountService implements UserDetailsService {
     @Autowired
     private OverallRatingRepository overallRatingRepository;
 
-
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        return accountRepository.findByUsername(username);
+        UserDetails userDetails = accountRepository.findByUsername(username);
+
+        if (userDetails == null)
+            throw new UsernameNotFoundException("User not found");
+
+        return userDetails;
     }
 
     public void registerAndAuthenticate(AccountDTO account) {

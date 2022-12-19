@@ -11,7 +11,7 @@ public class ProfileDTO {
 
     private long id;
     private String firstName;
-    private String secondName;
+    private String lastName;
     private String username;
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dateOfBirth;
@@ -33,22 +33,22 @@ public class ProfileDTO {
     public ProfileDTO() {
     }
 
-    public ProfileDTO(long id, String firstName, String secondName, String username, Integer overallRating, String imageString) {
+    public ProfileDTO(long id, String firstName, String lastName, String username, Integer overallRating, String imageString) {
         this.id = id;
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.username = username;
         this.overallRating = overallRating;
         this.imageString = imageString;
     }
 
-    public ProfileDTO(long id, String firstName, String secondName, String username, Date dateOfBirth, Integer overallRating,
+    public ProfileDTO(long id, String firstName, String lastName, String username, Date dateOfBirth, Integer overallRating,
                       String placeOfResidence, String description, String imageString, List<RatingGroupDTO> ratingGroups,
                       List<ProfileDTO> contacts, Integer numberOfContacts, boolean canAddToContacts, List<ExternalLinkDTO> externalLinks, CompanyDTO company,
                       String role) {
         this.id = id;
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.overallRating = overallRating;
@@ -64,12 +64,12 @@ public class ProfileDTO {
         this.role = role;
     }
 
-    public ProfileDTO(long id, String firstName, String secondName, String username, Date dateOfBirth,
+    public ProfileDTO(long id, String firstName, String lastName, String username, Date dateOfBirth,
                       String description, String email, String placeOfResidence, List<ExternalLinkDTO> externalLinks,
                       CompanyDTO company, String role) {
         this.id = id;
         this.firstName = firstName;
-        this.secondName = secondName;
+        this.lastName = lastName;
         this.username = username;
         this.dateOfBirth = dateOfBirth;
         this.description = description;
@@ -96,12 +96,12 @@ public class ProfileDTO {
         this.firstName = firstName;
     }
 
-    public String getSecondName() {
-        return secondName;
+    public String getLastName() {
+        return lastName;
     }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
+    public void setLastName(String lastName) {
+        this.lastName = lastName;
     }
 
     public String getUsername() {
