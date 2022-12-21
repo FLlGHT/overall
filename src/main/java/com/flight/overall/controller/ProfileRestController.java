@@ -1,12 +1,11 @@
 package com.flight.overall.controller;
 
 
-import com.flight.overall.dto.GradeDTO;
-import com.flight.overall.dto.ProfileDTO;
-import com.flight.overall.dto.RatingDTO;
+import com.flight.overall.dto.*;
 import com.flight.overall.entity.Account;
 import com.flight.overall.entity.Profile;
 import com.flight.overall.service.ProfileService;
+import com.flight.overall.service.RatingService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,15 +21,18 @@ public class ProfileRestController {
     @Autowired
     private ProfileService profileService;
 
-    private Logger logger = LoggerFactory.getLogger(ProfileRestController.class);
+    @Autowired
+    private RatingService ratingService;
+
+    private final Logger logger = LoggerFactory.getLogger(ProfileRestController.class);
 
     @GetMapping("/{username}")
     public ProfileDTO getProfile(@PathVariable String username,
                                  Authentication authentication) {
 
         Account account = (Account) authentication.getPrincipal();
-        logger.info("account " + account.getUsername() + " view " + username + " page");
 
+        logger.info("account " + account.getUsername() + " view " + username + " page");
         Optional<Profile> profile = profileService.getProfile(username);
 
         if (profile.isPresent())
@@ -39,10 +41,15 @@ public class ProfileRestController {
             return new ProfileDTO();
     }
 
-    @PostMapping("/grade/save")
-    public void saveGrade(@RequestBody RatingDTO rating) {
-        GradeDTO grade = rating.getGrade();
+    @PostMapping("/ratings/update")
+    public RatingsUpdate updateRatings(@RequestBody RatingsUpdate ratingsUpdate,
+                                       Authentication authentication) {
 
-        System.out.println(grade.getCurrentGrade());
+        Account account = (Account) authentication.getPrincipal();
+        GradeDTO grade = ratingsUpdate.getRating().getGrade();
+
+        logger.info("Change grade " + grade.getId() +  " from " + grade.getPreviousGrade() + " to " + grade.getCurrentGrade());
+
+        return ratingService.updateRatings(ratingsUpdate, account);
     }
 }

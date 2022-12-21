@@ -6,6 +6,7 @@ import org.springframework.data.repository.CrudRepository;
 import org.springframework.data.repository.query.Param;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface GroupRatingRepository extends CrudRepository<GroupRating, Long> {
 
@@ -14,4 +15,10 @@ public interface GroupRatingRepository extends CrudRepository<GroupRating, Long>
             "WHERE gr.profile.id =:profileId " +
             "ORDER BY gr.categoryGroup.id")
     List<GroupRating> getProfileGroupRatings(@Param("profileId") long profileId);
+
+
+    @Query("SELECT r.groupRating " +
+            " FROM Rating r " +
+            "WHERE r.id = :ratingId")
+    Optional<GroupRating> findGroupRatingByRating(@Param("ratingId") long ratingId);
 }

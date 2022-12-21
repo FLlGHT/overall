@@ -44,6 +44,8 @@ public class ProfileService {
         return entityMapper.toProfileDTO(profile, account, categories, ratings, groupRatings, grades);
     }
 
+    /*
+
     public Profile saveProfile(ProfileDTO profileDTO, Account account) {
         Profile profile = profileRepository.findProfile(profileDTO.getId());
 
@@ -52,5 +54,7 @@ public class ProfileService {
 
         return profileRepository.save(profile);
     }
+
+     */
 
 }

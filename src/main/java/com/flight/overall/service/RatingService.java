@@ -1,11 +1,10 @@
 package com.flight.overall.service;
 
-import com.flight.overall.dto.GradeDTO;
-import com.flight.overall.dto.RatingDTO;
-import com.flight.overall.dto.RatingGroupDTO;
+import com.flight.overall.dto.*;
 import com.flight.overall.entity.*;
 import com.flight.overall.repository.GroupRatingRepository;
 import com.flight.overall.repository.OverallRatingRepository;
+import com.flight.overall.repository.ProfileRepository;
 import com.flight.overall.repository.RatingRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -35,6 +34,9 @@ public class RatingService {
     @Autowired
     private OverallRatingRepository overallRatingRepository;
 
+    @Autowired
+    private ProfileRepository profileRepository;
+
     public List<Rating> getProfileRatings(long id) {
         return ratingRepository.getProfileRatings(id);
     }
@@ -43,27 +45,34 @@ public class RatingService {
         return groupRatingRepository.getProfileGroupRatings(id);
     }
 
-    public void updateRatings(Account account, Profile profile, List<RatingGroupDTO> ratingGroups) {
-        Map<Long, Rating> ratingMap = toRatingMap(profile);
-        Map<Long, GroupRating> groupRatingMap = toGroupRatingMap(profile);
+    public RatingsUpdate updateRatings(RatingsUpdate ratingsUpdate, Account account) {
+        Profile profile = profileRepository.findProfile(ratingsUpdate.getProfile().getId());
 
-        for (RatingGroupDTO ratingGroupDTO : ratingGroups) {
-            GroupRating groupRating = getGroupRating(profile, groupRatingMap, ratingGroupDTO);
+        GroupRating groupRating = getGroupRating(ratingsUpdate.getRatingGroup(), profile);
+        Rating rating = updateRating(ratingsUpdate.getRating(), profile, groupRating);
+        updateGroupRating(profile, groupRating);
 
-            for (RatingDTO ratingDTO : ratingGroupDTO.getRatings())
-                updateRating(account, profile, ratingMap, groupRating, ratingDTO);
+        Grade grade = updateGrade(ratingsUpdate.getRating().getGrade(), account, rating);
+        OverallRating overall = updateOverall(profile);
 
-            updateGroupRating(profile, groupRating);
-        }
+        return updateModel(ratingsUpdate, rating, groupRating, grade, overall);
     }
 
-    private GroupRating getGroupRating(Profile profile, Map<Long, GroupRating> groupRatingMap, RatingGroupDTO ratingGroupDTO) {
-        GroupRating groupRating = groupRatingMap.getOrDefault(ratingGroupDTO.getId(), createGroupRating(ratingGroupDTO, profile));
+    private GroupRating getGroupRating(RatingGroupDTO ratingGroupDTO, Profile profile) {
+        GroupRating groupRating = groupRatingRepository.findById(ratingGroupDTO.getId())
+                                                       .orElse(createGroupRating(ratingGroupDTO, profile));
 
         if (groupRating.getId() == 0)
             groupRatingRepository.save(groupRating);
 
         return groupRating;
+    }
+
+    private Rating updateRating(RatingDTO ratingDTO, Profile profile, GroupRating groupRating) {
+        Rating rating = ratingRepository.findById(ratingDTO.getId()).orElse(createRating(ratingDTO, groupRating, profile));
+        updateRating(ratingDTO, rating);
+
+        return rating;
     }
 
     private void updateGroupRating(Profile profile, GroupRating groupRating) {
@@ -91,61 +100,7 @@ public class RatingService {
         groupRatingRepository.save(groupRating);
     }
 
-
-    private void updateRating(Account account, Profile profile, Map<Long, Rating> ratingMap, GroupRating groupRating, RatingDTO ratingDTO) {
-        GradeDTO grade = ratingDTO.getGrade();
-
-        if (grade.getCurrentGrade() > 0) {
-            Rating rating = ratingMap.getOrDefault(ratingDTO.getId(), createRating(ratingDTO, groupRating, profile));
-            updateRating(rating, grade);
-            gradeService.saveGrade(account, rating, grade);
-        }
-    }
-
-    private Map<Long, GroupRating> toGroupRatingMap(Profile profile) {
-        List<GroupRating> groupRatings = getProfileGroupRatings(profile.getId());
-        Map<Long, GroupRating> groupRatingMap = new HashMap<>();
-        for (GroupRating groupRating : groupRatings)
-            groupRatingMap.put(groupRating.getId(), groupRating);
-
-        return groupRatingMap;
-    }
-
-    private Map<Long, Rating> toRatingMap(Profile profile) {
-        List<Rating> ratings = getProfileRatings(profile.getId());
-        Map<Long, Rating> ratingMap = new HashMap<>();
-        for (Rating rating : ratings)
-            ratingMap.put(rating.getId(), rating);
-
-        return ratingMap;
-    }
-
-    private GroupRating createGroupRating(RatingGroupDTO ratingGroupDTO, Profile profile) {
-        CategoryGroup categoryGroup = categoryService.findCategoryGroup(ratingGroupDTO.getCategoryGroup());
-        return new GroupRating(categoryGroup, profile);
-    }
-
-    private Rating createRating(RatingDTO ratingDTO, GroupRating groupRating, Profile profile) {
-        Category category = categoryService.findCategory(ratingDTO.getCategory());
-        return new Rating(groupRating, category, profile);
-    }
-
-    public void updateRating(Rating rating, GradeDTO grade) {
-        boolean isFirstGrade = grade.getPreviousGrade() == 0;
-
-        long total = rating.getTotal() - grade.getPreviousGrade() + grade.getCurrentGrade();
-        long count = rating.getCount() + (isFirstGrade ? 1 : 0);
-
-        int newRating = Math.min(99, (int) Math.round(total * 1.00 / count));
-
-        rating.setTotal(total);
-        rating.setCount(count);
-        rating.setRating(newRating);
-
-        ratingRepository.save(rating);
-    }
-
-    public void updateOverall(Profile profile) {
+    public OverallRating updateOverall(Profile profile) {
         OverallRating overallRating = profile.getOverallRating();
 
         List<GroupRating> groupRatings = getProfileGroupRatings(profile.getId());
@@ -161,7 +116,68 @@ public class RatingService {
         if (count > 0)
             overallRating.setRating(Math.min(99, (int) Math.round(sum / count)));
 
-        overallRatingRepository.save(overallRating);
+        return overallRatingRepository.save(overallRating);
+    }
+
+    private Grade updateGrade(GradeDTO gradeDTO, Account account, Rating rating) {
+        return gradeService.saveGrade(account, rating, gradeDTO);
+    }
+
+    private RatingsUpdate updateModel(RatingsUpdate ratingsUpdate, Rating rating, GroupRating groupRating, Grade grade, OverallRating overallRating) {
+        updateGroupRatingModel(ratingsUpdate, groupRating);
+        updateRatingModel(ratingsUpdate, rating);
+        updateGradeModel(ratingsUpdate, grade);
+        updateProfileModel(ratingsUpdate, overallRating);
+
+        return ratingsUpdate;
+    }
+
+    private void updateProfileModel(RatingsUpdate ratingsUpdate, OverallRating overallRating) {
+        ProfileDTO profileDTO = ratingsUpdate.getProfile();
+        profileDTO.setOverallRating(overallRating.getRating());
+    }
+
+    private void updateGradeModel(RatingsUpdate ratingsUpdate, Grade grade) {
+        GradeDTO gradeDTO = ratingsUpdate.getRating().getGrade();
+        gradeDTO.setId(grade.getId());
+        gradeDTO.setPreviousGrade(gradeDTO.getCurrentGrade());
+    }
+
+    private void updateRatingModel(RatingsUpdate ratingsUpdate, Rating rating) {
+        RatingDTO ratingDTO = ratingsUpdate.getRating();
+        ratingDTO.setId(rating.getId());
+        ratingDTO.setRating(rating.getRating());
+    }
+
+    private void updateGroupRatingModel(RatingsUpdate ratingsUpdate, GroupRating groupRating) {
+        RatingGroupDTO ratingGroupDTO = ratingsUpdate.getRatingGroup();
+        ratingGroupDTO.setId(groupRating.getId());
+        ratingGroupDTO.setGroupRating(groupRating.getRating());
+    }
+
+    private Rating createRating(RatingDTO ratingDTO, GroupRating groupRating, Profile profile) {
+        Category category = categoryService.findCategory(ratingDTO.getCategory());
+        return new Rating(groupRating, category, profile);
+    }
+
+    private GroupRating createGroupRating(RatingGroupDTO ratingGroupDTO, Profile profile) {
+        CategoryGroup categoryGroup = categoryService.findCategoryGroup(ratingGroupDTO.getCategoryGroup());
+        return new GroupRating(categoryGroup, profile);
+    }
+
+    public void updateRating(RatingDTO ratingDTO, Rating rating) {
+        GradeDTO grade = ratingDTO.getGrade();
+
+        boolean isFirstGrade = grade.getPreviousGrade() == 0;
+        long total = rating.getTotal() - grade.getPreviousGrade() + grade.getCurrentGrade();
+        long count = rating.getCount() + (isFirstGrade ? 1 : 0);
+        int newRating = Math.min(99, (int) Math.round(total * 1.00 / count));
+
+        rating.setTotal(total);
+        rating.setCount(count);
+        rating.setRating(newRating);
+
+        ratingRepository.save(rating);
     }
 
     public int getProfileRating(long profileId, long categoryId) {

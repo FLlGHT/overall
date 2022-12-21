@@ -25,13 +25,13 @@ public class GradeService {
         return gradeRepository.findAllAccountGrades(account.getId(), profile.getId());
     }
 
-    public void saveGrade(Account account, Rating rating, GradeDTO gradeDTO) {
+    public Grade saveGrade(Account account, Rating rating, GradeDTO gradeDTO) {
         Grade grade = gradeRepository.findById(gradeDTO.getId()).orElse(new Grade());
 
         grade.setRating(rating);
         grade.setAccount(account);
         grade.setValue(gradeDTO.getCurrentGrade());
 
-        gradeRepository.save(grade);
+        return gradeRepository.save(grade);
     }
 }
