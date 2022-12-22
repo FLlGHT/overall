@@ -22,7 +22,7 @@ public class ProfileDTO {
     private List<RatingGroupDTO> ratingGroups = new ArrayList<>();
     private MultipartFile image;
     private String imageString;
-    private List<ProfileDTO> contacts;
+    private List<ContactDTO> contacts;
     private Integer numberOfContacts;
     private boolean canAddToContacts;
     private List<ExternalLinkDTO> externalLinks = new ArrayList<>();
@@ -44,7 +44,7 @@ public class ProfileDTO {
 
     public ProfileDTO(long id, String firstName, String lastName, String username, Date dateOfBirth, Integer overallRating,
                       String placeOfResidence, String description, String imageString, List<RatingGroupDTO> ratingGroups,
-                      List<ProfileDTO> contacts, Integer numberOfContacts, boolean canAddToContacts, List<ExternalLinkDTO> externalLinks, CompanyDTO company,
+                      List<ContactDTO> contacts, Integer numberOfContacts, boolean canAddToContacts, List<ExternalLinkDTO> externalLinks, CompanyDTO company,
                       String role) {
         this.id = id;
         this.firstName = firstName;
@@ -179,11 +179,11 @@ public class ProfileDTO {
         this.imageString = imageString;
     }
 
-    public List<ProfileDTO> getContacts() {
+    public List<ContactDTO> getContacts() {
         return contacts;
     }
 
-    public void setContacts(List<ProfileDTO> contacts) {
+    public void setContacts(List<ContactDTO> contacts) {
         this.contacts = contacts;
     }
 

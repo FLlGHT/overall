@@ -50,8 +50,8 @@ public class EntityMapper {
         );
     }
 
-    private List<ProfileDTO> toShowedContacts(List<Profile> contacts) {
-        List<ProfileDTO> contactsDTO = new ArrayList<>();
+    private List<ContactDTO> toShowedContacts(List<Profile> contacts) {
+        List<ContactDTO> contactsDTO = new ArrayList<>();
         contacts.stream()
                 .sorted((c1, c2) -> Integer.compare(c2.getOverallRating().getRating(),
                                                     c1.getOverallRating().getRating()))
@@ -61,18 +61,18 @@ public class EntityMapper {
         return contactsDTO;
     }
 
-    public List<ProfileDTO> toDefaultProfileContacts(Profile profile) {
-        List<ProfileDTO> contactsDTO = new ArrayList<>();
+    public List<ContactDTO> toDefaultProfileContacts(Profile profile) {
+        List<ContactDTO> contactsDTO = new ArrayList<>();
 
         List<Profile> contacts = profile.getContacts();
         contacts.forEach(contact -> contactsDTO.add(toContactDTO(contact)));
-        contactsDTO.sort(Comparator.comparing(ProfileDTO::getOverallRating).reversed());
+        contactsDTO.sort(Comparator.comparing(ContactDTO::getRating).reversed());
 
         return contactsDTO;
     }
 
-    public ProfileDTO toContactDTO(Profile contact) {
-        return new ProfileDTO(
+    public ContactDTO toContactDTO(Profile contact) {
+        return new ContactDTO(
                 contact.getId(),
                 contact.getFirstName(),
                 contact.getSecondName(),
@@ -82,8 +82,8 @@ public class EntityMapper {
         );
     }
 
-    public ProfileDTO toContactDTO(Profile contact, int categoryRating) {
-        return new ProfileDTO(
+    public ContactDTO toContactDTO(Profile contact, int categoryRating) {
+        return new ContactDTO(
                 contact.getId(),
                 contact.getFirstName(),
                 contact.getSecondName(),

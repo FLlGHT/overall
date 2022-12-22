@@ -1,9 +1,6 @@
 package com.flight.overall.service;
 
-import com.flight.overall.dto.CategoryDTO;
-import com.flight.overall.dto.ContactsDTO;
-import com.flight.overall.dto.FilterPaneDTO;
-import com.flight.overall.dto.ProfileDTO;
+import com.flight.overall.dto.*;
 import com.flight.overall.entity.*;
 import com.flight.overall.mapper.EntityMapper;
 import com.flight.overall.repository.ContactRepository;
@@ -36,20 +33,20 @@ public class ContactService {
         contactRepository.save(new Contact(recipient, sender));
     }
 
-    public ContactsDTO getProfileContacts(Profile profile, FilterPaneDTO filterPane) {
+    public ContactsInfo getProfileContacts(Profile profile, Filter filterPane) {
         ProfileDTO profileDTO = entityMapper.toProfileDTO(profile);
-        List<ProfileDTO> contactsDTO = getContacts(profile, filterPane);
+        List<ContactDTO> contactsDTO = getContacts(profile, filterPane);
 
-        return new ContactsDTO(profileDTO, contactsDTO);
+        return new ContactsInfo(profileDTO, contactsDTO, getFilterPane(filterPane));
     }
 
-    private List<ProfileDTO> getContacts(Profile profile, FilterPaneDTO filterPane) {
-        if (filterPane.getSelectedCategory() == null)
+    private List<ContactDTO> getContacts(Profile profile, Filter filterPane) {
+        if (filterPane == null || filterPane.getSelectedCategory() == null)
             return entityMapper.toDefaultProfileContacts(profile);
 
         long selectedCategory = filterPane.getSelectedCategory().getId();
         List<Profile> contacts = contactRepository.getSortedContacts(profile.getId(), selectedCategory);
-        List<ProfileDTO> contactsDTO = new ArrayList<>();
+        List<ContactDTO> contactsDTO = new ArrayList<>();
         contacts.forEach(contact -> {
             int rating = ratingService.getProfileRating(contact.getId(), selectedCategory);
             contactsDTO.add(entityMapper.toContactDTO(contact, rating));
@@ -58,10 +55,13 @@ public class ContactService {
         return contactsDTO;
     }
 
-    public FilterPaneDTO getFilterPane(FilterPaneDTO filterPaneDTO) {
+    public Filter getFilterPane(Filter filter) {
         List<CategoryDTO> categories = categoryService.getCategoriesList();
 
-        filterPaneDTO.setCategories(categories);
-        return filterPaneDTO;
+        if (filter == null)
+            return new Filter(categories);
+
+        filter.setCategories(categories);
+        return filter;
     }
 }

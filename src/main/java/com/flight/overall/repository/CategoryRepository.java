@@ -13,7 +13,7 @@ public interface CategoryRepository extends CrudRepository<Category, Long> {
     @Query("SELECT c " +
             " FROM Category c " +
             "WHERE c.categoryGroup IS NOT NULL " +
-            "ORDER BY c.id")
+            "ORDER BY c.categoryGroup.id, c.id")
     List<Category> findActiveCategories();
 
     @Query("SELECT c " +
