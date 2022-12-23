@@ -1,5 +1,6 @@
 package com.flight.overall.service;
 
+import com.flight.overall.dto.ImageDTO;
 import com.flight.overall.dto.ProfileDTO;
 import com.flight.overall.entity.*;
 import com.flight.overall.mapper.EntityMapper;
@@ -25,6 +26,9 @@ public class ProfileService {
     private CategoryService categoryService;
     @Autowired
     private GradeService gradeService;
+
+    @Autowired
+    private ImageService imageService;
     @Autowired
     private ProfileRepository profileRepository;
     @Autowired

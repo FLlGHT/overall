@@ -20,30 +20,29 @@ public class ProfileDTO {
     private String description;
     private String email;
     private List<RatingGroupDTO> ratingGroups = new ArrayList<>();
-    private MultipartFile image;
-    private String imageString;
+    private ImageDTO image;
+    private MultipartFile uploadedFile;
     private List<ContactDTO> contacts;
     private Integer numberOfContacts;
     private boolean canAddToContacts;
     private List<ExternalLinkDTO> externalLinks = new ArrayList<>();
     private CompanyDTO company;
-
     private String role;
 
     public ProfileDTO() {
     }
 
-    public ProfileDTO(long id, String firstName, String lastName, String username, Integer overallRating, String imageString) {
+    public ProfileDTO(long id, String firstName, String lastName, String username, Integer overallRating, ImageDTO image) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
         this.username = username;
         this.overallRating = overallRating;
-        this.imageString = imageString;
+        this.image = image;
     }
 
     public ProfileDTO(long id, String firstName, String lastName, String username, Date dateOfBirth, Integer overallRating,
-                      String placeOfResidence, String description, String imageString, List<RatingGroupDTO> ratingGroups,
+                      String placeOfResidence, String description, ImageDTO image, List<RatingGroupDTO> ratingGroups,
                       List<ContactDTO> contacts, Integer numberOfContacts, boolean canAddToContacts, List<ExternalLinkDTO> externalLinks, CompanyDTO company,
                       String role) {
         this.id = id;
@@ -54,7 +53,7 @@ public class ProfileDTO {
         this.overallRating = overallRating;
         this.placeOfResidence = placeOfResidence;
         this.description = description;
-        this.imageString = imageString;
+        this.image = image;
         this.ratingGroups = ratingGroups;
         this.contacts = contacts;
         this.numberOfContacts = numberOfContacts;
@@ -163,20 +162,20 @@ public class ProfileDTO {
         this.email = email;
     }
 
-    public MultipartFile getImage() {
+    public ImageDTO getImage() {
         return image;
     }
 
-    public void setImage(MultipartFile image) {
+    public void setImage(ImageDTO image) {
         this.image = image;
     }
 
-    public String getImageString() {
-        return imageString;
+    public MultipartFile getUploadedFile() {
+        return uploadedFile;
     }
 
-    public void setImageString(String imageString) {
-        this.imageString = imageString;
+    public void setUploadedFile(MultipartFile uploadedFile) {
+        this.uploadedFile = uploadedFile;
     }
 
     public List<ContactDTO> getContacts() {

@@ -35,8 +35,9 @@ public class ProfileRestController {
         logger.info("account " + account.getUsername() + " view " + username + " page");
         Optional<Profile> profile = profileService.getProfile(username);
 
-        if (profile.isPresent())
+        if (profile.isPresent()) {
             return profileService.getProfileInfo(profile.get(), account);
+        }
         else
             return new ProfileDTO();
     }

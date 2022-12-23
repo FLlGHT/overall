@@ -11,9 +11,9 @@ public class ContactDTO {
     private String username;
     private int rating;
 
-    private String image;
+    private ImageDTO image;
 
-    public ContactDTO(long id, String firstName, String lastName, String username, int rating, String image) {
+    public ContactDTO(long id, String firstName, String lastName, String username, int rating, ImageDTO image) {
         this.id = id;
         this.firstName = firstName;
         this.lastName = lastName;
@@ -65,11 +65,11 @@ public class ContactDTO {
         this.rating = rating;
     }
 
-    public String getImage() {
+    public ImageDTO getImage() {
         return image;
     }
 
-    public void setImage(String image) {
+    public void setImage(ImageDTO image) {
         this.image = image;
     }
 }

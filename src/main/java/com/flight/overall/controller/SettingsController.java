@@ -18,22 +18,22 @@ public class SettingsController {
     @Autowired
     private SettingsService settingsService;
 
-    @GetMapping("/settings")
-    public String openSettings(@AuthenticationPrincipal Account account,
-                               Model model) {
-        if (account != null) {
-            model.addAttribute("settings", settingsService.getSettings(account));
-            return "settings/settings";
-        }
-
-        return ErrorHandler.handleAccessViolation(model);
-    }
-
-    @PostMapping("/settings/save")
-    public String saveSettings(@AuthenticationPrincipal Account account,
-                               @ModelAttribute SettingsDTO settings) {
-
-        settingsService.saveSettings(account, settings);
-        return "redirect:/" + account.getUsername();
-    }
+//    @GetMapping("/settings")
+//    public String openSettings(@AuthenticationPrincipal Account account,
+//                               Model model) {
+//        if (account != null) {
+//            model.addAttribute("settings", settingsService.getSettings(account));
+//            return "settings/settings";
+//        }
+//
+//        return ErrorHandler.handleAccessViolation(model);
+//    }
+//
+//    @PostMapping("/settings/save")
+//    public String saveSettings(@AuthenticationPrincipal Account account,
+//                               @ModelAttribute SettingsDTO settings) {
+//
+//        settingsService.saveSettings(account, settings);
+//        return "redirect:/" + account.getUsername();
+//    }
 }

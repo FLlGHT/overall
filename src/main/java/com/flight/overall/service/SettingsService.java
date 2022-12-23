@@ -66,7 +66,6 @@ public class SettingsService {
     }
 
     private void updateProfileFields(ProfileDTO profileDTO, AccountDTO accountDTO, Profile profile) {
-        Optional<Image> newImage = imageService.uploadImage(profileDTO.getImage());
 
         profile.setFirstName(profileDTO.getFirstName());
         profile.setSecondName(profileDTO.getLastName());
@@ -75,7 +74,6 @@ public class SettingsService {
         profile.setDescription(profileDTO.getDescription());
         profile.setEmail(profileDTO.getEmail());
         profile.setPlaceOfResidence(profileDTO.getPlaceOfResidence());
-        newImage.ifPresent(profile::setProfileImage);
         saveExternalLinks(profileDTO.getExternalLinks(), profile);
         saveCompany(profileDTO, profile);
 
@@ -108,7 +106,7 @@ public class SettingsService {
     private void saveCompany(ProfileDTO profileDTO, Profile profile) {
         CompanyDTO companyDTO = profileDTO.getCompany();
 
-        if (!companyDTO.getName().isEmpty()) {
+        if (companyDTO != null && !companyDTO.getName().isEmpty()) {
             Company company = companyRepository.findById(companyDTO.getId()).orElse(new Company());
 
             company.setName(companyDTO.getName());

@@ -6,7 +6,11 @@ import com.flight.overall.entity.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Component;
 
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.*;
+import java.util.zip.DataFormatException;
+import java.util.zip.Inflater;
 
 
 @Component
@@ -23,7 +27,7 @@ public class EntityMapper {
                 profile.getOverallRating().getRating(),
                 profile.getPlaceOfResidence(),
                 profile.getDescription(),
-                toProfileImage(profile),
+                getImage(profile.getProfileImage()),
                 toRatingGroups(categories, ratings, groupRatings, grades),
                 toShowedContacts(profile.getContacts()),
                 profile.getContacts().size(),
@@ -78,7 +82,7 @@ public class EntityMapper {
                 contact.getSecondName(),
                 contact.getUsername(),
                 contact.getOverallRating().getRating(),
-                toProfileImage(contact)
+                getImage(contact.getProfileImage())
         );
     }
 
@@ -89,7 +93,7 @@ public class EntityMapper {
                 contact.getSecondName(),
                 contact.getUsername(),
                 categoryRating,
-                toProfileImage(contact)
+                getImage(contact.getProfileImage())
         );
     }
 
@@ -249,11 +253,6 @@ public class EntityMapper {
                 );
     }
 
-    private String toProfileImage(Profile profile) {
-        Image image = profile.getProfileImage();
-        return image == null ? null : Base64.getEncoder().encodeToString(image.getContent());
-    }
-
     private boolean canAddToContacts(Profile profile, Account account) {
         boolean unauthorized = account == null;
         boolean ownProfile = account != null && profile.getId() == account.getProfile().getId();
@@ -289,5 +288,33 @@ public class EntityMapper {
                 company.getName(),
                 company.getDescription()
         );
+    }
+
+    public static byte[] decompressBytes(byte[] data) {
+        Inflater inflater = new Inflater();
+        inflater.setInput(data);
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(data.length);
+        byte[] buffer = new byte[1024];
+        try {
+            while (!inflater.finished()) {
+                int count = inflater.inflate(buffer);
+                outputStream.write(buffer, 0, count);
+            }
+            outputStream.close();
+        } catch (IOException | DataFormatException ioe) {
+            //
+        }
+        return outputStream.toByteArray();
+    }
+
+    public ImageDTO toImage(Image image) {
+        return new ImageDTO(image.getId(), image.getName(), decompressBytes(image.getContent()));
+    }
+
+    public ImageDTO getImage(Image image) {
+        if (image == null)
+            return new ImageDTO();
+
+        return toImage(image);
     }
 }
