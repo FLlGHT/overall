@@ -48,7 +48,7 @@ public class EntityMapper {
                 profile.getDescription(),
                 profile.getEmail(),
                 profile.getPlaceOfResidence(),
-                toExternalLinks(profile.getLinks()),
+                toSettingsLinks(profile.getLinks()),
                 toCompanyDTO(profile.getCompany()),
                 profile.getRole()
         );
@@ -266,9 +266,31 @@ public class EntityMapper {
             return new ArrayList<>();
 
         List<ExternalLinkDTO> links = new ArrayList<>();
+        externalLinks.stream()
+                     .filter(externalLink -> externalLink.getLink() != null && !externalLink.getLink().isEmpty())
+                     .forEach(externalLink -> links.add(toExternalLink(externalLink)));
+
+        return links;
+    }
+
+    public List<ExternalLinkDTO> toSettingsLinks(List<ExternalLink> externalLinks) {
+        if (externalLinks == null || externalLinks.isEmpty())
+            return emptyLinks();
+
+        List<ExternalLinkDTO> links = new ArrayList<>();
         externalLinks.forEach(externalLink -> links.add(toExternalLink(externalLink)));
 
         return links;
+    }
+
+    public List<ExternalLinkDTO> emptyLinks() {
+        List<ExternalLinkDTO> emptyLinks = new ArrayList<>();
+
+        for (int i = 0; i < 3; ++i) {
+            emptyLinks.add(new ExternalLinkDTO());
+        }
+
+        return emptyLinks;
     }
 
     public ExternalLinkDTO toExternalLink(ExternalLink externalLink) {

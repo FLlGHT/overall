@@ -84,20 +84,18 @@ public class SettingsService {
     private void saveExternalLinks(List<ExternalLinkDTO> externalLinks, Profile profile) {
         for (ExternalLinkDTO externalLinkDTO : externalLinks) {
             ExternalLink externalLink = externalLinkRepository.findById(externalLinkDTO.getId()).orElse(new ExternalLink());
-            boolean linkIsEmpty = externalLinkDTO.getLink().equals("");
 
-            if (externalLinkDTO.getId() > 0 && linkIsEmpty)
-                externalLinkRepository.delete(externalLink);
-            else if (!linkIsEmpty) {
-                externalLink.setLink(externalLinkDTO.getLink());
-                externalLink.setTitle(toTitle(externalLinkDTO.getLink()));
-                externalLink.setProfile(profile);
-                externalLinkRepository.save(externalLink);
-            }
+            externalLink.setLink(externalLinkDTO.getLink());
+            externalLink.setTitle(toTitle(externalLinkDTO.getLink()));
+            externalLink.setProfile(profile);
+            externalLinkRepository.save(externalLink);
         }
     }
 
     private String toTitle(String link) {
+        if (link == null || link.isEmpty())
+            return null;
+
         UriComponents uriComponents = UriComponentsBuilder.fromUriString(link).build();
         String host = uriComponents.getHost();
         return host == null ? null : (host.startsWith("www.") ? host.substring(4) : host);

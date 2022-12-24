@@ -39,7 +39,10 @@ public class CategoryService {
 
     public CategoriesDTO getCategories() {
         List<Category> categories = findAllActiveCategories();
-        return mapper.toCategories(categories);
+        CategoriesDTO categoriesDTO = mapper.toCategories(categories);
+        categoriesDTO.setGroups(getCategoryGroups());
+
+        return categoriesDTO;
     }
 
     public List<CategoryDTO> getCategoriesList() {

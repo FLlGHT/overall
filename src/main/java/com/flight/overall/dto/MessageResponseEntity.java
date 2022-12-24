@@ -1,16 +1,14 @@
 package com.flight.overall.dto;
 
-import org.apache.http.HttpStatus;
-
-public class ResponseEntity {
+public class MessageResponseEntity {
 
     String message;
 
-    public ResponseEntity(String message) {
+    public MessageResponseEntity(String message) {
         this.message = message;
     }
 
-    public ResponseEntity() {
+    public MessageResponseEntity() {
     }
 
     public String getMessage() {
