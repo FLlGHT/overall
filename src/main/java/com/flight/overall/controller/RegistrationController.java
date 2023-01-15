@@ -29,17 +29,17 @@ public class RegistrationController {
         return "authentication/registration";
     }
 
-    @PostMapping("/registration")
-    public String registerNewAccount(@ModelAttribute("account") @Valid AccountDTO account, Model model) {
-        try {
-            accountService.registerAndAuthenticate(account);
-        } catch (ProfileAlreadyExistException alreadyExistsException) {
-            model.addAttribute("account", account);
-            return "redirect:/registration?error";
-        }
-
-        return "redirect:/" + account.getUsername();
-    }
+//    @PostMapping("/registration")
+//    public String registerNewAccount(@ModelAttribute("account") @Valid AccountDTO account, Model model) {
+//        try {
+//            accountService.registerAndAuthenticate(account);
+//        } catch (ProfileAlreadyExistException alreadyExistsException) {
+//            model.addAttribute("account", account);
+//            return "redirect:/registration?error";
+//        }
+//
+//        return "redirect:/" + account.getUsername();
+//    }
 
     @GetMapping("/login")
     public String getLogin(Model model) {

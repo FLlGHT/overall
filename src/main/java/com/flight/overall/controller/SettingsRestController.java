@@ -1,6 +1,6 @@
 package com.flight.overall.controller;
 
-import com.flight.overall.dto.MessageResponseEntity;
+import com.flight.overall.dto.MessageResponse;
 import com.flight.overall.dto.SettingsDTO;
 import com.flight.overall.entity.Account;
 import com.flight.overall.service.ImageService;
@@ -32,20 +32,20 @@ public class SettingsRestController {
     }
 
     @PostMapping("/settings/save")
-    public MessageResponseEntity saveSettings(Authentication authentication,
-                                              @RequestBody SettingsDTO settings) {
+    public MessageResponse saveSettings(Authentication authentication,
+                                        @RequestBody SettingsDTO settings) {
         Account account = (Account) authentication.getPrincipal();
 
         settingsService.saveSettings(account, settings);
-        return new MessageResponseEntity("Settings saved successfully");
+        return new MessageResponse("Settings saved successfully");
     }
 
     @PostMapping("/image/save")
-    public MessageResponseEntity saveImage(Authentication authentication,
-                                           @RequestParam("image") MultipartFile image) {
+    public MessageResponse saveImage(Authentication authentication,
+                                     @RequestParam("image") MultipartFile image) {
         Account account = (Account) authentication.getPrincipal();
 
         imageService.saveProfileImage(image, account.getProfile());
-        return new MessageResponseEntity("Image saved successfully");
+        return new MessageResponse("Image saved successfully");
     }
 }

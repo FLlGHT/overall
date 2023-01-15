@@ -5,83 +5,100 @@ import javax.validation.constraints.NotNull;
 
 public class AccountDTO {
 
-    private long id;
-    private String firstName;
+  private long id;
+  private String firstName;
+  private String secondName;
+  private String password;
+  private String matchingPassword;
+  private String username;
 
-    private String secondName;
+  private String message;
 
-    private String password;
-    private String matchingPassword;
+  public AccountDTO(String firstName, String password, String matchingPassword, String username) {
+    this.firstName = firstName;
+    this.password = password;
+    this.matchingPassword = matchingPassword;
+    this.username = username;
+  }
 
-    private String username;
+  public AccountDTO(long id, String username, String password) {
+    this.id = id;
+    this.username = username;
+    this.password = password;
+  }
 
-    public AccountDTO(String firstName, String password, String matchingPassword, String username) {
-        this.firstName = firstName;
-        this.password = password;
-        this.matchingPassword = matchingPassword;
-        this.username = username;
-    }
+  public AccountDTO(String firstName, String secondName, String username) {
+    this.firstName = firstName;
+    this.secondName = secondName;
+    this.username = username;
+  }
 
-    public AccountDTO(long id, String username, String password) {
-        this.id = id;
-        this.username = username;
-        this.password = password;
-    }
+  public long getId() {
+    return id;
+  }
 
-    public AccountDTO(String firstName, String secondName, String username) {
-        this.firstName = firstName;
-        this.secondName = secondName;
-        this.username = username;
-    }
+  public void setId(long id) {
+    this.id = id;
+  }
 
-    public long getId() {
-        return id;
-    }
+  public AccountDTO() {
+  }
 
-    public void setId(long id) {
-        this.id = id;
-    }
+  public String getFirstName() {
+    return firstName;
+  }
 
-    public AccountDTO() {
-    }
+  public void setFirstName(String firstName) {
+    this.firstName = firstName;
+  }
 
-    public String getFirstName() {
-        return firstName;
-    }
+  public String getSecondName() {
+    return secondName;
+  }
 
-    public void setFirstName(String firstName) {
-        this.firstName = firstName;
-    }
+  public void setSecondName(String secondName) {
+    this.secondName = secondName;
+  }
 
-    public String getSecondName() {
-        return secondName;
-    }
+  public String getPassword() {
+    return password;
+  }
 
-    public void setSecondName(String secondName) {
-        this.secondName = secondName;
-    }
+  public void setPassword(String password) {
+    this.password = password;
+  }
 
-    public String getPassword() {
-        return password;
-    }
+  public String getMatchingPassword() {
+    return matchingPassword;
+  }
 
-    public void setPassword(String password) {
-        this.password = password;
-    }
+  public void setMatchingPassword(String matchingPassword) {
+    this.matchingPassword = matchingPassword;
+  }
 
-    public String getMatchingPassword() {
-        return matchingPassword;
-    }
+  public String getUsername() {
+    return username;
+  }
 
-    public void setMatchingPassword(String matchingPassword) {
-        this.matchingPassword = matchingPassword;
-    }
+  public void setUsername(String username) {
+    this.username = username;
+  }
 
-    public String getUsername() {
-        return username;
-    }
+  public String getMessage() {
+    return message;
+  }
 
-    public void setUsername(String username) {
-        this.username = username;
-    }
+  public void setMessage(String message) {
+    this.message = message;
+  }
+
+  @Override
+  public String toString() {
+    return "AccountDTO{" +
+      "firstName='" + firstName + '\'' +
+      ", secondName='" + secondName + '\'' +
+      ", password='" + password + '\'' +
+      ", username='" + username + '\'' +
+      '}';
+  }
 }

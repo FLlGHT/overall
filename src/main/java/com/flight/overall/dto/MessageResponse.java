@@ -1,14 +1,14 @@
 package com.flight.overall.dto;
 
-public class MessageResponseEntity {
+public class MessageResponse {
 
     String message;
 
-    public MessageResponseEntity(String message) {
+    public MessageResponse(String message) {
         this.message = message;
     }
 
-    public MessageResponseEntity() {
+    public MessageResponse() {
     }
 
     public String getMessage() {
