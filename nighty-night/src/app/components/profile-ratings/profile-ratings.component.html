@@ -1,0 +1,45 @@
+<div *ngIf="profile" class="album pb-4 pt-2">
+  <h4 class="px-3 text-muted border-bottom"></h4>
+  <div class="container">
+
+    <div>
+      <div *ngFor="let ratingGroup of profile.ratingGroups">
+
+        <div class="mt-4">
+          <div class="row">
+            <h4 class="col-md-auto pb-2">{{ratingGroup.title}}</h4>
+            <h4 class="col group-rating">{{getGroupRating(ratingGroup)}}</h4>
+          </div>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-3">
+
+          <div *ngFor="let rating of ratingGroup.ratings">
+            <div class="col">
+
+              <!-- Category card                                -->
+              <div class="card shadow-sm bg-light">
+                <div class="card-body">
+                  <div class="row">
+                    <div class="col-sm-8 d-flex">
+                      <p class="me-1" id="rangeCategory">{{rating.category.title}}</p>
+                      <i [class]="getRatingIcon(rating)"></i>
+                    </div>
+                    <p class="col-sm-4 text-secondary">{{'average: ' + rating.rating}}</p>
+                  </div>
+
+                  <app-rating-slider *ngIf="isAuthenticated" [rating]="rating" [ratingGroup]="ratingGroup" [profile]="profile"></app-rating-slider>
+                  <div *ngIf="!isAuthenticated" class="text-center">
+                    <label class="text-secondary">Sign in to rate</label>
+                  </div>
+
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>

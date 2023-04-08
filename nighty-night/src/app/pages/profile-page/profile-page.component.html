@@ -1,0 +1,17 @@
+<div *ngIf="profile" class="container">
+  <div class="row p-1 pb-0 pe-lg-0 pt-lg-5 align-items-center rounded-3 border shadow-lg">
+
+    <app-profile-header [profile]="profile"></app-profile-header>
+    <app-profile-contacts [profile]="profile"></app-profile-contacts>
+
+    <mat-tab-group preserveContent>
+      <mat-tab label="Information">
+        <app-profile-info [profile]="profile"></app-profile-info>
+      </mat-tab>
+      <mat-tab label="Ratings">
+        <app-profile-ratings [profile]="profile"></app-profile-ratings>
+      </mat-tab>
+    </mat-tab-group>
+
+  </div>
+</div>

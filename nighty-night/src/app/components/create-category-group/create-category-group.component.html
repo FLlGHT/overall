@@ -1,0 +1,20 @@
+<form [formGroup]="form" (ngSubmit)="submit()">
+
+  <div class="modal-body py-0">
+    <input
+      type="text"
+      class="input-group rounded py-2 px-2 border-light"
+      placeholder="Category group text..."
+      formControlName="title"
+      appFocus
+    >
+    <p
+      *ngIf="title.errors?.minlength && title.touched"
+      class="text-danger"
+    >Min field length = 5. Now {{title.value.length}}</p>
+  </div>
+  <div class="modal-footer flex-column border-top-0">
+    <button type="submit" class="btn btn-lg btn-primary w-100 mx-0 mb-2">Create</button>
+    <button type="button" class="btn btn-lg btn-light w-100 mx-0" data-bs-dismiss="modal">Close</button>
+  </div>
+</form>

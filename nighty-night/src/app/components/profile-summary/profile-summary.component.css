@@ -1,0 +1,51 @@
+ /* Stars */
+.star {
+  height: 100px;
+  width: 100px;
+  -webkit-clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  clip-path: polygon(50% 0%, 61% 35%, 98% 35%, 68% 57%, 79% 91%, 50% 70%, 21% 91%, 32% 57%, 2% 35%, 39% 35%);
+  padding-top: 10px;
+  text-align: center;
+  color: white;
+  font-size: 30px;
+}
+
+
+.star::before {
+  display: inline-block;
+  height: 100%;
+  background: black;
+  vertical-align: middle;
+  content: '';
+}
+
+.royalblue {
+  background: royalblue;
+}
+
+.blue-1 {
+  background: #0081C8;
+}
+
+.blue-2 {
+  background: #0269a2;
+}
+
+.blue-3 {
+  background: #025888;
+}
+
+.blue-4 {
+  background: #024970;
+}
+
+.blue-5 {
+  background: #023c5d;
+}
+
+/* Overall chart */
+
+
+
+
+

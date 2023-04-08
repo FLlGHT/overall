@@ -1,0 +1,22 @@
+<div class="card h-100 py-5 px-4 border rounded flex align-items-center">
+  <button
+    class="btn"
+    (click)="details = !details"
+    [ngClass]="{
+    'btn-light' : !details,
+    'btn-danger' : details
+    }"
+  >
+    {{ details ? 'Hide' : 'Show' }}  description
+  </button>
+
+  <div *ngIf="!details">
+    <h2>{{categoryGroup.id}}</h2>
+    <p>{{categoryGroup.title}}</p>
+  </div>
+
+  <div *ngIf="details">
+    <p>{{categoryGroup.description}}</p>
+  </div>
+
+</div>

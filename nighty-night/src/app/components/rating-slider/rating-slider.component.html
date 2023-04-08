@@ -1,0 +1,12 @@
+<div *ngIf="rating">
+
+  <input #slider type="range" min="0" max="99"
+         class="range-slider"
+         value="{{rating.grade.currentGrade}}"
+         [style]="sliderStyle()"
+         (input)="updateSlider(slider)"
+         (change)="saveGrade()">
+
+  <label class="rating-value">{{valueLabel()}}</label>
+
+</div>

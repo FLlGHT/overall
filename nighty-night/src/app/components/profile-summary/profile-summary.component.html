@@ -1,0 +1,9 @@
+<div class="row row-cols-3 justify-content-center">
+  <div *ngFor="let ratingGroup of profile.ratingGroups"
+       [class]="groupStyle(ratingGroup)">{{ratingGroup.groupRating}}
+  </div>
+</div>
+<div class="align-text-top text-center">
+<app-overall-chart *ngIf="profile" [value]="profile.overallRating"></app-overall-chart>
+</div>
+
