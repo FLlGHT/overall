@@ -1,0 +1,37 @@
+<div class="modal modal-signin position-static d-block bg-secondary py-5" tabindex="-1" role="dialog" id="modalSignin">
+
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+
+      <div>
+        <div class="alert alert-warning" *ngIf='invalidLogin'>{{errorMessage}}</div>
+        <div class="alert alert-success" *ngIf='loginSuccess'>{{successMessage}}</div>
+      </div>
+
+      <div class="modal-header p-5 pb-4 border-bottom-0">
+        <h1 class="fw-bold mb-0 fs-2">Sign in</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+      </div>
+
+      <div class="modal-body p-5 pt-0">
+        <form [formGroup]="form" (ngSubmit)="login()">
+          <div class="form-floating mb-3">
+            <input type="text" formControlName="username" class="form-control rounded-3" id="username" placeholder="Username">
+            <label for="username">Username</label>
+          </div>
+          <div class="form-floating mb-3">
+            <input type="password" formControlName="password" class="form-control rounded-3" id="floatingPassword" placeholder="Password">
+            <label for="floatingPassword">Password</label>
+          </div>
+          <button class="w-100 mb-2 btn btn-lg rounded-3 btn-primary" type="submit">Sign in</button>
+        </form>
+
+        <hr class="my-4">
+        <h2 class="fs-5 fw-bold mb-3">Don't have an account yet?</h2>
+        <button href="/registration" class="w-100 py-2 mb-2 btn btn-outline-dark rounded-3" type="submit">
+          <a class="nav-link fw-bold py-1 px-0" routerLink="registration">Sign up</a>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>

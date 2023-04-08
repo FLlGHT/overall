@@ -1,0 +1,14 @@
+<div class="modal modal-sheet position-absolute d-block bg-secondary bg-opacity-50 py-5" role="dialog" id="modalSheet">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content rounded-4 shadow">
+      <div class="modal-header border-bottom-0">
+        <h1 class="modal-title fs-5">{{title | titlecase}}</h1>
+        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                (click)="modalService.close()"></button>
+      </div>
+      <ng-content></ng-content>
+    </div>
+  </div>
+</div>
+
+

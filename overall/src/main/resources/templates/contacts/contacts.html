@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org"
+      xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity5" class="h-100">
+<head>
+    <meta charset="UTF-8">
+    <title th:text="${contacts.getProfile().firstName} + '\'s contacts'"></title>
+
+    <link rel="stylesheet" href="/css/profile.css">
+    <link rel="stylesheet" href="/webjars/bootstrap/5.2.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/webjars/bootstrap-icons/1.9.1/font/bootstrap-icons.css">
+    <link href='https://fonts.googleapis.com/css?family=Yellowtail' rel='stylesheet'>
+    <link rel="stylesheet" href="/css/common.css">
+
+    <script type="text/javascript" src="/webjars/jquery/3.6.0/jquery.min.js"></script>
+</head>
+
+<body class="h-100">
+
+<div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+
+    <div th:replace="fragments/header :: plain-header"></div>
+
+    <div class="container">
+        <div class="container px-4 py-3 shadow-lg rounded-3 border" id="hanging-icons">
+
+            <div class="d-flex justify-content-between mb-3">
+                <div class="p-2 d-flex align-items-baseline">
+                    <i class="bi bi-chevron-double-left"></i>
+                    <a class="p-1 h5 border-bottom text-decoration-none text-muted"
+                       th:href="@{'/' + ${contacts.getProfile().getUsername()}}"
+                       th:text="${contacts.getProfile().firstName}"></a>
+                </div>
+                <div class="p-2">
+                    <h4 th:text="${contacts.getContacts().size()} + ' contacts'"></h4>
+                </div>
+
+
+                <form class="p-2 d-flex align-items-baseline" th:object="${filterPane}" method="get">
+                    <div class="me-1">
+                        <select th:field="*{selectedCategory}" class="form-select">
+                            <option th:value="${filterPane.emptyCategory}" th:text="'Overall'"></option>
+                            <option th:each="category : ${filterPane.getCategories()}" th:value="${{category}}"
+                                    th:text="${category.title}">
+                            </option>
+                        </select>
+                    </div>
+
+                    <button class="btn btn-outline-secondary" type="submit">Sort</button>
+                </form>
+
+
+            </div>
+
+            <div class="row g-4 py-5 row-cols-1 row-cols-lg-5">
+                <div th:each="contact : ${contacts.getContacts()}">
+                    <div class="col d-flex align-items-start">
+                        <div class="icon-square d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+
+                            <svg th:if="${contact.getImageString() == null}"
+                                 class="bd-placeholder-img rounded-circle"
+                                 width="4em" height="4em" xmlns="http://www.w3.org/2000/svg" role="img"
+                                 aria-label="Placeholder: 140x140"
+                                 preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+                                <rect width="100%" height="100%" fill="#777"></rect>
+                                <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+                            </svg>
+
+                            <img th:if="${contact.getImageString() != null}"
+                                 th:src="@{'data:image/png;base64, ' + ${contact.getImageString()}}" alt="#"
+                                 class="contact-image">
+                        </div>
+                        <div class="me-3">
+                            <p class="fw-bold mb-0 text-truncate" style="max-width: 120px"
+                               th:text="${contact.getFirstName()}"></p>
+                            <p class="fw-bold mb-0 text-truncate" style="max-width: 120px"
+                               th:text="${contact.getLastName()}"></p>
+                            <a th:href="@{'/' + ${contact.getUsername()}}"
+                               class="d-inline-block text-truncate mb-0 text-decoration-none text-muted"
+                               style="max-width: 120px" th:text="${contact.getUsername()}"></a>
+                            <p class="text-secondary " th:text="${contact.getOverallRating()}"></p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div th:replace="fragments/footer :: plain-footer"></div>
+</div>
+</body>
+
+
+</html>

@@ -1,0 +1,13 @@
+.graffiti {
+  font-family: 'Yellowtail', sans-serif;
+  font-size: 50px;
+}
+
+.shadow-underline {
+  box-shadow: inset 0 -0.40em 0 #C3C9FF;
+  transition: box-shadow .5s ease;
+}
+
+.shadow-underline:hover {
+  box-shadow: inset 0 -1.25em 0 #C3C9FF;
+}

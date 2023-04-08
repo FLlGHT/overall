@@ -1,0 +1,131 @@
+<div *ngIf="settings" class="container">
+  <main>
+    <form [formGroup]="form" (ngSubmit)="saveSettings()" enctype="multipart/form-data">
+      <div class="row g-5">
+        <div class="col-md-5 col-lg-4 order-md-last">
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-primary">Privacy settings</span>
+          </h4>
+
+          <ul class="list-group mb-3">
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <h6 class="my-0">Closed profile</h6>
+                <small class="text-muted">Only contacts can view profile</small>
+              </div>
+              <input type="checkbox" formControlName="closedProfile" [value]="settings.closedProfile">
+            </li>
+            <li class="list-group-item d-flex justify-content-between lh-sm">
+              <div>
+                <h6 class="my-0">Closed grades</h6>
+                <small class="text-muted">Only friends can rate</small>
+              </div>
+              <input type="checkbox" formControlName="closedGrades" [value]="settings.closedGrades">
+            </li>
+          </ul>
+
+          <h4 class="d-flex justify-content-between align-items-center mb-3">
+            <span class="text-secondary">Links</span>
+          </h4>
+            <ul *ngIf="settings" class="list-group mb-3">
+              <li *ngFor="let link of settings.profile.externalLinks; let i = index" class="list-group-item d-flex justify-content-between">
+                <input formControlName="{{'externalLink' + (i + 1)}}"
+                       type="text" class="form-control"
+                       placeholder="www.example.com/profile">
+              </li>
+            </ul>
+
+        </div>
+
+
+        <div class="col-md-7 col-lg-8">
+          <h4 class="mb-3 me-5">Profile information</h4>
+
+
+          <div class="row g-3">
+            <div class="col-12">
+              <label class="form-label">Profile image <span class="ms-5 text-success" *ngIf="imageMessage">{{imageMessage}}</span></label>
+              <input type="file" formControlName="image"
+                     class="form-control" placeholder="choose a new profile picture"
+              (change)="onImageUpload($event)">
+            </div>
+
+            <div class="col-6">
+              <label for="fullName" class="form-label">First Name</label>
+              <input type="text" formControlName="firstName"
+                     class="form-control" id="fullName" [value]="settings.profile.firstName">
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Last Name</label>
+              <input type="text" formControlName="lastName"
+                     class="form-control">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Username<span
+                *ngIf="username.errors?.minlength && username.touched"
+                class="ms-5 text-danger"
+              >The minimum username field length is 5. Now {{username.value.length}}</span></label>
+              <div class="input-group has-validation">
+                <span class="input-group-text">@</span>
+                <input type="text" formControlName="username"
+                       class="form-control" placeholder="Username">
+              </div>
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Email <span
+                class="text-muted">(Optional)</span></label>
+              <input formControlName="email"
+                     type="email" class="form-control" placeholder="you@example.com">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Date of birth <span
+                class="text-muted">(Optional)</span></label>
+              <input formControlName="dateOfBirth"
+                     type="date" class="form-control" placeholder="dd-mm-yyyy">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Address
+                <span class="text-muted">(Optional)</span></label>
+              <input formControlName="placeOfResidence"
+                     type="text" class="form-control" placeholder="Russia, Saint-P">
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Company <span
+                class="text-muted">(Optional)</span></label>
+              <input type="text" formControlName="company"
+                     class="form-control">
+            </div>
+
+            <div class="col-6">
+              <label class="form-label">Role <span
+                class="text-muted">(Optional)</span></label>
+              <input type="text" formControlName="role"
+                     class="form-control">
+            </div>
+
+            <div class="col-12">
+              <label class="form-label">Description
+                <span class="text-muted">(Optional)</span></label>
+              <textarea formControlName="description"
+                        type="text" class="form-control" rows="3" placeholder="..."
+                        maxlength="255">
+              </textarea>
+            </div>
+
+          </div>
+
+          <hr class="my-4">
+          <button class="w-100 btn btn-primary btn-lg" [disabled]="!form.valid" type="submit">Save profile information</button>
+        </div>
+      </div>
+    </form>
+  </main>
+</div>
+
+

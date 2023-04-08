@@ -1,0 +1,58 @@
+<div class="container" *ngIf="contacts">
+  <div class="container px-4 py-3 shadow-lg rounded-3 border" id="hanging-icons">
+
+    <div *ngIf="profile" class="d-flex justify-content-between mb-3">
+      <div class="p-2 d-flex align-items-baseline">
+        <i class="bi bi-chevron-double-left"></i>
+        <a class="p-1 h5 border-bottom text-decoration-none text-muted"
+           routerLink="{{'/' + profile.username}}">{{profile.firstName + ' ' + profile.lastName}}</a>
+      </div>
+      <div class="p-2">
+        <h4>{{contacts ? contacts.length + ' contacts' : ''}}</h4>
+      </div>
+
+
+      <div class="me-1">
+        <select #selectElement *ngIf="filter.categories" class="me-1 pe-5 d-flex align-items-baseline form-select"
+                (change)="applyFilter(selectElement.value)">
+          <option>{{'Overall'}}</option>
+          <option *ngFor="let category of filter.categories"
+                  [value]="category.id" [selected]="isSelected(category)">{{category.title}}
+          </option>
+
+        </select>
+      </div>
+
+
+    </div>
+
+    <div class="row g-4 py-5 row-cols-1 row-cols-lg-5">
+      <div *ngFor="let contact of contacts">
+        <div class="col d-flex align-items-start">
+          <div class="icon-square d-inline-flex align-items-center justify-content-center fs-4 flex-shrink-0 me-3">
+
+            <svg
+              class="bd-placeholder-img rounded-circle"
+              width="4em" height="4em" xmlns="http://www.w3.org/2000/svg" role="img"
+              aria-label="Placeholder: 140x140"
+              preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+              <rect width="100%" height="100%" fill="#777"></rect>
+              <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+            </svg>
+
+            <!--            <img *ngIf="contact.image"-->
+            <!--                 th:src="@{'data:image/png;base64, ' + ${contact.getImageString()}}" alt="#"-->
+            <!--                 class="contact-image">-->
+          </div>
+          <div class="me-3">
+            <p class="fw-bold mb-0 text-truncate contact-field">{{contact.firstName}}</p>
+            <p class="fw-bold mb-0 text-truncate contact-field">{{contact.lastName}}</p>
+            <a routerLink="{{'/' + contact.username}}"
+               class="d-inline-block text-truncate mb-0 text-decoration-none text-muted contact-field">{{contact.username}}</a>
+            <p class="text-secondary">{{contact.rating}}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

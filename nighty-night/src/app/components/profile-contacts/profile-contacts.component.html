@@ -1,0 +1,46 @@
+<div *ngIf="profile" class="container px-4 pt-4" id="icon-grid">
+  <div class="row border-bottom">
+    <a class="h4 col-md-auto text-decoration-none text-muted"
+       [href]="profile.username + '/contacts'"
+    >{{profile.numberOfContacts + ' contacts'}}</a>
+    <div class="col">
+      <button *ngIf="profile.canAddToContacts" class="btn btn-outline-secondary btn-sm" type="submit" (click)="addToContacts()">Add</button>
+    </div>
+  </div>
+
+  <div class="d-flex">
+    <div class="flex-grow-1 row row-cols-1 row-cols-sm-2 row-cols-md-3 row-cols-lg-5 g-4 py-3">
+      <div *ngFor="let contact of profile.contacts">
+        <div class="col d-flex align-items-start">
+
+          <svg *ngIf="!imageIsPresent(contact)" class="bd-placeholder-img rounded-circle me-3"
+               width="5em" height="5em" xmlns="http://www.w3.org/2000/svg" role="img"
+               aria-label="Placeholder: 140x140"
+               preserveAspectRatio="xMidYMid slice" focusable="false"><title>Placeholder</title>
+            <rect width="100%" height="100%" fill="#777"></rect>
+            <text x="50%" y="50%" fill="#777" dy=".3em">140x140</text>
+          </svg>
+
+          <img *ngIf="imageIsPresent(contact)"
+               src="{{getImage(contact)}}" alt="#"
+               class="contact-image me-3">
+
+          <div>
+            <p class="profile-name mb-0 text-truncate name-field" >{{contact.firstName}}</p>
+            <p class="profile-name mb-0 text-truncate name-field">{{contact.lastName}}</p>
+            <a routerLink="{{'/' + contact.username}}"
+               class="px-1 username d-inline-block text-truncate mb-0 text-decoration-none text-muted name-field">
+              {{contact.username}}
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="ms-auto align-self-center">
+      <a routerLink="contacts">
+        <i class="h1 bi text-secondary bi-chevron-double-right"></i>
+      </a>
+    </div>
+  </div>
+
+</div>

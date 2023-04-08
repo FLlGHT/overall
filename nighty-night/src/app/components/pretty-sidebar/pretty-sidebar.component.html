@@ -1,0 +1,48 @@
+<div class="flex-shrink-0 p-3 bg-white pretty-sidebar">
+  <a href="/" class="d-flex align-items-center pb-3 mb-3 link-dark text-decoration-none border-bottom">
+    <span class="ms-5 fs-5 fw-semibold">Admin page</span>
+  </a>
+  <ul class="list-unstyled ps-0">
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#home-collapse" aria-expanded="false">
+        Categories
+      </button>
+      <div class="collapse" id="home-collapse" style="">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a routerLink="/admin/category-groups" class="link-dark rounded">Change category groups</a></li>
+          <li><a routerLink="/admin/categories" class="link-dark rounded">Change categories</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#dashboard-collapse" aria-expanded="false">
+        Dashboard
+      </button>
+      <div class="collapse" id="dashboard-collapse" style="">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+        </ul>
+      </div>
+    </li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#orders-collapse" aria-expanded="false">
+        User rights
+      </button>
+      <div class="collapse" id="orders-collapse" style="">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+          <li><a href="#" class="link-dark rounded">List of admins</a></li>
+        </ul>
+      </div>
+    </li>
+    <li class="border-top my-3"></li>
+    <li class="mb-1">
+      <button class="btn btn-toggle align-items-center rounded collapsed" data-bs-toggle="collapse" data-bs-target="#account-collapse" aria-expanded="false">
+        Account
+      </button>
+      <div class="collapse" id="account-collapse">
+        <ul class="btn-toggle-nav list-unstyled fw-normal pb-1 small">
+
+        </ul>
+      </div>
+    </li>
+  </ul>
+</div>

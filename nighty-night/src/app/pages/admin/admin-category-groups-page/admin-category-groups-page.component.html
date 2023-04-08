@@ -1,0 +1,41 @@
+<div class="row mb-3">
+
+  <div class="col-md-2">
+    <app-pretty-sidebar></app-pretty-sidebar>
+  </div>
+
+  <div class="col-md-10">
+
+    <app-global-error></app-global-error>
+    <p *ngIf="loading" class="text-center h1">Loading...</p>
+
+    <div class="container-sm text-center">
+      <input
+        type="text"
+        class="mx-2 py-2 px-5"
+        placeholder="Filter categories..."
+        [(ngModel)]="filterString"
+      >
+    </div>
+
+    <div *ngIf="categoryGroups"
+         class="px-5 py-2 g-3 g-lg-3 row row-cols-3 d-flex">
+      <app-category-group
+        *ngFor="let categoryGroup of categoryGroups | filterCategoryGroups: filterString; let i = index"
+        [categoryGroup]="categoryGroup">
+      </app-category-group>
+    </div>
+
+    <app-modal title="Create new category" *ngIf="modalService.isVisible$ | async">
+      <app-create-category-group></app-create-category-group>
+    </app-modal>
+
+    <button
+      class="m-5 btn btn-secondary"
+      (click)="modalService.open()">
+      +
+    </button>
+
+
+  </div>
+</div>

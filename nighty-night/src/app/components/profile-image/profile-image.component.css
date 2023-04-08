@@ -1,0 +1,8 @@
+.profile-image {
+  border-radius: 100%;
+  width: 300px;
+  height: 300px;
+  border: 8px solid transparent;
+  box-shadow: 5px 5px 5px 5px rgba(0, 0, 0, 0.12);
+  background: #FFFFFF;
+}

@@ -1,0 +1,19 @@
+.name-field {
+  max-width: 120px
+}
+
+.contact-image {
+  border-radius: 50%;
+  width: 5em;
+  height: 5em
+}
+
+.profile-name {
+  font-weight: 100;
+}
+
+.username {
+  font-size: 20px;
+  font-family: 'Yellowtail', sans-serif;
+}
+

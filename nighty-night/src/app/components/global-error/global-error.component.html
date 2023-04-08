@@ -1,0 +1,10 @@
+<div *ngIf="errorService.error$ | async as error"
+     class="bg-warning text-center">
+  {{ error }}
+
+  <button
+    class="btn btn-close align-items-end"
+    (click)="errorService.clear()"
+  >
+  </button>
+</div>

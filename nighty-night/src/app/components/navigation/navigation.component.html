@@ -1,0 +1,29 @@
+<div class="container">
+  <header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3">
+    <a routerLink="/"
+       class="d-flex align-items-center col-md-3 mb-2 mb-md-0 text-dark text-decoration-none overall">Overall</a>
+
+    <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
+      <li><a routerLink="/" class="nav-link px-2 link-secondary">Home</a></li>
+      <li *ngIf="isLoggedIn()"><a routerLink="{{authenticationService.getLoggedInUserName() + '/contacts'}}" class="nav-link px-2 link-dark">Contacts</a></li>
+      <li *ngIf="isLoggedIn()"><a routerLink="/settings" class="nav-link px-2 link-dark">Settings</a></li>
+      <li *ngIf="isLoggedIn()"><a routerLink="/admin/start" class="nav-link px-2 link-dark">Admin</a></li>
+    </ul>
+
+    <div class="col-md-3 text-end">
+      <div *ngIf="isLoggedIn()">
+        <a routerLink="{{authenticationService.getLoggedInUserName()}}"
+           class="btn btn-light text-decoration-none text-muted">{{authenticationService.getLoggedInUserName()}}</a>
+        <button (click)="logout()" class="btn btn-light ms-2" type="submit">Sign out</button>
+      </div>
+      <div *ngIf="!isLoggedIn()">
+        <button type="button" class="btn btn-outline-primary me-2">
+          <a class="nav-link fw-bold py-1 px-0" routerLink="/login">Login</a>
+        </button>
+        <button type="button" class="btn btn-primary">
+          <a class="nav-link fw-bold py-1 px-0" routerLink="/registration">Sign up</a>
+        </button>
+      </div>
+    </div>
+  </header>
+</div>

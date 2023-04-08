@@ -1,0 +1,39 @@
+
+.yummy-pie {
+    position: relative;
+}
+
+.pie {
+    width: 100%;
+    max-height: 100px;
+    height: 100%;
+    transform: rotate(-90deg);
+}
+
+.pie-stuffing {
+    stroke-linecap: round;
+    stroke-miterlimit: 1.5;
+    fill: none;
+    stroke: royalblue;
+    stroke-width: 20px;
+}
+
+.pie-trail {
+    fill: none;
+    stroke: lightgrey;
+    stroke-width: 20px;
+}
+
+.counter {
+    position: absolute;
+    padding-left: .1ch;
+    left: 0;
+    top: calc(50% - 2.3rem);
+
+    text-align: center;
+    font-size: 3rem;
+    width: 100%;
+    color: royalblue;
+}
+
+
